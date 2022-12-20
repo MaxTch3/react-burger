@@ -1,0 +1,32 @@
+.header {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   
+   background-color: #1C1C21;
+}
+.header__container {
+   display: flex;
+   position: relative;
+   max-width: 1280px;
+   width: 100%;
+   justify-content: space-between;
+   align-items: center;
+   border: 1px red solid
+}
+.header__links {
+   display: flex;
+}
+
+.header__link {
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   color: #F2F2F3;
+}
+
+.header__logo {
+   position: absolute;
+   left: calc(50% - 145px);
+}
+
