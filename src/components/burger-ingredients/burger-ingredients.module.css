@@ -3,3 +3,24 @@
    width: 100%;
    text-align: center;
 }
+
+.containerIngredients {
+   display: flex;
+   flex-direction: column;
+   overflow-x: auto;
+   position: relative;
+   height: 500px;
+   width: 600px
+}
+
+.ingredients_section {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.ingredients__section_title {
+   margin: 0;
+   font-size: 24px;
+   line-height: 1.25;
+   font-weight: 700;
+}
