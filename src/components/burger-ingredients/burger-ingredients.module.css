@@ -1,26 +1,23 @@
-.body {
-   max-width: 1280px;
-   width: 100%;
-   text-align: center;
-}
 
 .containerIngredients {
    display: flex;
    flex-direction: column;
-   overflow-x: auto;
+   overflow-y: overlay;
    position: relative;
-   height: 500px;
-   width: 600px
+   height: 65vh;
+   max-width: 600px;
+   width: 100%;
+   box-sizing: border-box;
+}
+.containerIngredients::-webkit-scrollbar{
+width: 8px;
+background-color: #2F2F37;
+}
+.containerIngredients::-webkit-scrollbar-thumb {
+   background-color: #8585AD;
 }
 
 .ingredients_section {
    display: flex;
    flex-wrap: wrap;
-}
-
-.ingredients__section_title {
-   margin: 0;
-   font-size: 24px;
-   line-height: 1.25;
-   font-weight: 700;
 }
