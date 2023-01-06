@@ -1,10 +1,3 @@
-html {
-   /* For Firefox */
-   overflow-y: scroll;
-   scrollbar-color: #008de4 #0d3b97;
-   scrollbar-width: thin;
-}
-
 .containerIngredients {
    display: flex;
    flex-direction: column;
