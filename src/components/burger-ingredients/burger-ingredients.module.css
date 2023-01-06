@@ -1,3 +1,9 @@
+html {
+   /* For Firefox */
+   overflow-y: scroll;
+   scrollbar-color: #008de4 #0d3b97;
+   scrollbar-width: thin;
+}
 
 .containerIngredients {
    display: flex;
@@ -8,11 +14,22 @@
    max-width: 600px;
    width: 100%;
    box-sizing: border-box;
+
 }
-.containerIngredients::-webkit-scrollbar{
-width: 8px;
-background-color: #2F2F37;
+
+@-moz-document url-prefix() {
+   .containerIngredients {
+      overflow-y: scroll;
+      scrollbar-color: #8585AD #2F2F37;
+      scrollbar-width: thin;
+   }
 }
+
+.containerIngredients::-webkit-scrollbar {
+   width: 8px;
+   background-color: #2F2F37;
+}
+
 .containerIngredients::-webkit-scrollbar-thumb {
    background-color: #8585AD;
 }
