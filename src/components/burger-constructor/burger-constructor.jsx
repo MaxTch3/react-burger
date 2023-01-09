@@ -6,7 +6,7 @@ import {
    ConstructorElement,
    Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './burger-constructior.module.css'
+import styles from './burger-constructor.module.css'
 import data from '../../utils/data';
 
 const BurgerConstructor = (props) => {
