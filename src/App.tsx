@@ -2,25 +2,17 @@ import React from 'react';
 import AppHeader from './components/app-header/app-header'
 import BurgerIngredients from './components/burger-ingredients/burger-ingredients.jsx'
 import BurgerConstructor from './components/burger-constructor/burger-constructor.jsx'
-import './App.css';
+import styles from './App.module.css';
 import data from './utils/data.js';
 
 
 function App() {
    return (
-      <div className="App" style={{
-         display: 'flex',
-         flexDirection: 'column',
-         justifyContent: 'center',
-         maxWidth: '1280px',
-         width: '100%',
-         marginLeft: 'auto',
-         marginRight: 'auto'
-      }}>
+      <div className={styles.app}>
          <AppHeader />
-         <main>
+         <main className={styles.main}>
             <BurgerIngredients data={data} />
-            <BurgerConstructor />
+            <BurgerConstructor data={data} />
          </main>
 
 
