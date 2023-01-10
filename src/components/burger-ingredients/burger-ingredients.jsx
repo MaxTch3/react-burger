@@ -10,7 +10,6 @@ const BurgerIngredients = (props) => {
    const bunData = data.filter((item) => item.type === 'bun');
    const sauceData = data.filter((item) => item.type === 'sauce');
    const mainData = data.filter((item) => item.type === 'main');
-
    const bun = React.useRef();
    const sauce = React.useRef();
    const main = React.useRef();

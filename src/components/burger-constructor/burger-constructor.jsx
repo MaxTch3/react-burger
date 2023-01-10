@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import {
    CurrencyIcon,
@@ -6,16 +5,17 @@ import {
    ConstructorElement,
    Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './burger-constructor.module.css'
-import data from '../../utils/data';
+import styles from './burger-constructor.module.css';
 
 const BurgerConstructor = (props) => {
    const data = props.data;
    const bun = data[0];
-   const ingredient1 = data[5];
+   const ingredient1 = data[3];
    const ingredient2 = data[4];
    const ingredient3 = data[7];
-   const ingredient4 = data[8];
+   const ingredient4 = data[9];
+   const ingredient5 = data[11];
+
    return (
       <section className='pt-25 pl-4'>
          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: 'calc(65vh - 56px)' }}>
@@ -23,18 +23,18 @@ const BurgerConstructor = (props) => {
                <ConstructorElement
                   type="top"
                   isLocked={true}
-                  text={bun.name + '\n (верх)'}
-                  price={bun.price}
-                  thumbnail={bun.image}
+                  text={`${bun?.name || ""}\n` + "(верх)"}
+                  price={Number(bun?.price)}
+                  thumbnail={String(bun?.image)}
                />
             </div>
             <div className={styles.sauce_and_main + ' pr-4'}>
                <div style={{ display: 'flex', alignItems: 'center' }}>
                   <DragIcon type='primary' />
                   <ConstructorElement
-                     text={ingredient1.name}
-                     price={ingredient1.price}
-                     thumbnail={ingredient1.image}
+                     text={String(ingredient1?.name)}
+                     price={Number(ingredient1?.price)}
+                     thumbnail={String(ingredient1?.image)}
                      extraClass='ml-2'
                   />
                </div>
@@ -42,9 +42,9 @@ const BurgerConstructor = (props) => {
                <div style={{ display: 'flex', alignItems: 'center' }}>
                   <DragIcon type='primary' />
                   <ConstructorElement
-                     text={ingredient2.name}
-                     price={ingredient2.price}
-                     thumbnail={ingredient2.image}
+                     text={String(ingredient2?.name)}
+                     price={Number(ingredient2?.price)}
+                     thumbnail={String(ingredient2?.image)}
                      extraClass='ml-2'
                   />
                </div>
@@ -52,18 +52,18 @@ const BurgerConstructor = (props) => {
                <div style={{ display: 'flex', alignItems: 'center' }}>
                   <DragIcon type='primary' />
                   <ConstructorElement
-                     text={ingredient3.name}
-                     price={ingredient3.price}
-                     thumbnail={ingredient3.image}
+                     text={String(ingredient3?.name)}
+                     price={Number(ingredient3?.price)}
+                     thumbnail={String(ingredient3?.image)}
                      extraClass='ml-2'
                   />
                </div>
                <div style={{ display: 'flex', alignItems: 'center' }}>
                   <DragIcon type='primary' />
                   <ConstructorElement
-                     text={ingredient4.name}
-                     price={ingredient4.price}
-                     thumbnail={ingredient4.image}
+                     text={String(ingredient4?.name)}
+                     price={Number(ingredient4?.price)}
+                     thumbnail={String(ingredient4?.image)}
                      extraClass='ml-2'
                   />
                </div>
@@ -71,9 +71,9 @@ const BurgerConstructor = (props) => {
                <div style={{ display: 'flex', alignItems: 'center' }}>
                   <DragIcon type='primary' />
                   <ConstructorElement
-                     text={ingredient4.name}
-                     price={ingredient4.price}
-                     thumbnail={ingredient4.image}
+                     text={String(ingredient5?.name)}
+                     price={Number(ingredient5?.price)}
+                     thumbnail={String(ingredient5?.image)}
                      extraClass='ml-2'
                   />
                </div>
@@ -83,9 +83,9 @@ const BurgerConstructor = (props) => {
                <ConstructorElement
                   type="bottom"
                   isLocked={true}
-                  text={bun.name + '\n (низ)'}
-                  price={bun.price}
-                  thumbnail={bun.image}
+                  text={`${bun?.name || ""}\n` + "(низ)"}
+                  price={Number(bun?.price)}
+                  thumbnail={String(bun?.image)}
                />
             </div>
          </div>
@@ -120,8 +120,7 @@ BurgerConstructor.propTypes = {
          image_mobile: PropTypes.string.isRequired,
          image_large: PropTypes.string.isRequired,
          __v: PropTypes.number,
-
-      })
+      }).isRequired
    )
 }
 
