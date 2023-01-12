@@ -4,9 +4,8 @@ import styles from './burger-ingredients.module.css'
 import Ingredient from './ingredient/ingredient.jsx';
 import PropTypes from 'prop-types';
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = ({ data, openModal, closeModal, setModal, setDataModal }) => {
    const [current, setCurrent] = React.useState('bun');
-   const data = props.data;
    const bunData = data.filter((item) => item.type === 'bun');
    const sauceData = data.filter((item) => item.type === 'sauce');
    const mainData = data.filter((item) => item.type === 'main');
@@ -38,21 +37,21 @@ const BurgerIngredients = (props) => {
             <div className={styles.ingredients_section}>
                {
                   bunData.map((item) =>
-                     <Ingredient key={item._id} data={item} />)
+                     <Ingredient key={item._id} item={item} openModal={openModal} setModal={setModal} setDataModal={setDataModal}/>)
                }
             </div>
             <h3 ref={sauce} className="text text_type_main-medium mt-10">Соусы</h3>
             <div className={styles.ingredients_section}>
                {
                   sauceData.map((item) =>
-                     <Ingredient key={item._id} data={item} />)
+                     <Ingredient key={item._id} item={item} openModal={openModal} setModal={setModal} setDataModal={setDataModal}/>)
                }
             </div>
             <h3 ref={main} className="text text_type_main-medium mt-10">Начинки</h3>
             <div className={styles.ingredients_section}>
                {
                   mainData.map((item) =>
-                     <Ingredient key={item._id} data={item} />)
+                     <Ingredient key={item._id} item={item} openModal={openModal} setModal={setModal} setDataModal={setDataModal}/>)
                }
             </div>
          </div>
@@ -60,22 +59,22 @@ const BurgerIngredients = (props) => {
    )
 };
 
-BurgerIngredients.propTypes = {
-   data: PropTypes.arrayOf(
-      PropTypes.shape({
-         _id: PropTypes.string.isRequired,
-         name: PropTypes.string.isRequired,
-         type: PropTypes.string.isRequired,
-         proteins: PropTypes.number.isRequired,
-         fat: PropTypes.number.isRequired,
-         carbohydrates: PropTypes.number.isRequired,
-         calories: PropTypes.number.isRequired,
-         price: PropTypes.number.isRequired,
-         image: PropTypes.string.isRequired,
-         image_mobile: PropTypes.string.isRequired,
-         image_large: PropTypes.string.isRequired,
-         __v: PropTypes.number,
-      })
-   )
-}
+// BurgerIngredients.propTypes = {
+//    data: PropTypes.arrayOf(
+//       PropTypes.shape({
+//          _id: PropTypes.string.isRequired,
+//          name: PropTypes.string.isRequired,
+//          type: PropTypes.string.isRequired,
+//          proteins: PropTypes.number.isRequired,
+//          fat: PropTypes.number.isRequired,
+//          carbohydrates: PropTypes.number.isRequired,
+//          calories: PropTypes.number.isRequired,
+//          price: PropTypes.number.isRequired,
+//          image: PropTypes.string.isRequired,
+//          image_mobile: PropTypes.string.isRequired,
+//          image_large: PropTypes.string.isRequired,
+//          __v: PropTypes.number,
+//       })
+//    )
+// }
 export default BurgerIngredients;

@@ -1,0 +1,14 @@
+.container {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.button {
+   opacity: 1;
+transition: opacity 0.4s;
+}
+
+.button:hover {
+   opacity: 0.6
+}

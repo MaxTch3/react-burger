@@ -7,8 +7,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 
-const BurgerConstructor = (props) => {
-   const data = props.data;
+const BurgerConstructor = ({ data, openModal, closeModal, setModal }) => {
    const bun = data[0];
    const ingredient1 = data[3];
    const ingredient2 = data[4];
@@ -96,7 +95,8 @@ const BurgerConstructor = (props) => {
          }} className='pt-10 pr-4'>
             <p className="text text_type_digits-medium mr-2">5336</p>
             <CurrencyIcon type="primary" />
-            <Button htmlType="button" type="primary" size="large" extraClass='ml-10'>
+            <Button htmlType="button" type="primary" size="large" extraClass='ml-10'
+            onClick={() => {setModal(2); openModal()}}>
                Оформить заказ
             </Button>
          </div>
@@ -120,8 +120,8 @@ BurgerConstructor.propTypes = {
          image_mobile: PropTypes.string.isRequired,
          image_large: PropTypes.string.isRequired,
          __v: PropTypes.number,
-      }).isRequired
-   )
+      })
+   ).isRequired
 }
 
 export default BurgerConstructor;
