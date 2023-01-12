@@ -3,3 +3,9 @@
    flex-direction: column;
    align-items: center;
 }
+.colorizator {
+   display: flex;
+   justify-content: space-between;
+   gap: 20px;
+   width: 520px;
+}

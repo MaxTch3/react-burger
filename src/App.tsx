@@ -66,7 +66,6 @@ function App() {
             <Modal active={modalActive} setActive={setModalActive}>
                <ModalHeader header={'Детали ингредиента'} closeModal={handleCloseModal} />
                <IngredientDetails itemId={dataModal} data={state.ingredientsData}/>
-               <p>{dataModal}</p>
             </Modal>}
          {(modal === 2) &&
             <Modal active={modalActive} setActive={setModalActive}>
