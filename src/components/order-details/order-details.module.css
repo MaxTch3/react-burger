@@ -1,0 +1,17 @@
+.container {
+  padding-top: 16px;
+  padding-bottom: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image_container {
+  margin-top: 70px;
+  margin-bottom: 8px;
+  background-image: url(../../images/graphics.svg);
+  background-repeat: repeat;
+  background-size: contain;
+  width: 107px;
+  height: 102px;
+}
