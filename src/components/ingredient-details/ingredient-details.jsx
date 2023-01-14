@@ -1,4 +1,6 @@
 import styles from './ingredient-details.module.css';
+import PropTypes from 'prop-types';
+import { ingredientsType } from '../../utils/componentTypes';
 
 const IngredientDetails = ({ itemId, data }) => {
   const itemData = data.find(el => el._id === itemId);
@@ -28,6 +30,11 @@ const IngredientDetails = ({ itemId, data }) => {
       </div>
     </div>
   )
+}
+
+IngredientDetails.propTypes = {
+  itemId: PropTypes.string,
+  data: ingredientsType
 }
 
 export default IngredientDetails;

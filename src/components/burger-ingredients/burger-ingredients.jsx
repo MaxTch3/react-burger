@@ -3,6 +3,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css'
 import Ingredient from './ingredient/ingredient.jsx';
 import PropTypes from 'prop-types';
+import { ingredientsType } from '../../utils/componentTypes';
 
 const BurgerIngredients = ({ data, openModal, setModal, setDataModal }) => {
   const [current, setCurrent] = React.useState('bun');
@@ -60,22 +61,7 @@ const BurgerIngredients = ({ data, openModal, setModal, setDataModal }) => {
 };
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      type: PropTypes.string,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-      price: PropTypes.number,
-      image: PropTypes.string,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number,
-    })
-  ).isRequired,
+  data: ingredientsType,
   openModal: PropTypes.func.isRequired,
   setModal: PropTypes.func.isRequired,
   setDataModal: PropTypes.func.isRequired
