@@ -14,4 +14,5 @@ export const ingredientType = shape({
   image_large: string,
   __v: number,
 });
+
 export const ingredientsType = arrayOf(ingredientType).isRequired;

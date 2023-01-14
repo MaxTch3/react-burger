@@ -1,5 +1,7 @@
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient.module.css';
+import PropTypes from 'prop-types';
+import { ingredientType } from '../../../utils/componentTypes';
 
 const Ingredient = ({ item, openModal, setModal, setDataModal }) => {
 
@@ -22,6 +24,13 @@ const Ingredient = ({ item, openModal, setModal, setDataModal }) => {
       <div style={{ textAlign: 'center' }} className='text text_type_main-default pt-1'>{item.name}</div>
     </div>
   )
-}
+};
+
+Ingredient.propTypes = {
+  item: ingredientType,
+  openModal: PropTypes.func.isRequired,
+  setModal: PropTypes.func.isRequired,
+  setDataModal: PropTypes.func.isRequired
+};
 
 export default Ingredient;

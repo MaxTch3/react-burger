@@ -1,6 +1,9 @@
 import React from 'react';
+import { createPortal } from "react-dom";
 import styles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay.jsx';
+import PropTypes from 'prop-types';
+
 
 const Modal = ({ active, setActive, children }) => {
   React.useEffect(() => {
@@ -13,14 +16,25 @@ const Modal = ({ active, setActive, children }) => {
     return () => document.removeEventListener('keydown', close)
   }, [])
 
-  return (
-    <ModalOverlay active={active} setActive={setActive}>
-      <div
-        className={active ? `${styles.modal__content} ${styles.modal__content_active}` : `${styles.modal__content}`}
-        onClick={(evt) => evt.stopPropagation()}>
-        {children}
+  return createPortal(
+    <>
+      <ModalOverlay active={active} setActive={setActive} />
+      <div className={active ? `${styles.wrapper} ${styles.wrapper_active}` : `${styles.wrapper}`}>
+        <div
+          className={active ? `${styles.modal__content} ${styles.modal__content_active}` : `${styles.modal__content}`}
+          onClick={(evt) => evt.stopPropagation()}>
+          {children}
+        </div>
       </div>
-    </ ModalOverlay>
+    </>,
+    document.getElementById('modal-root')
   )
-}
+};
+
+Modal.propTypes = {
+  active: PropTypes.bool.isRequired,
+  setActive: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired
+};
+
 export default Modal;
