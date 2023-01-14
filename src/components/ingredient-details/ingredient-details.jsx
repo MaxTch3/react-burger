@@ -33,7 +33,7 @@ const IngredientDetails = ({ itemId, data }) => {
 }
 
 IngredientDetails.propTypes = {
-  itemId: PropTypes.string,
+  itemId: PropTypes.string.isRequired,
   data: ingredientsType
 }
 

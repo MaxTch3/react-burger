@@ -15,7 +15,7 @@ function App() {
    });
    const [modalActive, setModalActive] = React.useState(false);
    const [modal, setModal] = React.useState(null);
-   const [dataModal, setDataModal] = React.useState(null);
+   const [dataModal, setDataModal] = React.useState('');
 
    const url = 'https://norma.nomoreparties.space/api/ingredients';
 

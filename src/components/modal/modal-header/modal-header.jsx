@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './modal-header.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -10,5 +11,10 @@ const ModalHeader = ({ header, closeModal }) => {
       </div>
     </div >
   )
+}
+
+ModalHeader.propTypes = {
+  header: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired
 }
 export default ModalHeader;

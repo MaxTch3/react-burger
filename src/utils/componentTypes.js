@@ -1,18 +1,18 @@
 import {string, number, shape, arrayOf} from 'prop-types';
 
 export const ingredientType = shape({
-  _id: string,
-  name: string,
-  type: string,
-  proteins: number,
-  fat: number,
-  carbohydrates: number,
-  calories: number,
-  price: number,
-  image: string,
-  image_mobile: string,
-  image_large: string,
-  __v: number,
-});
+  _id: string.isRequired,
+  name: string.isRequired,
+  type: string.isRequired,
+  proteins: number.isRequired,
+  fat: number.isRequired,
+  carbohydrates: number.isRequired,
+  calories: number.isRequired,
+  price: number.isRequired,
+  image: string.isRequired,
+  image_mobile: string.isRequired,
+  image_large: string.isRequired,
+  __v: number.isRequired,
+}).isRequired;
 
 export const ingredientsType = arrayOf(ingredientType).isRequired;
