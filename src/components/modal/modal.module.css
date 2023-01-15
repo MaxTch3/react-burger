@@ -1,0 +1,28 @@
+.wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transition: 0.4s all;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+}
+
+.wrapper_active {
+  visibility: visible;
+}
+
+.modal__content {
+  position: relative;
+  width: 720px;
+  background: #1C1C21;
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 40px;
+  transform: scale(0);
+  transition: 0.4s all;
+  z-index: 2;
+}
+
+.modal__content_active {
+  transform: scale(1);
+}

@@ -1,0 +1,29 @@
+.sauce_and_main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: overlay;
+
+}
+
+@-moz-document url-prefix() {
+  .sauce_and_main {
+    overflow-y: scroll;
+    scrollbar-color: #8585AD #2F2F37;
+    scrollbar-width: thin;
+  }
+}
+
+.sauce_and_main::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.sauce_and_main::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
