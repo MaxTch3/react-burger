@@ -8,6 +8,7 @@ import ModalHeader from '../modal/modal-header/modal-header';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import { getIngredients } from '../../utils/burgers-api';
+import { IngredientsContext } from '../../services/ingredientsContext';
 
 function App() {
   const [state, setState] = React.useState({
@@ -38,29 +39,29 @@ function App() {
 
   return (
     <div className={styles.app}>
+      <IngredientsContext.Provider value={state.ingredientsData}>
         <AppHeader />
         <main className={styles.main} >
           <BurgerIngredients
-            data={state.ingredientsData}
             openModal={handleOpenModal}
             setModal={setModal}
             setDataModal={setDataModal}
           />
           <BurgerConstructor
-            data={state.ingredientsData}
             openModal={handleOpenModal}
             setModal={setModal} />
         </main>
         {(modal === 1) &&
           <Modal active={modalActive} setActive={setModalActive}>
             <ModalHeader header={'Детали ингредиента'} closeModal={handleCloseModal} />
-            <IngredientDetails itemId={dataModal} data={state.ingredientsData}/>
+            <IngredientDetails itemId={dataModal} />
           </Modal>}
         {(modal === 2) &&
           <Modal active={modalActive} setActive={setModalActive}>
             <ModalHeader header={''} closeModal={handleCloseModal} />
             <OrderDetails />
           </Modal>}
+      </IngredientsContext.Provider>
     </div>
   );
 }
