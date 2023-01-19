@@ -7,69 +7,62 @@ import Modal from '../modal/modal.jsx';
 import ModalHeader from '../modal/modal-header/modal-header';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
+import { getIngredients } from '../../utils/burgers-api';
 
 function App() {
-   const [state, setState] = React.useState({
-      ingredientsData: [],
-      loading: true
-   });
-   const [modalActive, setModalActive] = React.useState(false);
-   const [modal, setModal] = React.useState(null);
-   const [dataModal, setDataModal] = React.useState('');
+  const [state, setState] = React.useState({
+    ingredientsData: [],
+    loading: true
+  });
+  const [modalActive, setModalActive] = React.useState(false);
+  const [modal, setModal] = React.useState(null);
+  const [dataModal, setDataModal] = React.useState('');
 
-   const url = 'https://norma.nomoreparties.space/api/ingredients';
+  const handleCloseModal = () => {
+    setModalActive(false);
+  }
+  const handleOpenModal = () => {
+    setModalActive(true)
+  }
 
-   const handleCloseModal = () => {
-      setModalActive(false);
-   }
-   const handleOpenModal = () => {
-      setModalActive(true)
-   }
+  React.useEffect(() => {
+    setState({ ingredientsData: [], loading: true });
+    getIngredients()
+      .then((data) => {
+        setState({ ingredientsData: data.data, loading: false })
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }, []);
 
-   React.useEffect(() => {
-      const getData = async () => {
-         setState({ ...state, loading: true });
-         try {
-            const res = await fetch(url);
-            if (res.ok) {
-               const data = await res.json();
-               setState({ ingredientsData: data.data, loading: false });
-            }
-         }
-         catch (error) {
-            console.log(error);
-         };
-      };
-      getData();
-   }, []);
-
-   return (
-      <div className={styles.app}>
-         <AppHeader />
-         <main className={styles.main} >
-            <BurgerIngredients
-               data={state.ingredientsData}
-               openModal={handleOpenModal}
-               setModal={setModal}
-               setDataModal={setDataModal}
-            />
-            <BurgerConstructor
-               data={state.ingredientsData}
-               openModal={handleOpenModal}
-               setModal={setModal} />
-         </main>
-         {(modal === 1) &&
-            <Modal active={modalActive} setActive={setModalActive}>
-               <ModalHeader header={'Детали ингредиента'} closeModal={handleCloseModal} />
-               <IngredientDetails itemId={dataModal} data={state.ingredientsData} />
-            </Modal>}
-         {(modal === 2) &&
-            <Modal active={modalActive} setActive={setModalActive}>
-               <ModalHeader header={''} closeModal={handleCloseModal} />
-               <OrderDetails />
-            </Modal>}
-      </div>
-   );
+  return (
+    <div className={styles.app}>
+      <AppHeader />
+      <main className={styles.main} >
+        <BurgerIngredients
+          data={state.ingredientsData}
+          openModal={handleOpenModal}
+          setModal={setModal}
+          setDataModal={setDataModal}
+        />
+        <BurgerConstructor
+          data={state.ingredientsData}
+          openModal={handleOpenModal}
+          setModal={setModal} />
+      </main>
+      {(modal === 1) &&
+        <Modal active={modalActive} setActive={setModalActive}>
+          <ModalHeader header={'Детали ингредиента'} closeModal={handleCloseModal} />
+          <IngredientDetails itemId={dataModal} data={state.ingredientsData} />
+        </Modal>}
+      {(modal === 2) &&
+        <Modal active={modalActive} setActive={setModalActive}>
+          <ModalHeader header={''} closeModal={handleCloseModal} />
+          <OrderDetails />
+        </Modal>}
+    </div>
+  );
 }
 
 export default App;
