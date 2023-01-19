@@ -8,10 +8,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import { ingredientsType } from '../../utils/componentTypes';
-import { IngredientsContext } from '../../services/ingredientsContext';
 
-const BurgerConstructor = ({ openModal, setModal }) => {
-  const data = useContext(IngredientsContext);
+const BurgerConstructor = ({ data, openModal, setModal }) => {
   const bun = data[0];
   const ingredient1 = data[3];
   const ingredient2 = data[4];
@@ -110,7 +108,7 @@ const BurgerConstructor = ({ openModal, setModal }) => {
 }
 
 BurgerConstructor.propTypes = {
-  // data: ingredientsType,
+  data: ingredientsType,
   openModal: PropTypes.func.isRequired,
   setModal: PropTypes.func.isRequired,
 }
