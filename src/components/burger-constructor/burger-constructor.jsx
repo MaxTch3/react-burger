@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -15,7 +15,9 @@ const BurgerConstructor = ({ openModal, setModal }) => {
 
   const buns = data.filter((item) => item.type === 'bun');
   const bun = buns[0];
-  const otherIngredients = data.filter((item) => item.type !== 'bun');
+  const otherIngredients = data.filter((item) => item.type !== 'bun').slice(1, 5);
+  const priceTotal = bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0);
+
 
 
   return (
@@ -60,7 +62,7 @@ const BurgerConstructor = ({ openModal, setModal }) => {
         justifyContent: 'end',
         alignItems: 'center'
       }} className='pt-10 pr-4'>
-        <p className='text text_type_digits-medium mr-2'>5336</p>
+        <p className='text text_type_digits-medium mr-2'>{String(priceTotal)}</p>
         <CurrencyIcon type='primary' />
         <Button htmlType='button' type='primary' size='large' extraClass='ml-10'
           onClick={() => { setModal(2); openModal() }}>
