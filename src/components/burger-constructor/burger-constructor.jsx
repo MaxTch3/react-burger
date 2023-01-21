@@ -12,13 +12,15 @@ import { IngredientsContext } from '../../services/ingredientsContext';
 
 const BurgerConstructor = ({ openModal, setModal }) => {
   const data = useContext(IngredientsContext);
+  const [priceTotal, setPriceTotal] = useState(0);
 
   const buns = data.filter((item) => item.type === 'bun');
   const bun = buns[0];
   const otherIngredients = data.filter((item) => item.type !== 'bun').slice(1, 5);
-  const priceTotal = bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0);
 
-
+  useEffect(() => {
+    setPriceTotal(bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0))
+  }, [otherIngredients, bun])
 
   return (
     <section className='pt-25 pl-4'>
@@ -61,7 +63,8 @@ const BurgerConstructor = ({ openModal, setModal }) => {
         display: 'flex',
         justifyContent: 'end',
         alignItems: 'center'
-      }} className='pt-10 pr-4'>
+      }}
+        className='pt-10 pr-4'>
         <p className='text text_type_digits-medium mr-2'>{String(priceTotal)}</p>
         <CurrencyIcon type='primary' />
         <Button htmlType='button' type='primary' size='large' extraClass='ml-10'
