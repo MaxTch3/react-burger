@@ -9,6 +9,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import { getIngredients } from '../../utils/burgers-api';
 import { IngredientsContext } from '../../services/ingredientsContext';
+import { OrderContext } from '../../services/orderContext';
 
 function App() {
   const [state, setState] = React.useState({
@@ -18,6 +19,7 @@ function App() {
   const [modalActive, setModalActive] = React.useState(false);
   const [modal, setModal] = React.useState(null);
   const [dataModal, setDataModal] = React.useState('');
+  const [orderNumber, setOrderNumber] = React.useState(null);
 
   const handleCloseModal = () => {
     setModalActive(false);
@@ -40,6 +42,7 @@ function App() {
   return (
     <div className={styles.app}>
       <IngredientsContext.Provider value={state.ingredientsData}>
+        <OrderContext.Provider value={[orderNumber, setOrderNumber]} >
         <AppHeader />
         <main className={styles.main} >
           <BurgerIngredients
@@ -61,6 +64,7 @@ function App() {
             <ModalHeader header={''} closeModal={handleCloseModal} />
             <OrderDetails />
           </Modal>}
+          </OrderContext.Provider>
       </IngredientsContext.Provider>
     </div>
   );

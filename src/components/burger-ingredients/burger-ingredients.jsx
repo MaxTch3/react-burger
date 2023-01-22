@@ -3,7 +3,6 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css'
 import Ingredient from './ingredient/ingredient.jsx';
 import PropTypes from 'prop-types';
-// import { ingredientsType } from '../../utils/componentTypes';
 import { IngredientsContext } from '../../services/ingredientsContext';
 
 const BurgerIngredients = ({ openModal, setModal, setDataModal }) => {
@@ -63,7 +62,6 @@ const BurgerIngredients = ({ openModal, setModal, setDataModal }) => {
 };
 
 BurgerIngredients.propTypes = {
-  // data: ingredientsType,
   openModal: PropTypes.func.isRequired,
   setModal: PropTypes.func.isRequired,
   setDataModal: PropTypes.func.isRequired

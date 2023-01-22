@@ -9,14 +9,31 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import { IngredientsContext } from '../../services/ingredientsContext';
+import { OrderContext } from '../../services/orderContext';
+import { postOrderData } from '../../utils/burgers-api';
 
 const BurgerConstructor = ({ openModal, setModal }) => {
   const data = useContext(IngredientsContext);
+  const [, setOrderNumber] = useContext(OrderContext);
   const [priceTotal, setPriceTotal] = useState(0);
 
   const buns = data.filter((item) => item.type === 'bun');
-  const bun = buns[0];
+  const bun = buns[1];
   const otherIngredients = data.filter((item) => item.type !== 'bun').slice(1, 5);
+
+  const handleOrder = () => {
+    const orderData = [bun._id].concat(otherIngredients.map((item) => item._id));
+    postOrderData(orderData)
+      .then((data) => {
+        setOrderNumber(data.order.number);
+        setModal(2);
+        openModal();
+
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
 
   useEffect(() => {
     setPriceTotal(bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0))
@@ -68,11 +85,10 @@ const BurgerConstructor = ({ openModal, setModal }) => {
         <p className='text text_type_digits-medium mr-2'>{String(priceTotal)}</p>
         <CurrencyIcon type='primary' />
         <Button htmlType='button' type='primary' size='large' extraClass='ml-10'
-          onClick={() => { setModal(2); openModal() }}>
+          onClick={handleOrder}>
           Оформить заказ
         </Button>
       </div>
-
     </section>
   )
 }

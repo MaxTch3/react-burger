@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import styles from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
-// import { ingredientsType } from '../../utils/componentTypes';
 import { IngredientsContext } from '../../services/ingredientsContext';
 
 const IngredientDetails = ({ itemId }) => {
@@ -37,7 +36,6 @@ const IngredientDetails = ({ itemId }) => {
 
 IngredientDetails.propTypes = {
   itemId: PropTypes.string.isRequired,
-  // data: ingredientsType
 }
 
 export default IngredientDetails;
