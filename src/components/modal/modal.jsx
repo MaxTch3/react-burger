@@ -14,7 +14,7 @@ const Modal = ({ active, setActive, children }) => {
     }
     document.addEventListener('keydown', close)
     return () => document.removeEventListener('keydown', close)
-  }, [])
+  }, [setActive])
 
   return createPortal(
     <>

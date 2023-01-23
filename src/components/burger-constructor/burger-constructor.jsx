@@ -1,5 +1,4 @@
 import { useContext, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import {
   CurrencyIcon,
@@ -15,7 +14,8 @@ import Modal from '../modal/modal';
 import ModalHeader from '../modal/modal-header/modal-header';
 import OrderDetails from '../order-details/order-details';
 
-const BurgerConstructor = ({ openModal, setModal, modalActive, setModalActive, handleCloseModal, modal }) => {
+const BurgerConstructor = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const data = useContext(IngredientsContext);
   const [, setOrderNumber] = useContext(OrderContext);
   const [priceTotal, setPriceTotal] = useState(0);
@@ -29,8 +29,7 @@ const BurgerConstructor = ({ openModal, setModal, modalActive, setModalActive, h
     postOrderData(orderData)
       .then((data) => {
         setOrderNumber(data.order.number);
-        setModal(2);
-        openModal();
+        setIsOpen(true);
 
       })
       .catch((error) => {
@@ -50,7 +49,7 @@ const BurgerConstructor = ({ openModal, setModal, modalActive, setModalActive, h
             <ConstructorElement
               type='top'
               isLocked={true}
-              text={`${bun?.name || ''}\n` + '(верх)'}
+              text={`${bun?.name || ''}\n(верх)`}
               price={Number(bun?.price)}
               thumbnail={String(bun?.image)}
             />
@@ -74,7 +73,7 @@ const BurgerConstructor = ({ openModal, setModal, modalActive, setModalActive, h
             <ConstructorElement
               type='bottom'
               isLocked={true}
-              text={`${bun?.name || ''}\n` + '(низ)'}
+              text={`${bun?.name || ''}\n(низ)`}
               price={Number(bun?.price)}
               thumbnail={String(bun?.image)}
             />
@@ -94,18 +93,14 @@ const BurgerConstructor = ({ openModal, setModal, modalActive, setModalActive, h
           </Button>
         </div>
       </section>
-      {(modal === 2) &&
-        <Modal active={modalActive} setActive={setModalActive}>
-          <ModalHeader header={''} closeModal={handleCloseModal} />
+      {isOpen &&
+        <Modal active={isOpen} setActive={setIsOpen}>
+          <ModalHeader header={''} closeModal={() => { setIsOpen(false) }} />
           <OrderDetails />
         </Modal>}
     </>
   )
 }
 
-BurgerConstructor.propTypes = {
-  openModal: PropTypes.func.isRequired,
-  setModal: PropTypes.func.isRequired,
-}
 
 export default BurgerConstructor;
