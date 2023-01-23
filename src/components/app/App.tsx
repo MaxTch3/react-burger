@@ -49,21 +49,30 @@ function App() {
             openModal={handleOpenModal}
             setModal={setModal}
             setDataModal={setDataModal}
+            modalActive={modalActive}
+            setModalActive={setModalActive}
+            handleCloseModal={handleCloseModal}
+            modal={modal}
+            dataModal={dataModal}
           />
           <BurgerConstructor
             openModal={handleOpenModal}
-            setModal={setModal} />
+            setModal={setModal}
+            modalActive={modalActive}
+            setModalActive={setModalActive}
+            handleCloseModal={handleCloseModal}
+            modal={modal} />
         </main>
-        {(modal === 1) &&
+        {/* {(modal === 1) &&
           <Modal active={modalActive} setActive={setModalActive}>
             <ModalHeader header={'Детали ингредиента'} closeModal={handleCloseModal} />
             <IngredientDetails itemId={dataModal} />
-          </Modal>}
-        {(modal === 2) &&
+          </Modal>} */}
+        {/* {(modal === 2) &&
           <Modal active={modalActive} setActive={setModalActive}>
             <ModalHeader header={''} closeModal={handleCloseModal} />
             <OrderDetails />
-          </Modal>}
+          </Modal>} */}
           </OrderContext.Provider>
       </IngredientsContext.Provider>
     </div>

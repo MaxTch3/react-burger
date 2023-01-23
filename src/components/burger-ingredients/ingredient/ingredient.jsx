@@ -2,11 +2,14 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './ingredient.module.css';
 import PropTypes from 'prop-types';
 import { ingredientType } from '../../../utils/componentTypes';
+import Modal from '../../modal/modal';
+import ModalHeader from '../../modal/modal-header/modal-header';
+import IngredientDetails from '../../ingredient-details/ingredient-details';
 
-const Ingredient = ({ item, openModal, setModal, setDataModal }) => {
+const Ingredient = ({ item, openModal, setModal, setDataModal, modalActive, setModalActive, handleCloseModal, modal, dataModal }) => {
 
   return (
-
+<>
     <div className={styles.ingredient_card + ' ml-3 mr-3'} onClick={() => {
       setDataModal(item._id);
       setModal(1);
@@ -23,6 +26,12 @@ const Ingredient = ({ item, openModal, setModal, setDataModal }) => {
       </div>
       <div style={{ textAlign: 'center' }} className='text text_type_main-default pt-1'>{item.name}</div>
     </div>
+    {(modal === 1) &&
+          <Modal active={modalActive} setActive={setModalActive}>
+            <ModalHeader header={'Детали ингредиента'} closeModal={handleCloseModal} />
+            <IngredientDetails itemId={dataModal} />
+          </Modal>}
+  </>
   )
 };
 

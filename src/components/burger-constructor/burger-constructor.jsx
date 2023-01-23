@@ -11,8 +11,11 @@ import styles from './burger-constructor.module.css';
 import { IngredientsContext } from '../../services/ingredientsContext';
 import { OrderContext } from '../../services/orderContext';
 import { postOrderData } from '../../utils/burgers-api';
+import Modal from '../modal/modal';
+import ModalHeader from '../modal/modal-header/modal-header';
+import OrderDetails from '../order-details/order-details';
 
-const BurgerConstructor = ({ openModal, setModal }) => {
+const BurgerConstructor = ({ openModal, setModal, modalActive, setModalActive, handleCloseModal, modal }) => {
   const data = useContext(IngredientsContext);
   const [, setOrderNumber] = useContext(OrderContext);
   const [priceTotal, setPriceTotal] = useState(0);
@@ -40,56 +43,63 @@ const BurgerConstructor = ({ openModal, setModal }) => {
   }, [otherIngredients, bun])
 
   return (
-    <section className='pt-25 pl-4'>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: 'calc(65vh - 56px)' }}>
-        <div className='pl-8'>
-          <ConstructorElement
-            type='top'
-            isLocked={true}
-            text={`${bun?.name || ''}\n` + '(верх)'}
-            price={Number(bun?.price)}
-            thumbnail={String(bun?.image)}
-          />
+    <>
+      <section className='pt-25 pl-4'>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: 'calc(65vh - 56px)' }}>
+          <div className='pl-8'>
+            <ConstructorElement
+              type='top'
+              isLocked={true}
+              text={`${bun?.name || ''}\n` + '(верх)'}
+              price={Number(bun?.price)}
+              thumbnail={String(bun?.image)}
+            />
+          </div>
+          <div className={styles.sauce_and_main + ' pr-4'}>
+            {
+              otherIngredients.map((item) => (
+                <div style={{ display: 'flex', alignItems: 'center' }} key={uuidv4()}>
+                  <DragIcon type='primary' />
+                  <ConstructorElement
+                    text={String(item?.name)}
+                    price={Number(item?.price)}
+                    thumbnail={String(item?.image)}
+                    extraClass='ml-2'
+                  />
+                </div>
+              ))
+            }
+          </div>
+          <div className='pl-8'>
+            <ConstructorElement
+              type='bottom'
+              isLocked={true}
+              text={`${bun?.name || ''}\n` + '(низ)'}
+              price={Number(bun?.price)}
+              thumbnail={String(bun?.image)}
+            />
+          </div>
         </div>
-        <div className={styles.sauce_and_main + ' pr-4'}>
-          {
-            otherIngredients.map((item) => (
-              <div style={{ display: 'flex', alignItems: 'center' }} key={uuidv4()}>
-                <DragIcon type='primary' />
-                <ConstructorElement
-                  text={String(item?.name)}
-                  price={Number(item?.price)}
-                  thumbnail={String(item?.image)}
-                  extraClass='ml-2'
-                />
-              </div>
-            ))
-          }
+        <div style={{
+          display: 'flex',
+          justifyContent: 'end',
+          alignItems: 'center'
+        }}
+          className='pt-10 pr-4'>
+          <p className='text text_type_digits-medium mr-2'>{String(priceTotal)}</p>
+          <CurrencyIcon type='primary' />
+          <Button htmlType='button' type='primary' size='large' extraClass='ml-10'
+            onClick={handleOrder}>
+            Оформить заказ
+          </Button>
         </div>
-        <div className='pl-8'>
-          <ConstructorElement
-            type='bottom'
-            isLocked={true}
-            text={`${bun?.name || ''}\n` + '(низ)'}
-            price={Number(bun?.price)}
-            thumbnail={String(bun?.image)}
-          />
-        </div>
-      </div>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'end',
-        alignItems: 'center'
-      }}
-        className='pt-10 pr-4'>
-        <p className='text text_type_digits-medium mr-2'>{String(priceTotal)}</p>
-        <CurrencyIcon type='primary' />
-        <Button htmlType='button' type='primary' size='large' extraClass='ml-10'
-          onClick={handleOrder}>
-          Оформить заказ
-        </Button>
-      </div>
-    </section>
+      </section>
+      {(modal === 2) &&
+        <Modal active={modalActive} setActive={setModalActive}>
+          <ModalHeader header={''} closeModal={handleCloseModal} />
+          <OrderDetails />
+        </Modal>}
+    </>
   )
 }
 
