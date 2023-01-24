@@ -7,7 +7,7 @@
   bottom: 0;
   opacity: 0;
   pointer-events: none;
-  transition: 0.5s;
+  transition: 0.4s;
 }
 
 .modal_overlay_active {

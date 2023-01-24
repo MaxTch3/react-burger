@@ -37,8 +37,8 @@ const Ingredient = ({ item, setDataModal, dataModal }) => {
 
 Ingredient.propTypes = {
   item: ingredientType,
-  setModal: PropTypes.func.isRequired,
-  setDataModal: PropTypes.func.isRequired
+  setDataModal: PropTypes.func.isRequired,
+  dataModal: PropTypes.string.isRequired
 };
 
 export default Ingredient;
