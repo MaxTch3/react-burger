@@ -3,9 +3,10 @@ import { createPortal } from "react-dom";
 import styles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay.jsx';
 import PropTypes from 'prop-types';
+import ModalHeader from './modal-header/modal-header';
 
 
-const Modal = ({ setActive, children }) => {
+const Modal = ({ setActive, header, children }) => {
 
   const [animation, setAnimation] = useState(true);
 
@@ -14,7 +15,7 @@ const Modal = ({ setActive, children }) => {
       setActive(false);
     };
     setAnimation(false);
-    setTimeout(closeModal, 400)
+    setTimeout(closeModal, 300)
   }
 
   React.useEffect(() => {
@@ -29,11 +30,12 @@ const Modal = ({ setActive, children }) => {
 
   return createPortal(
     <>
-      <ModalOverlay animation={animation} closeModalAnimation={closeModalAnimation} />
+      <ModalOverlay animation={animation} closeModalAnimation={closeModalAnimation}  />
       <div className={animation ? `${styles.wrapper} ${styles.wrapper_active}` : `${styles.wrapper}`}>
         <div
           className={animation ? `${styles.modal__content} ${styles.modal__content_active}` : `${styles.modal__content}`}
           onClick={(evt) => evt.stopPropagation()}>
+          <ModalHeader header={header} closeModal={closeModalAnimation} />
           {children}
         </div>
       </div>

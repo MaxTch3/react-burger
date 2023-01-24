@@ -11,7 +11,6 @@ import { IngredientsContext } from '../../services/ingredientsContext';
 import { OrderContext } from '../../services/orderContext';
 import { postOrderData } from '../../utils/burgers-api';
 import Modal from '../modal/modal';
-import ModalHeader from '../modal/modal-header/modal-header';
 import OrderDetails from '../order-details/order-details';
 
 const BurgerConstructor = () => {
@@ -94,13 +93,11 @@ const BurgerConstructor = () => {
         </div>
       </section>
       {isOpen &&
-        <Modal active={isOpen} setActive={setIsOpen}>
-          <ModalHeader header={''} closeModal={() => { setIsOpen(false) }} />
+        <Modal active={isOpen} setActive={setIsOpen} header={''}>
           <OrderDetails />
         </Modal>}
     </>
   )
 }
-
 
 export default BurgerConstructor;

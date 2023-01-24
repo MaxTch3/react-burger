@@ -3,7 +3,6 @@ import styles from './ingredient.module.css';
 import PropTypes from 'prop-types';
 import { ingredientType } from '../../../utils/componentTypes';
 import Modal from '../../modal/modal';
-import ModalHeader from '../../modal/modal-header/modal-header';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { useState } from 'react';
 
@@ -27,8 +26,7 @@ const Ingredient = ({ item, setDataModal, dataModal }) => {
         <div style={{ textAlign: 'center' }} className='text text_type_main-default pt-1'>{item.name}</div>
       </div>
       {isOpen &&
-        <Modal active={isOpen} setActive={setIsOpen}>
-          <ModalHeader header={'Детали ингредиента'} closeModal={() => { setIsOpen(false) }} />
+        <Modal setActive={setIsOpen} header={'Детали ингредиента'}>
           <IngredientDetails itemId={dataModal} />
         </Modal>}
     </>
