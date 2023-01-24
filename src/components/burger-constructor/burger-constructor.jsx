@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {
   CurrencyIcon,
@@ -8,7 +8,6 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import { IngredientsContext } from '../../services/ingredientsContext';
-import { OrderContext } from '../../services/orderContext';
 import { postOrderData } from '../../utils/burgers-api';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
@@ -16,12 +15,11 @@ import OrderDetails from '../order-details/order-details';
 const BurgerConstructor = () => {
   const [isOpen, setIsOpen] = useState(false);
   const data = useContext(IngredientsContext);
-  const [, setOrderNumber] = useContext(OrderContext);
-  const [priceTotal, setPriceTotal] = useState(0);
-
-  const buns = data.filter((item) => item.type === 'bun');
+  const [orderNumber, setOrderNumber] = useState(null);
+  const buns = useMemo(() => (data.filter((item) => item.type === 'bun')), [data]);
   const bun = buns[1];
-  const otherIngredients = data.filter((item) => item.type !== 'bun').slice(1, 5);
+  const otherIngredients = useMemo(() => (data.filter((item) => item.type !== 'bun').slice(1, 5)), [data]);
+  const priceTotal = useMemo(() => (bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0)), [otherIngredients, bun])
 
   const handleOrder = () => {
     const orderData = [bun._id].concat(otherIngredients.map((item) => item._id));
@@ -35,10 +33,6 @@ const BurgerConstructor = () => {
         console.log(error);
       })
   }
-
-  useEffect(() => {
-    setPriceTotal(bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0))
-  }, [otherIngredients, bun])
 
   return (
     <>
@@ -94,7 +88,7 @@ const BurgerConstructor = () => {
       </section>
       {isOpen &&
         <Modal active={isOpen} setActive={setIsOpen} header={''}>
-          <OrderDetails />
+          <OrderDetails orderNumber={orderNumber} />
         </Modal>}
     </>
   )

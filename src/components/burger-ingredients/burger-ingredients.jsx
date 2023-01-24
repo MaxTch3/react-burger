@@ -1,16 +1,16 @@
-import React, {useContext} from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css'
 import Ingredient from './ingredient/ingredient.jsx';
 import PropTypes from 'prop-types';
 import { IngredientsContext } from '../../services/ingredientsContext';
 
-const BurgerIngredients = ({ setDataModal, dataModal} ) => {
+const BurgerIngredients = ({ setDataModal, dataModal }) => {
   const data = useContext(IngredientsContext);
   const [current, setCurrent] = React.useState('bun');
-  const bunData = data.filter((item) => item.type === 'bun');
-  const sauceData = data.filter((item) => item.type === 'sauce');
-  const mainData = data.filter((item) => item.type === 'main');
+  const bunData = useMemo(() => (data.filter((item) => item.type === 'bun')), [data]);
+  const sauceData = useMemo(() => (data.filter((item) => item.type === 'sauce')), [data]);
+  const mainData = useMemo(() => (data.filter((item) => item.type === 'main')), [data]);
   const bun = React.useRef();
   const sauce = React.useRef();
   const main = React.useRef();
@@ -39,21 +39,21 @@ const BurgerIngredients = ({ setDataModal, dataModal} ) => {
         <div className={styles.ingredients_section}>
           {
             bunData.map((item) =>
-              <Ingredient key={item._id} item={item} setDataModal={setDataModal} dataModal={dataModal}/>)
+              <Ingredient key={item._id} item={item} setDataModal={setDataModal} dataModal={dataModal} />)
           }
         </div>
         <h3 ref={sauce} className='text text_type_main-medium mt-10'>Соусы</h3>
         <div className={styles.ingredients_section}>
           {
             sauceData.map((item) =>
-              <Ingredient key={item._id} item={item} setDataModal={setDataModal} dataModal={dataModal}/>)
+              <Ingredient key={item._id} item={item} setDataModal={setDataModal} dataModal={dataModal} />)
           }
         </div>
         <h3 ref={main} className='text text_type_main-medium mt-10'>Начинки</h3>
         <div className={styles.ingredients_section}>
           {
             mainData.map((item) =>
-              <Ingredient key={item._id} item={item} setDataModal={setDataModal} dataModal={dataModal}/>)
+              <Ingredient key={item._id} item={item} setDataModal={setDataModal} dataModal={dataModal} />)
           }
         </div>
       </div>

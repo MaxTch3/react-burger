@@ -1,10 +1,6 @@
 import styles from './order-details.module.css';
-import { useContext } from 'react';
-import { OrderContext } from '../../services/orderContext';
 
-
-const OrderDetails = () => {
-const [orderNumber] = useContext(OrderContext)
+const OrderDetails = ({ orderNumber }) => {
   return (
     <div className={styles.container}>
       <p className='text text_type_digits-large' style={{ texAlign: 'center' }}>{orderNumber}</p>
