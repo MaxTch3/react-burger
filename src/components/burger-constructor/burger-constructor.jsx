@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types';
+import { useContext, useState, useMemo } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import {
   CurrencyIcon,
   DragIcon,
@@ -6,110 +7,91 @@ import {
   Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
-import { ingredientsType } from '../../utils/componentTypes';
+import { IngredientsContext } from '../../services/ingredientsContext';
+import { postOrderData } from '../../utils/burgers-api';
+import Modal from '../modal/modal';
+import OrderDetails from '../order-details/order-details';
 
-const BurgerConstructor = ({ data, openModal, setModal }) => {
-  const bun = data[0];
-  const ingredient1 = data[3];
-  const ingredient2 = data[4];
-  const ingredient3 = data[7];
-  const ingredient4 = data[9];
-  const ingredient5 = data[11];
+const BurgerConstructor = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const data = useContext(IngredientsContext);
+  const [orderNumber, setOrderNumber] = useState(null);
+  const buns = useMemo(() => (data.filter((item) => item.type === 'bun')), [data]);
+  const bun = buns[1];
+  const otherIngredients = useMemo(() => (data.filter((item) => item.type !== 'bun').slice(1, 5)), [data]);
+  const priceTotal = useMemo(() => (bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0)), [otherIngredients, bun])
+
+  const handleOrder = () => {
+    const orderData = [bun._id].concat(otherIngredients.map((item) => item._id));
+    postOrderData(orderData)
+      .then((data) => {
+        setOrderNumber(data.order.number);
+        setIsOpen(true);
+
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
 
   return (
-    <section className='pt-25 pl-4'>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: 'calc(65vh - 56px)' }}>
-        <div className='pl-8'>
-          <ConstructorElement
-            type='top'
-            isLocked={true}
-            text={`${bun?.name || ''}\n` + '(верх)'}
-            price={Number(bun?.price)}
-            thumbnail={String(bun?.image)}
-          />
-        </div>
-        <div className={styles.sauce_and_main + ' pr-4'}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <DragIcon type='primary' />
+    <>
+      <section className='pt-25 pl-4'>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: 'calc(65vh - 56px)' }}>
+          <div className='pl-8'>
             <ConstructorElement
-              text={String(ingredient1?.name)}
-              price={Number(ingredient1?.price)}
-              thumbnail={String(ingredient1?.image)}
-              extraClass='ml-2'
+              type='top'
+              isLocked={true}
+              text={`${bun?.name || ''}\n(верх)`}
+              price={Number(bun?.price)}
+              thumbnail={String(bun?.image)}
             />
           </div>
-
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <DragIcon type='primary' />
-            <ConstructorElement
-              text={String(ingredient2?.name)}
-              price={Number(ingredient2?.price)}
-              thumbnail={String(ingredient2?.image)}
-              extraClass='ml-2'
-            />
+          <div className={styles.sauce_and_main + ' pr-4'}>
+            {
+              otherIngredients.map((item) => (
+                <div style={{ display: 'flex', alignItems: 'center' }} key={uuidv4()}>
+                  <DragIcon type='primary' />
+                  <ConstructorElement
+                    text={String(item?.name)}
+                    price={Number(item?.price)}
+                    thumbnail={String(item?.image)}
+                    extraClass='ml-2'
+                  />
+                </div>
+              ))
+            }
           </div>
-
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <DragIcon type='primary' />
+          <div className='pl-8'>
             <ConstructorElement
-              text={String(ingredient3?.name)}
-              price={Number(ingredient3?.price)}
-              thumbnail={String(ingredient3?.image)}
-              extraClass='ml-2'
-            />
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <DragIcon type='primary' />
-            <ConstructorElement
-              text={String(ingredient4?.name)}
-              price={Number(ingredient4?.price)}
-              thumbnail={String(ingredient4?.image)}
-              extraClass='ml-2'
-            />
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <DragIcon type='primary' />
-            <ConstructorElement
-              text={String(ingredient5?.name)}
-              price={Number(ingredient5?.price)}
-              thumbnail={String(ingredient5?.image)}
-              extraClass='ml-2'
+              type='bottom'
+              isLocked={true}
+              text={`${bun?.name || ''}\n(низ)`}
+              price={Number(bun?.price)}
+              thumbnail={String(bun?.image)}
             />
           </div>
         </div>
-
-        <div className='pl-8'>
-          <ConstructorElement
-            type='bottom'
-            isLocked={true}
-            text={`${bun?.name || ''}\n` + '(низ)'}
-            price={Number(bun?.price)}
-            thumbnail={String(bun?.image)}
-          />
+        <div style={{
+          display: 'flex',
+          justifyContent: 'end',
+          alignItems: 'center'
+        }}
+          className='pt-10 pr-4'>
+          <p className='text text_type_digits-medium mr-2'>{String(priceTotal)}</p>
+          <CurrencyIcon type='primary' />
+          <Button htmlType='button' type='primary' size='large' extraClass='ml-10'
+            onClick={handleOrder}>
+            Оформить заказ
+          </Button>
         </div>
-      </div>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'end',
-        alignItems: 'center'
-      }} className='pt-10 pr-4'>
-        <p className='text text_type_digits-medium mr-2'>5336</p>
-        <CurrencyIcon type='primary' />
-        <Button htmlType='button' type='primary' size='large' extraClass='ml-10'
-          onClick={() => { setModal(2); openModal() }}>
-          Оформить заказ
-        </Button>
-      </div>
-
-    </section>
+      </section>
+      {isOpen &&
+        <Modal active={isOpen} setActive={setIsOpen} header={''}>
+          <OrderDetails orderNumber={orderNumber} />
+        </Modal>}
+    </>
   )
-}
-
-BurgerConstructor.propTypes = {
-  data: ingredientsType,
-  openModal: PropTypes.func.isRequired,
-  setModal: PropTypes.func.isRequired,
 }
 
 export default BurgerConstructor;
