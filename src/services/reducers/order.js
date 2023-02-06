@@ -3,3 +3,10 @@ const initialState = {
   orderRequest: false,
   orderFailed: false
 }
+
+export const order = (state = initialState, action) => {
+  switch (action.type) {
+
+    default: return state
+  }
+}

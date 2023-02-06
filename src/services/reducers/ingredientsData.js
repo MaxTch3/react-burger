@@ -3,3 +3,12 @@ const initialState = {
   dataRequest: false,
   dataFailed: false,
 }
+
+export const ingredientsData = (state = initialState, action) => {
+  switch (action.type) {
+
+    default: return state
+  }
+}
+
+
