@@ -2,10 +2,9 @@ import React, { useMemo } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css'
 import Ingredient from './ingredient/ingredient.jsx';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-const BurgerIngredients = ({ setDataModal, dataModal }) => {
+const BurgerIngredients = () => {
   const { data } = useSelector((state) => state.ingredientsData);
   const [current, setCurrent] = React.useState('bun');
   const bunData = useMemo(() => (data.filter((item) => item.type === 'bun')), [data]);
@@ -39,31 +38,26 @@ const BurgerIngredients = ({ setDataModal, dataModal }) => {
         <div className={styles.ingredients_section}>
           {
             bunData.map((item) =>
-              <Ingredient key={item._id} item={item} setDataModal={setDataModal} dataModal={dataModal} />)
+              <Ingredient key={item._id} item={item}  />)
           }
         </div>
         <h3 ref={sauce} className='text text_type_main-medium mt-10'>Соусы</h3>
         <div className={styles.ingredients_section}>
           {
             sauceData.map((item) =>
-              <Ingredient key={item._id} item={item} setDataModal={setDataModal} dataModal={dataModal} />)
+              <Ingredient key={item._id} item={item}  />)
           }
         </div>
         <h3 ref={main} className='text text_type_main-medium mt-10'>Начинки</h3>
         <div className={styles.ingredients_section}>
           {
             mainData.map((item) =>
-              <Ingredient key={item._id} item={item} setDataModal={setDataModal} dataModal={dataModal} />)
+              <Ingredient key={item._id} item={item}  />)
           }
         </div>
       </div>
     </div>
   )
 };
-
-BurgerIngredients.propTypes = {
-  setDataModal: PropTypes.func.isRequired,
-  dataModal: PropTypes.string
-}
 
 export default BurgerIngredients;

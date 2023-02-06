@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { getIngredientsData } from '../../services/actions/ingredientsData.js';
 
 function App() {
-  const [dataModal, setDataModal] = React.useState('');
+  //const [dataModal, setDataModal] = React.useState('');
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -19,8 +19,8 @@ function App() {
       <AppHeader />
       <main className={styles.main} >
         <BurgerIngredients
-          setDataModal={setDataModal}
-          dataModal={dataModal}
+          // setDataModal={setDataModal}
+          // dataModal={dataModal}
         />
         <BurgerConstructor />
       </main>

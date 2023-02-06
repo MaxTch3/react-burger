@@ -1,17 +1,20 @@
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient.module.css';
-import PropTypes from 'prop-types';
 import { ingredientType } from '../../../utils/componentTypes';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { GET_INGREDIENT_CURRENT_INFO } from '../../../services/actions/ingredientCurrentInfo.js';
 
-const Ingredient = ({ item, setDataModal, dataModal }) => {
+const Ingredient = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+
   return (
     <>
       <div className={styles.ingredient_card + ' ml-3 mr-3'} onClick={() => {
-        setDataModal(item._id);
+        dispatch({ type: GET_INGREDIENT_CURRENT_INFO, item })
         setIsOpen(true)
       }}>
         {
@@ -27,16 +30,15 @@ const Ingredient = ({ item, setDataModal, dataModal }) => {
       </div>
       {isOpen &&
         <Modal setActive={setIsOpen} header={'Детали ингредиента'}>
-          <IngredientDetails itemId={dataModal} />
-        </Modal>}
+          <IngredientDetails />
+        </Modal>
+      }
     </>
   )
 };
 
 Ingredient.propTypes = {
-  item: ingredientType,
-  setDataModal: PropTypes.func.isRequired,
-  dataModal: PropTypes.string.isRequired
+  item: ingredientType
 };
 
 export default Ingredient;

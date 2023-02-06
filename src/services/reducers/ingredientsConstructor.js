@@ -1,5 +1,5 @@
 const initialState = {
-  bun: {},
+  bun: [],
   otherIngredients: []
 }
 

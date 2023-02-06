@@ -15,7 +15,7 @@ const Modal = ({ setActive, header, children }) => {
       setActive(false);
     };
     setAnimation(false);
-    setTimeout(closeModal, 300)
+    setTimeout(closeModal, 300);
   }
 
   React.useEffect(() => {
