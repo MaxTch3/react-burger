@@ -1,20 +1,15 @@
-import { useContext, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  CurrencyIcon,
-  DragIcon,
-  ConstructorElement,
-  Button
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
-import { IngredientsContext } from '../../services/ingredientsContext';
 import { postOrderData } from '../../utils/burgers-api';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
+import { useSelector } from 'react-redux';
 
 const BurgerConstructor = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const data = useContext(IngredientsContext);
+  const { data } = useSelector((state) => state.ingredientsData);
   const [orderNumber, setOrderNumber] = useState(null);
   const buns = useMemo(() => (data.filter((item) => item.type === 'bun')), [data]);
   const bun = buns[1];
@@ -27,13 +22,12 @@ const BurgerConstructor = () => {
       .then((data) => {
         setOrderNumber(data.order.number);
         setIsOpen(true);
-
       })
       .catch((error) => {
         console.log(error);
       })
   }
-
+  
   return (
     <>
       <section className='pt-25 pl-4'>

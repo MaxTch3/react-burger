@@ -1,12 +1,12 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css'
 import Ingredient from './ingredient/ingredient.jsx';
 import PropTypes from 'prop-types';
-import { IngredientsContext } from '../../services/ingredientsContext';
+import { useSelector } from 'react-redux';
 
 const BurgerIngredients = ({ setDataModal, dataModal }) => {
-  const data = useContext(IngredientsContext);
+  const { data } = useSelector((state) => state.ingredientsData);
   const [current, setCurrent] = React.useState('bun');
   const bunData = useMemo(() => (data.filter((item) => item.type === 'bun')), [data]);
   const sauceData = useMemo(() => (data.filter((item) => item.type === 'sauce')), [data]);

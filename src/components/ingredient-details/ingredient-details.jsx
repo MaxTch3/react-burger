@@ -1,10 +1,10 @@
-import { useContext } from 'react';
 import styles from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
-import { IngredientsContext } from '../../services/ingredientsContext';
+import { useSelector } from 'react-redux';
 
 const IngredientDetails = ({ itemId }) => {
-  const data = useContext(IngredientsContext);
+  const { data } = useSelector((state) => state.ingredientsData);
+
   const itemData = data.find(el => el._id === itemId);
   return (
     <div className={styles.container + ' pl-10 pr-10 pb-15'}>
