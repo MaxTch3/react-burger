@@ -1,7 +1,8 @@
+import { useSelector } from 'react-redux';
 import styles from './order-details.module.css';
-import PropTypes from 'prop-types';
 
-const OrderDetails = ({ orderNumber }) => {
+const OrderDetails = () => {
+  const orderNumber = useSelector(state => state.order.orderNumber);
   return (
     <div className={styles.container}>
       <p className='text text_type_digits-large' style={{ texAlign: 'center' }}>{orderNumber}</p>
@@ -13,7 +14,4 @@ const OrderDetails = ({ orderNumber }) => {
   )
 }
 
-OrderDetails.propTypes = {
-  orderNumber: PropTypes.number.isRequired
-}
 export default OrderDetails;

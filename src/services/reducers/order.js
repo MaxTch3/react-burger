@@ -1,3 +1,10 @@
+import {
+  GET_ORDER_FAILED,
+  GET_ORDER_REQUEST,
+  GET_ORDER_SUCCESS
+} from "../actions/order.js"
+
+
 const initialState = {
   orderNumber: 0,
   orderRequest: false,
@@ -6,7 +13,21 @@ const initialState = {
 
 export const order = (state = initialState, action) => {
   switch (action.type) {
-
-    default: return state
+    case GET_ORDER_REQUEST: {
+      return {
+        ...state, orderRequest: true
+      }
+    }
+    case GET_ORDER_SUCCESS: {
+      return {
+        ...state, orderNumber: action.orderNumber, orderRequest: false
+      }
+    }
+    case GET_ORDER_FAILED: {
+      return {
+        ...state, orderRequest: false, orderFailed: true
+      }
+    }
+    default: { return state }
   }
 }

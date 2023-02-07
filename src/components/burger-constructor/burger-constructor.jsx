@@ -1,16 +1,16 @@
 import { useState, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './burger-constructor.module.css';
-import { postOrderData } from '../../utils/burgers-api';
+import styles from './burger-constructor.module.css'
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getOrderData } from '../../services/actions/order.js';
 
 const BurgerConstructor = () => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const { data } = useSelector((state) => state.ingredientsData);
-  const [orderNumber, setOrderNumber] = useState(null);
   const buns = useMemo(() => (data.filter((item) => item.type === 'bun')), [data]);
   const bun = buns[1];
   const otherIngredients = useMemo(() => (data.filter((item) => item.type !== 'bun').slice(1, 5)), [data]);
@@ -18,16 +18,10 @@ const BurgerConstructor = () => {
 
   const handleOrder = () => {
     const orderData = [bun._id].concat(otherIngredients.map((item) => item._id));
-    postOrderData(orderData)
-      .then((data) => {
-        setOrderNumber(data.order.number);
-        setIsOpen(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+    dispatch(getOrderData(orderData));
+    setIsOpen(true);
   }
-  
+
   return (
     <>
       <section className='pt-25 pl-4'>
@@ -82,7 +76,7 @@ const BurgerConstructor = () => {
       </section>
       {isOpen &&
         <Modal active={isOpen} setActive={setIsOpen} header={''}>
-          <OrderDetails orderNumber={orderNumber} />
+          <OrderDetails />
         </Modal>}
     </>
   )
