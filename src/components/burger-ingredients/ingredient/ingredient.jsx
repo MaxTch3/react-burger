@@ -5,11 +5,14 @@ import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { GET_INGREDIENT_CURRENT_INFO } from '../../../services/actions/ingredientCurrentInfo.js';
+import { GET_INGREDIENT_CURRENT_INFO, REMOVE_INGREDIENT_CURRENT_INFO } from '../../../services/actions/ingredientCurrentInfo.js';
 
 const Ingredient = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+  function onClose () {
+    dispatch({type: REMOVE_INGREDIENT_CURRENT_INFO})
+  }
 
   return (
     <>
@@ -29,7 +32,7 @@ const Ingredient = ({ item }) => {
         <div style={{ textAlign: 'center' }} className='text text_type_main-default pt-1'>{item.name}</div>
       </div>
       {isOpen &&
-        <Modal setActive={setIsOpen} header={'Детали ингредиента'}>
+        <Modal setActive={setIsOpen} onClose={onClose} header={'Детали ингредиента'}>
           <IngredientDetails />
         </Modal>
       }

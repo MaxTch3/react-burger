@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import ModalHeader from './modal-header/modal-header';
 
 
-const Modal = ({ setActive, header, children }) => {
+const Modal = ({ setActive, onClose, header, children }) => {
 
   const [animation, setAnimation] = useState(true);
 
@@ -15,7 +15,9 @@ const Modal = ({ setActive, header, children }) => {
       setActive(false);
     };
     setAnimation(false);
-    setTimeout(closeModal, 300);
+    setTimeout(() => {
+      closeModal();
+      setTimeout(onClose, 1)}, 300);
   }
 
   React.useEffect(() => {
