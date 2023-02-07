@@ -10,6 +10,21 @@ const BurgerIngredients = () => {
   const bunData = useMemo(() => (data.filter((item) => item.type === 'bun')), [data]);
   const sauceData = useMemo(() => (data.filter((item) => item.type === 'sauce')), [data]);
   const mainData = useMemo(() => (data.filter((item) => item.type === 'main')), [data]);
+
+  const scrollPoints = () => {
+    const bunsPoint = document.getElementById('buns-box').getBoundingClientRect().top;
+    const saucesPoint = document.getElementById('sauces-box').getBoundingClientRect().top;
+    const mainPoint = document.getElementById('main-box').getBoundingClientRect().top;
+    const startPoint = document.getElementById('start-box').getBoundingClientRect().top;
+    if (Math.abs(startPoint - bunsPoint) < Math.abs(startPoint - saucesPoint)) {
+      setCurrent('bun')
+    } else if (Math.abs(startPoint - saucesPoint) < Math.abs(startPoint - mainPoint)) {
+      setCurrent('sauce')
+    } else {
+      setCurrent('main')
+    }
+  }
+
   const bun = React.useRef();
   const sauce = React.useRef();
   const main = React.useRef();
@@ -18,10 +33,12 @@ const BurgerIngredients = () => {
   const viewSauce = () => sauce.current.scrollIntoView({ behavior: 'smooth' });
   const viewMain = () => main.current.scrollIntoView({ behavior: 'smooth' });
 
+
+
   return (
     <div>
       <h2 className='text text_type_main-large pt-10'>Соберите бургер</h2>
-      <div className='pt-5' style={{ display: 'flex' }}>
+      <div className='pt-5' style={{ display: 'flex' }} id='start-box'>
         <Tab value='bun' active={current === 'bun'} onClick={() => { setCurrent('bun'); viewBuns() }}>
           Булки
         </Tab>
@@ -33,26 +50,26 @@ const BurgerIngredients = () => {
         </Tab>
       </div>
       <div className='pt-10'></div>
-      <div className={styles.containerIngredients + ' pl-1 pr-1'}>
+      <div className={styles.containerIngredients + ' pl-1 pr-1'} onScroll={scrollPoints}>
         <h3 ref={bun} className='text text_type_main-medium'>Булки</h3>
-        <div className={styles.ingredients_section}>
+        <div className={styles.ingredients_section} id='buns-box'>
           {
             bunData.map((item) =>
-              <Ingredient key={item._id} item={item}  />)
+              <Ingredient key={item._id} item={item} />)
           }
         </div>
         <h3 ref={sauce} className='text text_type_main-medium mt-10'>Соусы</h3>
-        <div className={styles.ingredients_section}>
+        <div className={styles.ingredients_section} id='sauces-box'>
           {
             sauceData.map((item) =>
-              <Ingredient key={item._id} item={item}  />)
+              <Ingredient key={item._id} item={item} />)
           }
         </div>
         <h3 ref={main} className='text text_type_main-medium mt-10'>Начинки</h3>
-        <div className={styles.ingredients_section}>
+        <div className={styles.ingredients_section} id='main-box'>
           {
             mainData.map((item) =>
-              <Ingredient key={item._id} item={item}  />)
+              <Ingredient key={item._id} item={item} />)
           }
         </div>
       </div>
