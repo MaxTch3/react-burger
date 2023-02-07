@@ -13,12 +13,13 @@ const BurgerIngredients = () => {
 
   const scrollPoints = () => {
     const bunsPoint = document.getElementById('buns-box').getBoundingClientRect().top;
+    const bunsHeight = document.getElementById('buns-box').getBoundingClientRect().height;
     const saucesPoint = document.getElementById('sauces-box').getBoundingClientRect().top;
     const mainPoint = document.getElementById('main-box').getBoundingClientRect().top;
     const startPoint = document.getElementById('start-box').getBoundingClientRect().top;
     if (Math.abs(startPoint - bunsPoint) < Math.abs(startPoint - saucesPoint)) {
       setCurrent('bun')
-    } else if (Math.abs(startPoint - saucesPoint) < Math.abs(startPoint - mainPoint)) {
+    } else if (Math.abs(startPoint - saucesPoint - bunsHeight) < Math.abs(startPoint - mainPoint)) {
       setCurrent('sauce')
     } else {
       setCurrent('main')
