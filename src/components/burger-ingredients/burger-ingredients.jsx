@@ -34,8 +34,6 @@ const BurgerIngredients = () => {
   const viewSauce = () => sauce.current.scrollIntoView({ behavior: 'smooth' });
   const viewMain = () => main.current.scrollIntoView({ behavior: 'smooth' });
 
-
-
   return (
     <div>
       <h2 className='text text_type_main-large pt-10'>Соберите бургер</h2>
