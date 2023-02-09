@@ -7,9 +7,21 @@ import { useSelector } from 'react-redux';
 const BurgerIngredients = () => {
   const { data } = useSelector((state) => state.ingredientsData);
   const [current, setCurrent] = React.useState('bun');
+  const { bun, otherIngredients } = useSelector((state) => state.ingredientsConstructor);
+
   const bunData = useMemo(() => (data.filter((item) => item.type === 'bun')), [data]);
   const sauceData = useMemo(() => (data.filter((item) => item.type === 'sauce')), [data]);
   const mainData = useMemo(() => (data.filter((item) => item.type === 'main')), [data]);
+  
+  const counters = useMemo(() => {
+    const repetitions = {};
+    if (bun) repetitions[bun._id] = 2;
+    otherIngredients.forEach((otherIngredient) => {
+      if (!repetitions[otherIngredient._id]) { repetitions[otherIngredient._id] = 0 };
+      repetitions[otherIngredient._id] += 1
+    });
+    return repetitions;
+  }, [bun, otherIngredients]);
 
   const scrollPoints = () => {
     const bunsPoint = document.getElementById('buns-box').getBoundingClientRect().top;
@@ -17,6 +29,7 @@ const BurgerIngredients = () => {
     const saucesPoint = document.getElementById('sauces-box').getBoundingClientRect().top;
     const mainPoint = document.getElementById('main-box').getBoundingClientRect().top;
     const startPoint = document.getElementById('start-box').getBoundingClientRect().top;
+
     if (Math.abs(startPoint - bunsPoint) < Math.abs(startPoint - saucesPoint)) {
       setCurrent('bun')
     } else if (Math.abs(startPoint - saucesPoint - bunsHeight) < Math.abs(startPoint - mainPoint)) {
@@ -26,13 +39,13 @@ const BurgerIngredients = () => {
     }
   }
 
-  const bun = React.useRef();
-  const sauce = React.useRef();
-  const main = React.useRef();
+  const bunRef = React.useRef();
+  const sauceRef = React.useRef();
+  const mainRef = React.useRef();
 
-  const viewBuns = () => bun.current.scrollIntoView({ behavior: 'smooth' });
-  const viewSauce = () => sauce.current.scrollIntoView({ behavior: 'smooth' });
-  const viewMain = () => main.current.scrollIntoView({ behavior: 'smooth' });
+  const viewBuns = () => bunRef.current.scrollIntoView({ behavior: 'smooth' });
+  const viewSauce = () => sauceRef.current.scrollIntoView({ behavior: 'smooth' });
+  const viewMain = () => mainRef.current.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <div>
@@ -50,25 +63,25 @@ const BurgerIngredients = () => {
       </div>
       <div className='pt-10'></div>
       <div className={styles.containerIngredients + ' pl-1 pr-1'} onScroll={scrollPoints}>
-        <h3 ref={bun} className='text text_type_main-medium'>Булки</h3>
+        <h3 ref={bunRef} className='text text_type_main-medium'>Булки</h3>
         <div className={styles.ingredients_section} id='buns-box'>
           {
             bunData.map((item) =>
-              <Ingredient key={item._id} item={item} />)
+              <Ingredient key={item._id} item={item} count={counters[item._id]} />)
           }
         </div>
-        <h3 ref={sauce} className='text text_type_main-medium mt-10'>Соусы</h3>
+        <h3 ref={sauceRef} className='text text_type_main-medium mt-10'>Соусы</h3>
         <div className={styles.ingredients_section} id='sauces-box'>
           {
             sauceData.map((item) =>
-              <Ingredient key={item._id} item={item} />)
+              <Ingredient key={item._id} item={item} count={counters[item._id]} />)
           }
         </div>
-        <h3 ref={main} className='text text_type_main-medium mt-10'>Начинки</h3>
+        <h3 ref={mainRef} className='text text_type_main-medium mt-10'>Начинки</h3>
         <div className={styles.ingredients_section} id='main-box'>
           {
             mainData.map((item) =>
-              <Ingredient key={item._id} item={item} />)
+              <Ingredient key={item._id} item={item} count={counters[item._id]} />)
           }
         </div>
       </div>

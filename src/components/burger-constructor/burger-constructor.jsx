@@ -14,16 +14,21 @@ const BurgerConstructor = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
-    drop(item) { dispatch({ type: ADD_INGREDIENT, item }) }
+    drop(item) {
+      dispatch({ type: ADD_INGREDIENT, item })
+    }
   });
   const [, dropTargetInEmptyBlock] = useDrop({
     accept: 'ingredient',
     drop(item) {
-      dispatch({ type: ADD_INGREDIENT, item });
+      dispatch({ type: ADD_INGREDIENT, item })
     }
   });
 
-  const { bun, otherIngredients } = useSelector(state => state.ingredientsConstructor)
+  const { bun, otherIngredients } = useSelector(state => state.ingredientsConstructor);
+
+
+
   const priceTotal = useMemo(() => (bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0)), [otherIngredients, bun])
 
   const handleOrder = () => {

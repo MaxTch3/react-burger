@@ -8,7 +8,7 @@ import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { GET_INGREDIENT_CURRENT_INFO, REMOVE_INGREDIENT_CURRENT_INFO } from '../../../services/actions/ingredientCurrentInfo.js';
 
-const Ingredient = ({ item }) => {
+const Ingredient = ({ item, count }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const [{ opacity }, ref] = useDrag({
@@ -34,8 +34,8 @@ const Ingredient = ({ item }) => {
         ref={ref}
         style={{ opacity }}
       >
-        {
-          <Counter count={1} size='default' extraClass='m-1' />
+        { count > 0 &&
+          <Counter count={count} size='default' extraClass='m-1' />
         }
 
         <img className={'ml-4 mr-4 ' + styles.ingredient_image} src={item.image} alt={item.name} />
