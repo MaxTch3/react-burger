@@ -7,7 +7,7 @@ import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktiku
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { getOrderData } from '../../services/actions/order.js';
-import { ADD_INGREDIENT } from '../../services/actions/ingredientsConstructor';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT } from '../../services/actions/ingredientsConstructor';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -68,6 +68,9 @@ const BurgerConstructor = () => {
                       price={Number(item?.price)}
                       thumbnail={String(item?.image)}
                       extraClass='ml-2'
+                      handleClose={() => {
+                        dispatch({type: REMOVE_INGREDIENT, item})
+                      }}
                     />
                   </div>
                 ))
