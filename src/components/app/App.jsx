@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import styles from './App.module.css';
 import AppHeader from '../app-header/app-header'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.jsx'
 import BurgerConstructor from '../burger-constructor/burger-constructor.jsx'
-import styles from './App.module.css';
 import { getIngredientsData } from '../../services/actions/ingredientsData.js';
 
 function App() {

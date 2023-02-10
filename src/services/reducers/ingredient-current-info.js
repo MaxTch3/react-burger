@@ -1,7 +1,7 @@
 import {
   GET_INGREDIENT_CURRENT_INFO,
   REMOVE_INGREDIENT_CURRENT_INFO
-} from '../actions/ingredientCurrentInfo.js'
+} from '../actions/ingredient-current-info.js'
 
 const initialState = {
   item: null

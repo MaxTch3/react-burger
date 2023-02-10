@@ -17,7 +17,8 @@ const Modal = ({ setActive, onClose, header, children }) => {
     setAnimation(false);
     setTimeout(() => {
       closeModal();
-      setTimeout(onClose, 1)}, 300);
+      setTimeout(onClose, 1)
+    }, 300);
   }
 
   React.useEffect(() => {
@@ -32,7 +33,7 @@ const Modal = ({ setActive, onClose, header, children }) => {
 
   return createPortal(
     <>
-      <ModalOverlay animation={animation} closeModalAnimation={closeModalAnimation}  />
+      <ModalOverlay animation={animation} closeModalAnimation={closeModalAnimation} />
       <div className={animation ? `${styles.wrapper} ${styles.wrapper_active}` : `${styles.wrapper}`}>
         <div
           className={animation ? `${styles.modal__content} ${styles.modal__content_active}` : `${styles.modal__content}`}

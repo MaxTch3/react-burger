@@ -1,13 +1,13 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import { v4 as uuidv4 } from 'uuid';
 import styles from './burger-constructor.module.css';
-import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { getOrderData } from '../../services/actions/order.js';
-import { ADD_INGREDIENT, REMOVE_INGREDIENT } from '../../services/actions/ingredientsConstructor';
+import { ADD_INGREDIENT, MOVE_INGREDIENT } from '../../services/actions/ingredients-constructor';
+import { DraggableElement } from './draggable-element/draggable-element';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -27,15 +27,21 @@ const BurgerConstructor = () => {
 
   const { bun, otherIngredients } = useSelector(state => state.ingredientsConstructor);
 
-
-
-  const priceTotal = useMemo(() => (bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0)), [otherIngredients, bun])
+  const priceTotal = useMemo(() => (
+    bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0)), [otherIngredients, bun])
 
   const handleOrder = () => {
-    const orderData = [bun._id].concat(otherIngredients.map((item) => item._id));
+    const orderData = [bun._id].concat(otherIngredients.map((item) => item._id)).concat([bun._id]);
     dispatch(getOrderData(orderData));
     setIsOpen(true);
   }
+
+  const moveList = useCallback(
+    (dragIndex, hoverIndex) => {
+      dispatch({ type: MOVE_INGREDIENT, dragIndex, hoverIndex })
+    },
+    [dispatch],
+  )
 
   return (
     <>
@@ -60,19 +66,8 @@ const BurgerConstructor = () => {
             }
             <div className={styles.sauce_and_main + ' pr-4'}>
               {
-                otherIngredients.map((item) => (
-                  <div style={{ display: 'flex', alignItems: 'center' }} key={uuidv4()}>
-                    <DragIcon type='primary' />
-                    <ConstructorElement
-                      text={String(item?.name)}
-                      price={Number(item?.price)}
-                      thumbnail={String(item?.image)}
-                      extraClass='ml-2'
-                      handleClose={() => {
-                        dispatch({type: REMOVE_INGREDIENT, item})
-                      }}
-                    />
-                  </div>
+                otherIngredients.map((item, index) => (
+                  <DraggableElement item={item} index={index} key={item.id} moveList={moveList} />
                 ))
               }
             </div>
