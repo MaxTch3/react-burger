@@ -14,4 +14,3 @@ ModalOverlay.propTypes = {
 }
 
 export default ModalOverlay;
-

@@ -1,10 +1,13 @@
-import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { REMOVE_INGREDIENT } from "../../../services/actions/ingredients-constructor";
+import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
+import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { REMOVE_INGREDIENT } from "../../../services/actions/ingredients-constructor";
+import { ingredientType } from '../../../utils/componentTypes';
 
-export const DraggableElement = ({ item, index, moveList }) => {
+const DraggableElement = ({ item, index, moveList }) => {
+  
   const dispatch = useDispatch();
 
   const [{ isDragging }, dragRef] = useDrag({
@@ -20,19 +23,19 @@ export const DraggableElement = ({ item, index, moveList }) => {
     hover: (item, monitor) => {
       const hoverIndex = index;
       const dragIndex = item.index;
-      const hoverBoundingRect = ref.current?.getBoundingClientRect()
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-      const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top
-      if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
-      if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
-      moveList(dragIndex, hoverIndex)
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top;
+      if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return;
+      if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return;
+      moveList(dragIndex, hoverIndex);
       item.index = hoverIndex
     },
   })
 
-  const ref = useRef(null)
-  const dragDropRef = dragRef(dropRef(ref))
-  const opacity = isDragging ? 0 : 1
+  const ref = useRef(null);
+  const dragDropRef = dragRef(dropRef(ref));
+  const opacity = isDragging ? 0 : 1;
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', opacity }}
@@ -52,3 +55,11 @@ export const DraggableElement = ({ item, index, moveList }) => {
     </div>
   )
 }
+
+DraggableElement.propTypes = {
+  item: ingredientType,
+  index: PropTypes.number.isRequired,
+  moveList: PropTypes.func.isRequired
+};
+
+export default DraggableElement;

@@ -6,7 +6,7 @@ import styles from './App.module.css';
 import AppHeader from '../app-header/app-header'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.jsx'
 import BurgerConstructor from '../burger-constructor/burger-constructor.jsx'
-import { getIngredientsData } from '../../services/actions/ingredientsData.js';
+import { getIngredientsData } from '../../services/actions/ingredients-data.js';
 
 function App() {
   const dispatch = useDispatch();

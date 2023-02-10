@@ -6,18 +6,24 @@ import { CurrencyIcon, ConstructorElement, Button } from '@ya.praktikum/react-de
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { getOrderData } from '../../services/actions/order.js';
-import { ADD_INGREDIENT, MOVE_INGREDIENT, RESET_INGREDIENTS } from '../../services/actions/ingredients-constructor';
-import { DraggableElement } from './draggable-element/draggable-element';
+import {
+  ADD_INGREDIENT,
+  MOVE_INGREDIENT,
+  RESET_INGREDIENTS
+} from '../../services/actions/ingredients-constructor';
+import DraggableElement from './draggable-element/draggable-element';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(item) {
       dispatch({ type: ADD_INGREDIENT, item })
     }
   });
+
   const [, dropTargetInEmptyBlock] = useDrop({
     accept: 'ingredient',
     drop(item) {
@@ -41,10 +47,12 @@ const BurgerConstructor = () => {
       dispatch({ type: MOVE_INGREDIENT, dragIndex, hoverIndex })
     },
     [dispatch],
-  )
+  );
+
   const onClose = () => {
     dispatch({ type: RESET_INGREDIENTS })
   }
+
   return (
     <>
       <section className='pt-25 pl-4'>
