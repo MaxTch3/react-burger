@@ -1,94 +1,120 @@
-import { useContext, useState, useMemo } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import {
-  CurrencyIcon,
-  DragIcon,
-  ConstructorElement,
-  Button
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { useState, useMemo, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from 'react-dnd';
 import styles from './burger-constructor.module.css';
-import { IngredientsContext } from '../../services/ingredientsContext';
-import { postOrderData } from '../../utils/burgers-api';
+import { CurrencyIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
+import { getOrderData } from '../../services/actions/order.js';
+import {
+  ADD_INGREDIENT,
+  MOVE_INGREDIENT,
+  RESET_INGREDIENTS
+} from '../../services/actions/ingredients-constructor';
+import DraggableElement from './draggable-element/draggable-element';
 
 const BurgerConstructor = () => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const data = useContext(IngredientsContext);
-  const [orderNumber, setOrderNumber] = useState(null);
-  const buns = useMemo(() => (data.filter((item) => item.type === 'bun')), [data]);
-  const bun = buns[1];
-  const otherIngredients = useMemo(() => (data.filter((item) => item.type !== 'bun').slice(1, 5)), [data]);
-  const priceTotal = useMemo(() => (bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0)), [otherIngredients, bun])
+
+  const [, dropTarget] = useDrop({
+    accept: 'ingredient',
+    drop(item) {
+      dispatch({ type: ADD_INGREDIENT, item })
+    }
+  });
+
+  const [, dropTargetInEmptyBlock] = useDrop({
+    accept: 'ingredient',
+    drop(item) {
+      dispatch({ type: ADD_INGREDIENT, item })
+    }
+  });
+
+  const { bun, otherIngredients } = useSelector(state => state.ingredientsConstructor);
+
+  const priceTotal = useMemo(() => (
+    bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0)), [otherIngredients, bun]);
+
 
   const handleOrder = () => {
-    const orderData = [bun._id].concat(otherIngredients.map((item) => item._id));
-    postOrderData(orderData)
-      .then((data) => {
-        setOrderNumber(data.order.number);
-        setIsOpen(true);
-
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+    const orderData = [bun._id].concat(otherIngredients.map((item) => item._id)).concat([bun._id]);
+    dispatch(getOrderData(orderData));
+    setIsOpen(true);
   }
+
+  const moveList = useCallback(
+    (dragIndex, hoverIndex) => {
+      dispatch({ type: MOVE_INGREDIENT, dragIndex, hoverIndex })
+    },
+    [dispatch],
+  );
+
+  const onClose = () => {
+    dispatch({ type: RESET_INGREDIENTS })
+  }
+
+  const { orderNumber } = useSelector((state) => state.order);
 
   return (
     <>
       <section className='pt-25 pl-4'>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: 'calc(65vh - 56px)' }}>
-          <div className='pl-8'>
-            <ConstructorElement
-              type='top'
-              isLocked={true}
-              text={`${bun?.name || ''}\n(верх)`}
-              price={Number(bun?.price)}
-              thumbnail={String(bun?.image)}
-            />
-          </div>
-          <div className={styles.sauce_and_main + ' pr-4'}>
-            {
-              otherIngredients.map((item) => (
-                <div style={{ display: 'flex', alignItems: 'center' }} key={uuidv4()}>
-                  <DragIcon type='primary' />
-                  <ConstructorElement
-                    text={String(item?.name)}
-                    price={Number(item?.price)}
-                    thumbnail={String(item?.image)}
-                    extraClass='ml-2'
-                  />
-                </div>
-              ))
+        {!bun && (otherIngredients.length === 0) &&
+          <div className={styles.empty_block + ' text text_type_main-default'} ref={dropTargetInEmptyBlock}>Добавьте ингредиенты</div>
+        }
+        <>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: 'calc(65vh - 56px)' }}
+            ref={dropTarget}
+          >
+            {bun &&
+              <div className='pl-8'>
+                <ConstructorElement
+                  type='top'
+                  isLocked={true}
+                  text={`${bun?.name || ''}\n(верх)`}
+                  price={Number(bun?.price)}
+                  thumbnail={String(bun?.image)}
+                />
+              </div>
+            }
+            <div className={styles.sauce_and_main + ' pr-4'}>
+              {
+                otherIngredients.map((item, index) => (
+                  <DraggableElement item={item} index={index} key={item.id} moveList={moveList} />
+                ))
+              }
+            </div>
+            {bun &&
+              <div className='pl-8'>
+                <ConstructorElement
+                  type='bottom'
+                  isLocked={true}
+                  text={`${bun?.name || ''}\n(низ)`}
+                  price={Number(bun?.price)}
+                  thumbnail={String(bun?.image)}
+                />
+              </div>
             }
           </div>
-          <div className='pl-8'>
-            <ConstructorElement
-              type='bottom'
-              isLocked={true}
-              text={`${bun?.name || ''}\n(низ)`}
-              price={Number(bun?.price)}
-              thumbnail={String(bun?.image)}
-            />
-          </div>
-        </div>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'end',
-          alignItems: 'center'
-        }}
-          className='pt-10 pr-4'>
-          <p className='text text_type_digits-medium mr-2'>{String(priceTotal)}</p>
-          <CurrencyIcon type='primary' />
-          <Button htmlType='button' type='primary' size='large' extraClass='ml-10'
-            onClick={handleOrder}>
-            Оформить заказ
-          </Button>
-        </div>
+
+          {bun &&
+            <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }} className='pt-10 pr-4'>
+              <p className='text text_type_digits-medium mr-2'>{String(priceTotal)}</p>
+              <CurrencyIcon type='primary' />
+              <Button htmlType='button' type='primary' size='large' extraClass='ml-10'
+                onClick={handleOrder}>
+                Оформить заказ
+              </Button>
+            </div>
+          }
+          {!bun && (otherIngredients.length !== 0) &&
+            <div className={styles.empty_bun_block + ' text text_type_main-default mt-4'} ref={dropTargetInEmptyBlock}>Выберите булку</div>
+          }
+        </>
       </section>
-      {isOpen &&
-        <Modal active={isOpen} setActive={setIsOpen} header={''}>
-          <OrderDetails orderNumber={orderNumber} />
+      {isOpen && orderNumber > 0 &&
+        <Modal active={isOpen} setActive={setIsOpen} header={''} onClose={onClose}>
+          <OrderDetails />
         </Modal>}
     </>
   )

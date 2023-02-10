@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import ModalHeader from './modal-header/modal-header';
 
 
-const Modal = ({ setActive, header, children }) => {
+const Modal = ({ setActive, onClose, header, children }) => {
 
   const [animation, setAnimation] = useState(true);
 
@@ -15,7 +15,10 @@ const Modal = ({ setActive, header, children }) => {
       setActive(false);
     };
     setAnimation(false);
-    setTimeout(closeModal, 300)
+    setTimeout(() => {
+      closeModal();
+      setTimeout(onClose, 1)
+    }, 300);
   }
 
   React.useEffect(() => {
@@ -30,7 +33,7 @@ const Modal = ({ setActive, header, children }) => {
 
   return createPortal(
     <>
-      <ModalOverlay animation={animation} closeModalAnimation={closeModalAnimation}  />
+      <ModalOverlay animation={animation} closeModalAnimation={closeModalAnimation} />
       <div className={animation ? `${styles.wrapper} ${styles.wrapper_active}` : `${styles.wrapper}`}>
         <div
           className={animation ? `${styles.modal__content} ${styles.modal__content_active}` : `${styles.modal__content}`}
@@ -46,7 +49,9 @@ const Modal = ({ setActive, header, children }) => {
 
 Modal.propTypes = {
   setActive: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  onClose: PropTypes.func.isRequired,
+  header: PropTypes.string
 };
 
 export default Modal;

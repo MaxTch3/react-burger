@@ -27,3 +27,23 @@
   display: flex;
   align-items: center;
 }
+
+.empty_block {
+  display: flex;
+  width: 100%;
+  border: 3px #8484897f dashed;
+  width: 584px;
+  min-height: 284px;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty_bun_block {
+  display: flex;
+  width: 100%;
+  border: 3px #8484897f dashed;
+  width: 584px;
+  min-height: 80px;
+  justify-content: center;
+  align-items: center;
+}
