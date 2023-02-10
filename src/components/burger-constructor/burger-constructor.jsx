@@ -34,7 +34,8 @@ const BurgerConstructor = () => {
   const { bun, otherIngredients } = useSelector(state => state.ingredientsConstructor);
 
   const priceTotal = useMemo(() => (
-    bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0)), [otherIngredients, bun])
+    bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0)), [otherIngredients, bun]);
+
 
   const handleOrder = () => {
     const orderData = [bun._id].concat(otherIngredients.map((item) => item._id)).concat([bun._id]);
@@ -52,6 +53,8 @@ const BurgerConstructor = () => {
   const onClose = () => {
     dispatch({ type: RESET_INGREDIENTS })
   }
+
+  const { orderNumber } = useSelector((state) => state.order);
 
   return (
     <>
@@ -109,7 +112,7 @@ const BurgerConstructor = () => {
           }
         </>
       </section>
-      {isOpen &&
+      {isOpen && orderNumber > 0 &&
         <Modal active={isOpen} setActive={setIsOpen} header={''} onClose={onClose}>
           <OrderDetails />
         </Modal>}

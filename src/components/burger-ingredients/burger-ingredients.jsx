@@ -5,14 +5,14 @@ import Ingredient from './ingredient/ingredient.jsx';
 import { useSelector } from 'react-redux';
 
 const BurgerIngredients = () => {
-  const { data } = useSelector((state) => state.ingredientsData);
+  const { data, dataFailed } = useSelector((state) => state.ingredientsData);
   const [current, setCurrent] = React.useState('bun');
   const { bun, otherIngredients } = useSelector((state) => state.ingredientsConstructor);
 
   const bunData = useMemo(() => (data.filter((item) => item.type === 'bun')), [data]);
   const sauceData = useMemo(() => (data.filter((item) => item.type === 'sauce')), [data]);
   const mainData = useMemo(() => (data.filter((item) => item.type === 'main')), [data]);
-  
+
   const counters = useMemo(() => {
     const repetitions = {};
     if (bun) repetitions[bun._id] = 2;
@@ -63,27 +63,37 @@ const BurgerIngredients = () => {
       </div>
       <div className='pt-10'></div>
       <div className={styles.containerIngredients + ' pl-1 pr-1'} onScroll={scrollPoints}>
-        <h3 ref={bunRef} className='text text_type_main-medium'>Булки</h3>
-        <div className={styles.ingredients_section} id='buns-box'>
-          {
-            bunData.map((item) =>
-              <Ingredient key={item._id} item={item} count={counters[item._id]} />)
-          }
+
+        {dataFailed && <div className='text text_type_main-default mt-10' style={{ textAlign: 'center' }}>
+          Произошла ошибка загрузки данных с сервера.
         </div>
-        <h3 ref={sauceRef} className='text text_type_main-medium mt-10'>Соусы</h3>
-        <div className={styles.ingredients_section} id='sauces-box'>
-          {
-            sauceData.map((item) =>
-              <Ingredient key={item._id} item={item} count={counters[item._id]} />)
-          }
-        </div>
-        <h3 ref={mainRef} className='text text_type_main-medium mt-10'>Начинки</h3>
-        <div className={styles.ingredients_section} id='main-box'>
-          {
-            mainData.map((item) =>
-              <Ingredient key={item._id} item={item} count={counters[item._id]} />)
-          }
-        </div>
+        }
+
+        {!dataFailed && data.length !== 0 &&
+          <>
+            <h3 className='text text_type_main-medium'>Булки</h3>
+            <div ref={bunRef} className={styles.ingredients_section} id='buns-box'>
+              {
+                bunData.map((item) =>
+                  <Ingredient key={item._id} item={item} count={counters[item._id]} />)
+              }
+            </div>
+            <h3 className='text text_type_main-medium mt-10'>Соусы</h3>
+            <div ref={sauceRef} className={styles.ingredients_section} id='sauces-box'>
+              {
+                sauceData.map((item) =>
+                  <Ingredient key={item._id} item={item} count={counters[item._id]} />)
+              }
+            </div>
+            <h3 className='text text_type_main-medium mt-10'>Начинки</h3>
+            <div ref={mainRef} className={styles.ingredients_section} id='main-box'>
+              {
+                mainData.map((item) =>
+                  <Ingredient key={item._id} item={item} count={counters[item._id]} />)
+              }
+            </div>
+          </>
+        }
       </div>
     </div>
   )

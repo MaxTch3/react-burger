@@ -24,7 +24,7 @@ export const ingredientsData = (state = initialState, action) => {
       }
       case GET_INGREDIENTS_DATA_FAILED: {
          return {
-            ...state, dataRequest: false, dataFailed: true
+          data: [], dataRequest: false, dataFailed: true,
          }
       }
 

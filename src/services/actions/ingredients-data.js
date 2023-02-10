@@ -1,7 +1,7 @@
 import { getIngredients } from '../../utils/burgers-api.js';
 export const GET_INGREDIENTS_DATA_REQUEST = 'GET_INGREDIENTS_DATA_REQUEST';
-export const GET_INGREDIENTS_DATA_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
-export const GET_INGREDIENTS_DATA_FAILED = 'GET_INGREDIENTS_FAILED';
+export const GET_INGREDIENTS_DATA_SUCCESS = 'GET_INGREDIENTS_DATA_SUCCESS';
+export const GET_INGREDIENTS_DATA_FAILED = 'GET_INGREDIENTS_DATA_FAILED';
 
 export const getIngredientsData = () => (dispatch) => {
   dispatch({

@@ -25,7 +25,7 @@ export const order = (state = initialState, action) => {
     }
     case GET_ORDER_FAILED: {
       return {
-        ...state, orderRequest: false, orderFailed: true
+        orderNumber: 0, orderRequest: false, orderFailed: true
       }
     }
     default: { return state }
