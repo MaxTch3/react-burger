@@ -2,7 +2,8 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   ADD_INGREDIENT,
   MOVE_INGREDIENT,
-  REMOVE_INGREDIENT
+  REMOVE_INGREDIENT,
+  RESET_INGREDIENTS
 } from '../actions/ingredients-constructor.js'
 
 const initialState = {
@@ -34,6 +35,11 @@ export const ingredientsConstructor = (state = initialState, action) => {
       listItems.splice(action.dragIndex, 0, listItems.splice(action.hoverIndex, 1)[0]);
       return {
         ...state, otherIngredients: listItems
+      }
+    }
+    case RESET_INGREDIENTS: {
+      return {
+        bun: null, otherIngredients: []
       }
     }
     default: return state

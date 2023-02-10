@@ -6,7 +6,7 @@ import { CurrencyIcon, ConstructorElement, Button } from '@ya.praktikum/react-de
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { getOrderData } from '../../services/actions/order.js';
-import { ADD_INGREDIENT, MOVE_INGREDIENT } from '../../services/actions/ingredients-constructor';
+import { ADD_INGREDIENT, MOVE_INGREDIENT, RESET_INGREDIENTS } from '../../services/actions/ingredients-constructor';
 import { DraggableElement } from './draggable-element/draggable-element';
 
 const BurgerConstructor = () => {
@@ -42,7 +42,9 @@ const BurgerConstructor = () => {
     },
     [dispatch],
   )
-
+  const onClose = () => {
+    dispatch({ type: RESET_INGREDIENTS })
+  }
   return (
     <>
       <section className='pt-25 pl-4'>
@@ -100,7 +102,7 @@ const BurgerConstructor = () => {
         </>
       </section>
       {isOpen &&
-        <Modal active={isOpen} setActive={setIsOpen} header={''}>
+        <Modal active={isOpen} setActive={setIsOpen} header={''} onClose={onClose}>
           <OrderDetails />
         </Modal>}
     </>
