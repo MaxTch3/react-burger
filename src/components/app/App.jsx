@@ -1,12 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import styles from './App.module.css';
 import AppHeader from '../app-header/app-header'
-import BurgerIngredients from '../burger-ingredients/burger-ingredients.jsx'
-import BurgerConstructor from '../burger-constructor/burger-constructor.jsx'
+import HomePage from '../../pages/home-page';
 import { getIngredientsData } from '../../services/actions/ingredients-data.js';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   const dispatch = useDispatch();
@@ -16,15 +14,14 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className={styles.app}>
-      <AppHeader />
-      <main className={styles.main} >
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
-      </main>
-    </div>
+    <Router>
+      <div className={styles.app}>
+        <AppHeader />
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+        </Routes>
+      </div>
+    </Router >
   );
 }
 
