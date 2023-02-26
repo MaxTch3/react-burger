@@ -6,6 +6,7 @@ import AppHeader from '../app-header/app-header'
 import HomePage from '../../pages/home-page/home-page';
 import LoginPage from '../../pages/login-page/login-page';
 import { getIngredientsData } from '../../services/actions/ingredients-data.js';
+import RegisterPage from '../../pages/register-page/register-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/login' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
         </Routes>
       </div>
     </Router >
