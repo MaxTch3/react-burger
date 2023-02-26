@@ -7,6 +7,7 @@ import HomePage from '../../pages/home-page/home-page';
 import LoginPage from '../../pages/login-page/login-page';
 import { getIngredientsData } from '../../services/actions/ingredients-data.js';
 import RegisterPage from '../../pages/register-page/register-page';
+import ForgotPasswordPage from '../../pages/forgot-password-page/forgot-password';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
+          <Route path='/forgot-password' element={<ForgotPasswordPage />} />
         </Routes>
       </div>
     </Router >

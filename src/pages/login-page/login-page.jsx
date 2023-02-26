@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login-page.module.css'
+import { Link } from 'react-router-dom';
 
 
 const LoginPage = () => {
@@ -57,11 +58,11 @@ const LoginPage = () => {
       </form>
       <div className={styles.line + ' mt-20'}>
         <p className='text text_type_main-default text_color_inactive'>Вы — новый пользователь?</p>
-        <a className={'text text_type_main-default ' + styles.link} href="#">Зарегистрироваться</a>
+        <Link to='/register' className={'text text_type_main-default ' + styles.link} >Зарегистрироваться</Link>
       </div>
       <div className={styles.line + ' mt-4'}>
         <p className='text text_type_main-default text_color_inactive'>Забыли пароль?</p>
-        <a className={'text text_type_main-default ' + styles.link} href="#">Восстановить пароль</a>
+        <Link to='/forgot-password' className={'text text_type_main-default ' + styles.link}>Восстановить пароль</Link>
       </div>
     </div>
   )
