@@ -1,5 +1,6 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './register-page.module.css';
 
 const RegisterPage = () => {
@@ -65,7 +66,7 @@ const RegisterPage = () => {
       </form>
       <div className={styles.line + ' mt-20'}>
         <p className='text text_type_main-default text_color_inactive'>Уже зарегистрированы?</p>
-        <a className={'text text_type_main-default ' + styles.link} href="#">Войти</a>
+        <Link to='/login' className={'text text_type_main-default ' + styles.link}>Войти</Link>
       </div>
 
     </div>

@@ -1,6 +1,7 @@
 import styles from './forgot-password.module.css'
 import { useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link } from 'react-router-dom';
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState('');
@@ -29,7 +30,7 @@ const ForgotPasswordPage = () => {
       </form>
       <div className={styles.line + ' mt-20'}>
         <p className='text text_type_main-default text_color_inactive'>Вспомнили пароль?</p>
-        <a className={'text text_type_main-default ' + styles.link} href="#">Войти</a>
+        <Link to='/login' className={'text text_type_main-default ' + styles.link}>Войти</Link>
       </div>
 
     </div>
