@@ -2,10 +2,10 @@ import { useState } from 'react';
 import styles from './profile-page.module.css'
 
 const ProfilePage = () => {
-  const active = '';
-  const inactive = ' text_color_inactive';
+  const on = '';
+  const off = ' text_color_inactive';
   const [linkStatus, setLinkStatus] = useState(
-    { profileLink: active, orderListLink: inactive, logOutLink: inactive }
+    { profileLink: on, orderListLink: off, logOutLink: off }
   );
 
   return (
@@ -16,7 +16,7 @@ const ProfilePage = () => {
             className={'text text_type_main-medium ' + styles.link + linkStatus.profileLink}
             onClick={() => {
               setLinkStatus(
-                { profileLink: active, orderListLink: inactive, logOutLink: inactive }
+                { profileLink: on, orderListLink: off, logOutLink: off }
               )
             }
             }
@@ -25,7 +25,7 @@ const ProfilePage = () => {
             className={'text text_type_main-medium ' + styles.link + linkStatus.orderListLink}
             onClick={() => {
               setLinkStatus(
-                { profileLink: inactive, orderListLink: active, logOutLink: inactive }
+                { profileLink: off, orderListLink: on, logOutLink: off }
               )
             }
             }
@@ -34,7 +34,7 @@ const ProfilePage = () => {
             className={'text text_type_main-medium ' + styles.link + linkStatus.logOutLink}
             onClick={() => {
               setLinkStatus(
-                { profileLink: inactive, orderListLink: inactive, logOutLink: active }
+                { profileLink: off, orderListLink: off, logOutLink: on }
               )
             }
             }
