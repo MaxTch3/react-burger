@@ -1,12 +1,15 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { registerAction } from '../../services/actions/user-actions';
 import styles from './register-page.module.css';
 
 const RegisterPage = () => {
   const [registerInfo, setRegisterInfo] = useState({ name: '', email: '', password: '' });
   const [showIcon, setShowIcon] = useState('HideIcon');
   const passwordRef = useRef(null);
+  const dispatch = useDispatch();
 
   const onIconClick = () => {
     if (passwordRef.current.type === 'password') {
@@ -17,9 +20,15 @@ const RegisterPage = () => {
       passwordRef.current.type = 'password'
     }
   }
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(registerAction(registerInfo.email, registerInfo.password, registerInfo.name));
+  }
+
   return (
     <div className={styles.container}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={onSubmit}>
         <h2 className='text text_type_main-medium'>Регистрация</h2>
         <Input
           type={'text'}
@@ -58,7 +67,7 @@ const RegisterPage = () => {
           extraClass="ml-1"
         />
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium">
           Зарегистрироваться

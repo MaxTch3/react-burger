@@ -13,9 +13,8 @@ export function forgetPassword(email) {
     .then((res) => checkResponse(res))
 }
 
-
 export function resetPassword( password, token) {
-  return fetch(`${NORMA_API}auth/password-reset/reset`, {
+  return fetch(`${NORMA_API}/auth/password-reset/reset`, {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
     body: JSON.stringify({ password, token })
@@ -23,12 +22,11 @@ export function resetPassword( password, token) {
     .then((res) => checkResponse(res))
 }
 
-
-export function registerUser(name, email, password) {
-  return fetch(`${NORMA_API}auth/register`, {
+export function registerUser(email, password, name) {
+  return fetch(`${NORMA_API}/auth/register`, {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
-    body: JSON.stringify({ name, email, password })
+    body: JSON.stringify({ email, password, name })
   })
     .then((res) => checkResponse(res))
 }
