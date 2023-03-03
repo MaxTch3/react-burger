@@ -2,13 +2,16 @@
 import { useRef, useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login-page.module.css'
-import { Link } from 'react-router-dom';
-
+import { Link, Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import loginAction from '../../services/actions/login-user';
 
 const LoginPage = () => {
   const [signIn, setSignIn] = useState({ email: '', password: '' });
   const [showIcon, setShowIcon] = useState('HideIcon');
   const passwordRef = useRef(null);
+  const dispatch = useDispatch();
+  const isName = useSelector(state => state.userReducer.user.name);
 
   const onIconClick = () => {
     if (passwordRef.current.type === 'password') {
@@ -20,9 +23,16 @@ const LoginPage = () => {
     }
   }
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginAction(signIn.email, signIn.password))
+  };
+
+  if (isName) { return (<Navigate to='/' />) };
+
   return (
     <div className={styles.container}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={onSubmit}>
         <h2 className='text text_type_main-medium'>Вход</h2>
         <Input
           type={'email'}
@@ -50,7 +60,7 @@ const LoginPage = () => {
           extraClass="ml-1"
         />
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium">
           Войти

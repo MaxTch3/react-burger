@@ -24,13 +24,14 @@ function App() {
       <div className={styles.app}>
         <AppHeader />
         <Routes>
+
           <Route path='/login' element={<LoginPage />} />
-          <Route path='/' element={<HomePage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/forgot-password' element={<ForgotPasswordPage />} />
           <Route path='/reset-password' element={<ResetPasswordPage />} />
           <Route path='/profile/*' element={<ProfilePage />} />
           <Route path='*' element={<NotFound404 />} />
+          <Route path='/' element={<HomePage />} />
         </Routes>
       </div>
     </Router >
