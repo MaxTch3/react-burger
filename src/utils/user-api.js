@@ -23,7 +23,7 @@ export function loginUser(email, password) {
 };
 
 
-export function forgetPassword(email) {
+export function forgotPassword(email) {
   return fetch(`${NORMA_API}/password-reset`, {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },

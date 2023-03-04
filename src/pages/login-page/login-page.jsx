@@ -11,7 +11,7 @@ const LoginPage = () => {
   const [showIcon, setShowIcon] = useState('HideIcon');
   const passwordRef = useRef(null);
   const dispatch = useDispatch();
-  const isName = useSelector(state => state.userReducer.user.name);
+  const isAuthorization = useSelector(state => state.userReducer.isAuthorization)
 
   const onIconClick = () => {
     if (passwordRef.current.type === 'password') {
@@ -28,7 +28,7 @@ const LoginPage = () => {
     dispatch(loginAction(signIn.email, signIn.password))
   };
 
-  if (isName) { return (<Navigate to='/' />) };
+  if (isAuthorization) { return (<Navigate to='/' />) };
 
   return (
     <div className={styles.container}>
