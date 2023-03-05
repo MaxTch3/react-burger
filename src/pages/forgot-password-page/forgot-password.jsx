@@ -36,7 +36,7 @@ const ForgotPasswordPage = () => {
           htmlType="submit"
           type="primary"
           size="medium">
-          Войти
+          Восстановить
         </Button>
       </form>
       <div className={styles.line + ' mt-20'}>

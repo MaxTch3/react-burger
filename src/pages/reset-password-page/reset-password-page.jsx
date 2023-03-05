@@ -1,12 +1,16 @@
 import { useRef, useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import styles from './reset-password-page.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import resetAction from '../../services/actions/reset-password';
 
 const ResetPasswordPage = () => {
   const [resetInfo, setResetInfo] = useState({ password: '', codeLetter: '' });
   const [showIcon, setShowIcon] = useState('HideIcon');
   const passwordRef = useRef(null);
+  const dispatch = useDispatch();
+  const { isAuthorization, resetSuccess } = useSelector(state => state.userReducer);
 
   const onIconClick = () => {
     if (passwordRef.current.type === 'password') {
@@ -18,9 +22,17 @@ const ResetPasswordPage = () => {
     }
   }
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(resetAction(resetInfo.password, resetInfo.codeLetter));
+  }
+
+  if (isAuthorization) { return (<Navigate to='/' />) };
+  if (resetSuccess) { return (<Navigate to='/login' />) };
+
   return (
     <div className={styles.container}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={onSubmit}>
         <h2 className='text text_type_main-medium'>Восстановление пароля</h2>
         <Input
           type={'password'}
@@ -36,7 +48,7 @@ const ResetPasswordPage = () => {
           size={'default'}
           extraClass="ml-1"
         />
-         <Input
+        <Input
           type={'text'}
           placeholder={'Введите код из письма'}
           onChange={e => { setResetInfo({ ...resetInfo, [e.target.name]: e.target.value }) }}
@@ -48,7 +60,7 @@ const ResetPasswordPage = () => {
           extraClass="ml-1 p"
         />
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium">
           Сохранить

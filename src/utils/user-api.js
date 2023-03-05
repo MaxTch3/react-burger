@@ -22,7 +22,6 @@ export function loginUser(email, password) {
     .then((res) => checkResponse(res))
 };
 
-
 export function forgotPassword(email) {
   return fetch(`${NORMA_API}/password-reset`, {
     method: 'POST',
@@ -33,7 +32,7 @@ export function forgotPassword(email) {
 }
 
 export function resetPassword(password, token) {
-  return fetch(`${NORMA_API}/auth/password-reset/reset`, {
+  return fetch(`${NORMA_API}/password-reset/reset`, {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
     body: JSON.stringify({ password, token })

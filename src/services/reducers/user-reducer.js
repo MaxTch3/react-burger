@@ -1,17 +1,24 @@
 import { FORGOT_FAILED, FORGOT_REQUEST, FORGOT_SUCCESS } from '../actions/forgot-password'
 import { LOGIN_FAILED, LOGIN_REQUEST, LOGIN_SUCCESS } from '../actions/login-user'
 import { REGISTER_FAILED, REGISTER_REQUEST, REGISTER_SUCCESS } from '../actions/register-user'
+import { RESET_FAILED, RESET_REQUEST, RESET_SUCCESS } from '../actions/reset-password'
 
 const initialState = {
   user: { name: '', email: '' },
   isAuthorization: false,
   registerRequest: false,
   registerFailed: false,
+
   loginRequest: false,
   loginFailed: false,
+
   forgotRequest: false,
   forgotFailed: false,
-  forgotCodeSend: false
+  forgotCodeSend: false,
+
+  resetRequest: false,
+  resetFailed: false,
+  resetSucces: false
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -77,6 +84,31 @@ export const userReducer = (state = initialState, action) => {
         forgotRequest: false,
         forgotFailed: true,
         forgotCodeSend: false
+      }
+    }
+
+    case RESET_REQUEST: {
+      return {
+        ...state,
+        resetRequest: true,
+        resetFailed: false,
+        resetSucces: false
+      }
+    }
+    case RESET_SUCCESS: {
+      return {
+        ...state,
+        resetRequest: false,
+        resetFailed: false,
+        resetSuccess: true
+      }
+    }
+    case RESET_FAILED: {
+      return {
+        ...state,
+        resetRequest: false,
+        resetFailed: true,
+        resetSucces: false
       }
     }
     default: { return state }
