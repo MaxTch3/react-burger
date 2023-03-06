@@ -1,29 +1,48 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon, } from '@ya.praktikum/react-developer-burger-ui-components';
-import style from './app-header.module.css'
+import { Link, useLocation } from 'react-router-dom';
+import styles from './app-header.module.css'
 
 const AppHeader = () => {
+  const location = useLocation();
+
+  const iconStatus = (path) => {
+    if (location.pathname === path) { return 'primary' }
+    else { return 'secondary' }
+  }
+  const textStyle = (path) => {
+    if (location.pathname === path) { return '' }
+    else { return 'text_color_inactive' }
+  }
+
   return (
-    <header className={'pt-4 pb-4 ' + style.header}>
-      <div className={style.header__container}>
-        <div className={style.header__links}>
-          <a className={'pt-4 pr-5 pb-4 pl-5 ' + style.header__link} href='#'>
-            <BurgerIcon type='primary' />
-            <span className='text text_type_main-default ml-2'>Конструктор</span>
-          </a>
-          <a className={'pt-4 pr-5 pb-4 pl-5 ml-2 ' + style.header__link} href='#'>
-            <ListIcon type='secondary' />
-            <span style={{ color: '#8585AD' }} className='text text_type_main-default ml-2'>Лента заказов</span>
-          </a>
+    <header className={'pt-4 pb-4 ' + styles.header}>
+      <nav className={styles.header__container}>
+        <div className={styles.header__links}>
+          <Link className={'pt-4 pr-5 pb-4 pl-5 ' + styles.header__link}
+            to='/'
+          >
+            <BurgerIcon type={iconStatus('/')} />
+            <span className={`text text_type_main-default ml-2 ${textStyle('/')}`}
+            >Конструктор</span>
+          </Link>
+          <Link className={'pt-4 pr-5 pb-4 pl-5 ml-2 ' + styles.header__link}
+            to='/feed'
+          >
+            <ListIcon type={iconStatus('/feed')} />
+            <span className={`text text_type_main-default ml-2 ${textStyle('/feed')}`}>Лента заказов</span>
+          </Link>
         </div>
-        <div className={style.header__logo}>
+        <div className={styles.header__logo}>
           <Logo />
         </div>
 
-        <a style={{ color: '#8585AD' }} className={'pt-4 pr-5 pb-4 pl-5 ' + style.header__link} href='#'>
-          <ProfileIcon type='secondary' />
-          <span className='text text_type_main-default ml-2'>Личный кабинет</span>
-        </a>
-      </div>
+        <Link className={'pt-4 pr-5 pb-4 pl-5 ' + styles.header__link}
+          to='/profile'
+        >
+          <ProfileIcon type={iconStatus('/profile')} />
+          <span className={`text text_type_main-default ml-2 ${textStyle('/profile')}`}>Личный кабинет</span>
+        </Link>
+      </nav>
     </header>
   )
 }
