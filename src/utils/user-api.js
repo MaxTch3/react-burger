@@ -1,3 +1,5 @@
+import { getCookie } from "./cookie-functions";
+
 const NORMA_API = 'https://norma.nomoreparties.space/api';
 
 function checkResponse(res) {
@@ -39,3 +41,15 @@ export function resetPassword(password, token) {
   })
     .then((res) => checkResponse(res))
 }
+
+export function getUserRequest() {
+  return fetch(`${NORMA_API}/auth/user`, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json',
+      'authorization': `${getCookie('token')}`
+    },
+
+  })
+    .then((res) => checkResponse(res))
+};

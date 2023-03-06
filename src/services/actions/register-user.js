@@ -16,7 +16,7 @@ const registerAction = (email, password, name) => (dispatch) => {
       if (res && res.success) {
         setCookie('token', res.accessToken, { expires: 1200 });
         localStorage.setItem("jwt", res.refreshToken);
-        dispatch({type: REGISTER_SUCCESS,user: res.user})
+        dispatch({type: REGISTER_SUCCESS, user: res.user})
       }
       else {
         dispatch({ type: REGISTER_FAILED })

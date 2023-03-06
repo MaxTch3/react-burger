@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import styles from './profile-page.module.css';
 import ProfileInfoForm from './profile-info-form/profile-info-form.jsx';
+import { useDispatch } from 'react-redux';
+import getUserAction from '../../services/actions/get-user';
 
 const ProfilePage = () => {
   const on = '';
   const off = ' text_color_inactive';
   const [linkStatus, setLinkStatus] = useState({ profileLink: on, orderListLink: off, logOutLink: off });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserAction());
+  }, [dispatch]);
+
   return (
     <div className={styles.container}>
       <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '320px' }}>

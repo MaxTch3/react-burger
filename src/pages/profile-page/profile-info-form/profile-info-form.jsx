@@ -1,5 +1,6 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './profile-info-form.module.css';
 
 const ProfileInfoForm = () => {
@@ -12,6 +13,7 @@ const ProfileInfoForm = () => {
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
+  const userInfo = useSelector(state => state.userReducer.user)
 
   const onChangeInput = (e) => {
     setProfileInfo({ ...profileInfo, [e.target.name]: e.target.value });
@@ -25,15 +27,19 @@ const ProfileInfoForm = () => {
   };
 
   const resetForm = () => {
-    setProfileInfo(initialForm);
+    setProfileInfo({ name: userInfo.name, email: userInfo.email, password: '' })
     setIcon(initialIcons)
   }
 
   useEffect(() => {
-    if (JSON.stringify(profileInfo) === JSON.stringify(initialForm)) {
+    if (JSON.stringify(profileInfo) === JSON.stringify({ name: userInfo.name, email: userInfo.email, password: '' })) {
       setActiveButtons(false)
     }
   }, [profileInfo])
+
+  useEffect(() => {
+    setProfileInfo({ password: '', name: userInfo.name, email: userInfo.email })
+  }, [])
 
   return (
     <form className={styles.form}>
