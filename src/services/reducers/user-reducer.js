@@ -1,6 +1,7 @@
 import { FORGOT_FAILED, FORGOT_REQUEST, FORGOT_SUCCESS } from '../actions/forgot-password'
 import { GET_USER_FAILED, GET_USER_REQUEST, GET_USER_SUCCESS } from '../actions/get-user'
 import { LOGIN_FAILED, LOGIN_REQUEST, LOGIN_SUCCESS } from '../actions/login-user'
+import { REFRESH_TOKEN_FAILED, REFRESH_TOKEN_REQUEST, REFRESH_TOKEN_SUCCESS } from '../actions/refresh-token'
 import { REGISTER_FAILED, REGISTER_REQUEST, REGISTER_SUCCESS } from '../actions/register-user'
 import { RESET_FAILED, RESET_REQUEST, RESET_SUCCESS } from '../actions/reset-password'
 import { UPDATE_USER_FAILED, UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS } from '../actions/update-user'
@@ -28,6 +29,9 @@ const initialState = {
 
   updateUserRequest: false,
   updateUserFailed: false,
+
+  refreshTokenRequest: false,
+  refreshTokenFailed: false
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -164,6 +168,28 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         updateUserRequest: false,
         updateUserFailed: true,
+      }
+    }
+
+    case REFRESH_TOKEN_REQUEST: {
+      return {
+        ...state,
+        refreshTokenRequest: true,
+        refreshTokenFailed: false,
+      }
+    }
+    case REFRESH_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        refreshTokenRequest: false,
+        refreshTokenFailed: false,
+      }
+    }
+    case REFRESH_TOKEN_FAILED: {
+      return {
+        ...state,
+        refreshTokenRequest: false,
+        refreshTokenFailed: true,
       }
     }
 

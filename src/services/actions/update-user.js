@@ -1,4 +1,5 @@
 import { updateUserRequest } from "../../utils/user-api";
+import refreshTokenAction from "./refresh-token";
 
 export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
@@ -9,16 +10,16 @@ const updateUserAction = (name, email, password) => (dispatch) => {
     type: UPDATE_USER_REQUEST
   });
   updateUserRequest(name, email, password)
-    .then(res => {
-      if (res && res.success) {
-        dispatch({ type: UPDATE_USER_SUCCESS, user: res.user });
-      }
-      else {
-        dispatch({ type: UPDATE_USER_FAILED })
-      }
-    })
+    .then(res => { dispatch({ type: UPDATE_USER_SUCCESS, user: res.user }) })
     .catch(() => {
-      dispatch({ type: UPDATE_USER_FAILED })
+      const refreshToken = localStorage.getItem('jwt');
+      if (refreshToken) {
+        dispatch(refreshTokenAction());
+        updateUserRequest(name, email, password)
+          .then((res) => {
+            dispatch({ type: UPDATE_USER_SUCCESS, user: res.user })
+          })
+      } else { dispatch({ type: UPDATE_USER_FAILED }) }
     })
 }
 

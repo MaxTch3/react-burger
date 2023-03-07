@@ -58,10 +58,21 @@ export function updateUserRequest(name, email, password) {
     method: 'PATCH',
     headers: {
       'Content-type': 'application/json',
-      Authorization : `${getCookie('token')}`
+      'authorization': `${getCookie('token')}`
     },
     body: JSON.stringify({ name, email, password })
   })
     .then((res) => checkResponse(res))
 }
 
+
+export function refreshTokenRequest() {
+  return fetch(`${NORMA_API}/auth/token`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({ token: localStorage.getItem('refreshToken') })
+  })
+    .then((res) => checkResponse(res))
+}

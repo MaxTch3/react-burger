@@ -54,7 +54,7 @@ const ProfileInfoForm = () => {
       ((profileInfo.name === userInfo.name) && (profileInfo.email === userInfo.email) && (profileInfo.password === ''))
       || !profileInfo.name
       || !profileInfo.email
-      || !profileInfo.password) {
+    ) {
       setActiveButtons(false)
     }
   }, [profileInfo])
@@ -70,10 +70,9 @@ const ProfileInfoForm = () => {
       setActiveButtons(false);
       setIsDisabled(initialDisabled);
       setIcon(initialIcons);
-      setProfileInfo({...profileInfo, password: ''})
+      setProfileInfo({ ...profileInfo, password: '' })
     }
   }
-
 
   return (
     <form className={styles.form} onSubmit={onSubmit}>
@@ -139,4 +138,5 @@ const ProfileInfoForm = () => {
     </form>
   )
 }
+
 export default ProfileInfoForm;
