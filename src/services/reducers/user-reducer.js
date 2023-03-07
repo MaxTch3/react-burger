@@ -3,6 +3,7 @@ import { GET_USER_FAILED, GET_USER_REQUEST, GET_USER_SUCCESS } from '../actions/
 import { LOGIN_FAILED, LOGIN_REQUEST, LOGIN_SUCCESS } from '../actions/login-user'
 import { REGISTER_FAILED, REGISTER_REQUEST, REGISTER_SUCCESS } from '../actions/register-user'
 import { RESET_FAILED, RESET_REQUEST, RESET_SUCCESS } from '../actions/reset-password'
+import { UPDATE_USER_FAILED, UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS } from '../actions/update-user'
 
 const initialState = {
   user: { name: '', email: '' },
@@ -23,7 +24,10 @@ const initialState = {
   resetSucces: false,
 
   getUserRequest: false,
-  getUserFailed: false
+  getUserFailed: false,
+
+  updateUserRequest: false,
+  updateUserFailed: false,
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -137,6 +141,29 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         getUserRequest: false,
         getUserFailed: true,
+      }
+    }
+
+    case UPDATE_USER_REQUEST: {
+      return {
+        ...state,
+        updateUserRequest: true,
+        updateUserFailed: false,
+      }
+    }
+    case UPDATE_USER_SUCCESS: {
+      return {
+        ...state,
+        user: action.user,
+        updateUserRequest: false,
+        updateUserFailed: false,
+      }
+    }
+    case UPDATE_USER_FAILED: {
+      return {
+        ...state,
+        updateUserRequest: false,
+        updateUserFailed: true,
       }
     }
 

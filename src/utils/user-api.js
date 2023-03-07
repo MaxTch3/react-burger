@@ -48,8 +48,20 @@ export function getUserRequest() {
     headers: {
       'Content-type': 'application/json',
       'authorization': `${getCookie('token')}`
-    },
-
+    }
   })
     .then((res) => checkResponse(res))
 };
+
+export function updateUserRequest(name, email, password) {
+  return fetch(`${NORMA_API}/auth/user`, {
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json',
+      Authorization : `${getCookie('token')}`
+    },
+    body: JSON.stringify({ name, email, password })
+  })
+    .then((res) => checkResponse(res))
+}
+
