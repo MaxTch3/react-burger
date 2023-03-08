@@ -1,6 +1,7 @@
 import { FORGOT_FAILED, FORGOT_REQUEST, FORGOT_SUCCESS } from '../actions/forgot-password'
 import { GET_USER_FAILED, GET_USER_REQUEST, GET_USER_SUCCESS } from '../actions/get-user'
 import { LOGIN_FAILED, LOGIN_REQUEST, LOGIN_SUCCESS } from '../actions/login-user'
+import { LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS } from '../actions/logout-user'
 import { REFRESH_TOKEN_FAILED, REFRESH_TOKEN_REQUEST, REFRESH_TOKEN_SUCCESS } from '../actions/refresh-token'
 import { REGISTER_FAILED, REGISTER_REQUEST, REGISTER_SUCCESS } from '../actions/register-user'
 import { RESET_FAILED, RESET_REQUEST, RESET_SUCCESS } from '../actions/reset-password'
@@ -31,7 +32,10 @@ const initialState = {
   updateUserFailed: false,
 
   refreshTokenRequest: false,
-  refreshTokenFailed: false
+  refreshTokenFailed: false,
+
+  logoutUserRequest: false,
+  logoutUserFailed: false
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -190,6 +194,28 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         refreshTokenRequest: false,
         refreshTokenFailed: true,
+      }
+    }
+
+    case LOGOUT_REQUEST: {
+      return {
+        ...state,
+        logoutUserRequest: true,
+        logoutUserFailed: false,
+      }
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        logoutUserRequest: false,
+        logoutUserFailed: false,
+      }
+    }
+    case LOGOUT_FAILED: {
+      return {
+        ...state,
+        logoutUserRequest: false,
+        logoutUserFailed: true,
       }
     }
 

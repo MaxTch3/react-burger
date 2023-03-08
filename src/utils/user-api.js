@@ -65,14 +65,24 @@ export function updateUserRequest(name, email, password) {
     .then((res) => checkResponse(res))
 }
 
-
 export function refreshTokenRequest() {
   return fetch(`${NORMA_API}/auth/token`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
     },
-    body: JSON.stringify({ token: localStorage.getItem('refreshToken') })
+    body: JSON.stringify({ token: localStorage.getItem('jwt') })
+  })
+    .then((res) => checkResponse(res))
+}
+
+export function logoutUserRequest() {
+  return fetch(`${NORMA_API}/auth/logout`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({ token: localStorage.getItem('jwt') })
   })
     .then((res) => checkResponse(res))
 }
