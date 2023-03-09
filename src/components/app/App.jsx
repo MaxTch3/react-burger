@@ -11,6 +11,7 @@ import ForgotPasswordPage from '../../pages/forgot-password-page/forgot-password
 import ResetPasswordPage from '../../pages/reset-password-page/reset-password-page';
 import ProfilePage from '../../pages/profile-page/profile-page';
 import NotFound404 from '../../pages/not-found-404/not-found-404';
+import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,12 +25,13 @@ function App() {
       <div className={styles.app}>
         <AppHeader />
         <Routes>
-
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/forgot-password' element={<ForgotPasswordPage />} />
           <Route path='/reset-password' element={<ResetPasswordPage />} />
-          <Route path='/profile/*' element={<ProfilePage />} />
+          <Route path='/profile/*' element={
+            <ProtectedRouteElement element={<ProfilePage />} />
+          } />
           <Route path='*' element={<NotFound404 />} />
           <Route path='/' element={<HomePage />} />
         </Routes>

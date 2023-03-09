@@ -2,7 +2,7 @@
 import { useRef, useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login-page.module.css'
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import loginAction from '../../services/actions/login-user';
 
@@ -11,7 +11,8 @@ const LoginPage = () => {
   const [showIcon, setShowIcon] = useState('HideIcon');
   const passwordRef = useRef(null);
   const dispatch = useDispatch();
-  const isAuthorization = useSelector(state => state.userReducer.isAuthorization)
+  const isAuthorization = useSelector(state => state.userReducer.isAuthorization);
+  const location = useLocation();
 
   const onIconClick = () => {
     if (passwordRef.current.type === 'password') {
@@ -25,10 +26,10 @@ const LoginPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginAction(signIn.email, signIn.password))
+    dispatch(loginAction(signIn.email, signIn.password));
   };
 
-  if (isAuthorization) { return (<Navigate to='/' />) };
+  if (isAuthorization) { return (<Navigate to={location.state?.from || '/'} />) };
 
   return (
     <div className={styles.container}>
