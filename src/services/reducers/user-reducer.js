@@ -205,11 +205,7 @@ export const userReducer = (state = initialState, action) => {
       }
     }
     case LOGOUT_SUCCESS: {
-      return {
-        ...state,
-        logoutUserRequest: false,
-        logoutUserFailed: false,
-      }
+      return initialState
     }
     case LOGOUT_FAILED: {
       return {

@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import styles from './profile-page.module.css';
 import ProfileInfoForm from './profile-info-form/profile-info-form.jsx';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import getUserAction from '../../services/actions/get-user';
+import logoutUserAction from '../../services/actions/logout-user';
 
 const ProfilePage = () => {
   const on = '';
@@ -11,10 +12,20 @@ const ProfilePage = () => {
   const [linkStatus, setLinkStatus] = useState({ profileLink: on, orderListLink: off, logOutLink: off });
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const logoutUserFailed = useSelector(state => state.userReducer.logoutUserFailed);
 
   useEffect(() => {
     dispatch(getUserAction());
   }, [dispatch]);
+
+  const logoutUser = () => {
+    setLinkStatus({ profileLink: off, orderListLink: off, logOutLink: on });
+    dispatch(logoutUserAction());
+    if (!logoutUserFailed) {
+      setLinkStatus({ profileLink: on, orderListLink: off, logOutLink: off });
+      navigate('/')
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -36,10 +47,7 @@ const ProfilePage = () => {
           >История заказов</li>
           <li
             className={'text text_type_main-medium ' + styles.link + linkStatus.logOutLink}
-            onClick={() => {
-              setLinkStatus({ profileLink: off, orderListLink: off, logOutLink: on })
-              navigate('/profile/logout');
-            }}
+            onClick={logoutUser}
           >Выход</li>
         </ul>
         <p className="text text_type_main-default text_color_inactive pt-20" style={{ opacity: 0.4 }}>В этом разделе вы можете
