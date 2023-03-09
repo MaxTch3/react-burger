@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import styles from './reset-password-page.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import resetAction from '../../services/actions/reset-password';
@@ -11,6 +11,8 @@ const ResetPasswordPage = () => {
   const passwordRef = useRef(null);
   const dispatch = useDispatch();
   const { isAuthorization, resetSuccess } = useSelector(state => state.userReducer);
+  const location = useLocation();
+  const prevName = location.state?.prevName;
 
   const onIconClick = () => {
     if (passwordRef.current.type === 'password') {
@@ -27,8 +29,8 @@ const ResetPasswordPage = () => {
     dispatch(resetAction(resetInfo.password, resetInfo.codeLetter));
   }
 
-  if (isAuthorization) { return (<Navigate to='/' />) };
-  if (resetSuccess) { return (<Navigate to='/login' />) };
+  if (!prevName || isAuthorization) { return (<Navigate to='/' />) };
+  if (resetSuccess) { return (<Navigate to='/login'/>) };
 
   return (
     <div className={styles.container}>

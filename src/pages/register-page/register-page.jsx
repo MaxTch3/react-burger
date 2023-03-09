@@ -10,7 +10,7 @@ const RegisterPage = () => {
   const [showIcon, setShowIcon] = useState('HideIcon');
   const passwordRef = useRef(null);
   const dispatch = useDispatch();
-  const isAuthorization = useSelector(state => state.userReducer.isAuthorization)
+  const isAuthorization = useSelector(state => state.userReducer.isAuthorization);
 
   const onIconClick = () => {
     if (passwordRef.current.type === 'password') {
@@ -27,8 +27,10 @@ const RegisterPage = () => {
     dispatch(
       registerAction(registerInfo.email, registerInfo.password, registerInfo.name)
     );
-  }
+  };
+
   if (isAuthorization) { return <Navigate to='/' /> }
+
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={onSubmit}>

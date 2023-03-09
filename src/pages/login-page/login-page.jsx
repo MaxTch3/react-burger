@@ -28,7 +28,6 @@ const LoginPage = () => {
     e.preventDefault();
     dispatch(loginAction(signIn.email, signIn.password));
   };
-
   if (isAuthorization) { return (<Navigate to={location.state?.from || '/'} />) };
 
   return (

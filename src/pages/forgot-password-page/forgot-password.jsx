@@ -1,7 +1,7 @@
 import styles from './forgot-password.module.css'
 import { useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import forgotAction from '../../services/actions/forgot-password';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,12 +10,16 @@ const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
   const isAuthorization = useSelector(state => state.userReducer.isAuthorization);
   const forgotCodeSend = useSelector(state => state.userReducer.forgotCodeSend);
+
+  const location = useLocation();
   const onSubmit = (e) => {
     e.preventDefault();
     if (email) { dispatch(forgotAction(email)) };
   }
   if (isAuthorization) { return (<Navigate to='/' />) };
-  if (forgotCodeSend) { return (<Navigate to='/reset-password' />) };
+  if (forgotCodeSend) {
+    return (<Navigate to='/reset-password' state={{ prevName: location.pathname }} />)
+  };
 
   return (
     <div className={styles.container}>
