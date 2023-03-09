@@ -1,21 +1,23 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import styles from './burger-constructor.module.css';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CurrencyIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-import { getOrderData } from '../../services/actions/order.js';
-import {
-  ADD_INGREDIENT,
-  MOVE_INGREDIENT,
-  RESET_INGREDIENTS
-} from '../../services/actions/ingredients-constructor';
 import DraggableElement from './draggable-element/draggable-element';
+import { getOrderData, GET_ORDER_RESET } from '../../services/actions/order.js';
+import { ADD_INGREDIENT, MOVE_INGREDIENT, RESET_INGREDIENTS } from '../../services/actions/ingredients-constructor';
+import styles from './burger-constructor.module.css';
 
 const BurgerConstructor = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const { bun, otherIngredients } = useSelector(state => state.ingredientsConstructor);
+  const isAuthorization = useSelector(state => state.userReducer.isAuthorization);
+  const { orderNumber } = useSelector((state) => state.order);
 
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
@@ -31,16 +33,17 @@ const BurgerConstructor = () => {
     }
   });
 
-  const { bun, otherIngredients } = useSelector(state => state.ingredientsConstructor);
-
   const priceTotal = useMemo(() => (
     bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0)), [otherIngredients, bun]);
 
-
   const handleOrder = () => {
-    const orderData = [bun._id].concat(otherIngredients.map((item) => item._id)).concat([bun._id]);
-    dispatch(getOrderData(orderData));
-    setIsOpen(true);
+    if (!isAuthorization) {
+      navigate({ pathname: '/login', state: { from: location } })
+    } else {
+      const orderData = [bun._id].concat(otherIngredients.map((item) => item._id)).concat([bun._id]);
+      dispatch(getOrderData(orderData));
+      setIsOpen(true);
+    }
   }
 
   const moveList = useCallback(
@@ -51,10 +54,9 @@ const BurgerConstructor = () => {
   );
 
   const onClose = () => {
-    dispatch({ type: RESET_INGREDIENTS })
+    dispatch({ type: RESET_INGREDIENTS });
+    dispatch({ type: GET_ORDER_RESET });
   }
-
-  const { orderNumber } = useSelector((state) => state.order);
 
   return (
     <>

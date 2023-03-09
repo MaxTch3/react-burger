@@ -1,6 +1,7 @@
 import {
   GET_ORDER_FAILED,
   GET_ORDER_REQUEST,
+  GET_ORDER_RESET,
   GET_ORDER_SUCCESS
 } from "../actions/order.js"
 
@@ -28,6 +29,10 @@ export const order = (state = initialState, action) => {
         orderNumber: 0, orderRequest: false, orderFailed: true
       }
     }
+    case GET_ORDER_RESET: {
+      return initialState
+    }
+
     default: { return state }
   }
 }
