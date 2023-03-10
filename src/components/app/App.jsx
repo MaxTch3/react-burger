@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import styles from './App.module.css';
@@ -12,18 +12,28 @@ import ResetPasswordPage from '../../pages/reset-password-page/reset-password-pa
 import ProfilePage from '../../pages/profile-page/profile-page';
 import NotFound404 from '../../pages/not-found-404/not-found-404';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
+import getUserAction from '../../services/actions/get-user';
+import IngredientPage from '../../pages/ingredient-page/ingredient-page';
 
 function App() {
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getIngredientsData())
   }, [dispatch]);
+
+  useEffect(() => {
+    if (localStorage.getItem('jwt')) {
+      dispatch(getUserAction());
+    }
+  }, []);
 
   return (
     <div className={styles.app}>
       <AppHeader />
       <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/ingredients/:id' element={<IngredientPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/forgot-password' element={<ForgotPasswordPage />} />
@@ -32,7 +42,7 @@ function App() {
           <ProtectedRouteElement element={<ProfilePage />} />
         } />
         <Route path='*' element={<NotFound404 />} />
-        <Route path='/' element={<HomePage />} />
+
       </Routes>
     </div>
   );
