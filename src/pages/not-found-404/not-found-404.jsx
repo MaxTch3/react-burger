@@ -1,6 +1,5 @@
 import styles from './not-found-404.module.css';
 
-
 const NotFound404 = () => {
   return (
     <div className={styles.container}>

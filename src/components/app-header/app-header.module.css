@@ -29,7 +29,6 @@
   transition: opacity 0.3s;
 }
 
-
 .header__link:hover {
   opacity: 0.7;
 }

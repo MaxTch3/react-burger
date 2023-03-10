@@ -42,7 +42,6 @@ function App() {
           <ProtectedRouteElement element={<ProfilePage />} />
         } />
         <Route path='*' element={<NotFound404 />} />
-
       </Routes>
     </div>
   );
