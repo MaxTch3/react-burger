@@ -24,15 +24,17 @@ const Ingredient = ({ item, count }) => {
    })
 
    const onClose = () => {
-      dispatch({ type: REMOVE_INGREDIENT_CURRENT_INFO })
+     dispatch({ type: REMOVE_INGREDIENT_CURRENT_INFO });
+     window.history.pushState({ path: `/` }, '', `/`)
    }
 
    return (
       <>
          <div className={styles.ingredient_card + ' ml-3 mr-3'}
             onClick={() => {
-               dispatch({ type: GET_INGREDIENT_CURRENT_INFO, item })
-               setIsOpen(true)
+              dispatch({ type: GET_INGREDIENT_CURRENT_INFO, item });
+              setIsOpen(true);
+              window.history.pushState({ path: `/ingredients/${item._id}` }, '', `/ingredients/${item._id}`)
             }}
             draggable
             ref={ref}

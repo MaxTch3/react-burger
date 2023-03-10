@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 120px;
 }
 
 .colorizator {

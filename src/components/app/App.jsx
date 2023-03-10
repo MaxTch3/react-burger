@@ -33,7 +33,7 @@ function App() {
       <AppHeader />
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/ingredients/:id' element={<IngredientPage />} />
+        <Route path='/ingredients/:id' element={<IngredientPage />} exact={true} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/forgot-password' element={<ForgotPasswordPage />} />
