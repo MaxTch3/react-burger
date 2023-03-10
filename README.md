@@ -12,4 +12,4 @@
 * Проект служит основой для практических занятий с библиотекой React
 
 ### Ссылка на GitHub Pages:
-
+https://maxtch3.github.io/react-burger/
