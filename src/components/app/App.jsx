@@ -14,6 +14,7 @@ import NotFound404 from '../../pages/not-found-404/not-found-404';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 import getUserAction from '../../services/actions/get-user';
 import IngredientPage from '../../pages/ingredient-page/ingredient-page';
+import { getCookie } from '../../utils/cookie-functions';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,11 +23,12 @@ function App() {
     dispatch(getIngredientsData())
   }, [dispatch]);
 
-  useEffect(() => {
-    if (localStorage.getItem('jwt')) {
-      dispatch(getUserAction());
-    }
-  }, []);
+    useEffect(() => {
+      const accessToken = getCookie('token');
+      if (accessToken) {
+        dispatch(getUserAction())
+      }
+    }, [])
 
   return (
     <div className={styles.app}>
