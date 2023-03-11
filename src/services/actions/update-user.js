@@ -1,5 +1,6 @@
-import { updateUserRequest } from "../../utils/user-api";
-import refreshTokenAction from "./refresh-token";
+import { setCookie } from "../../utils/cookie-functions";
+import { refreshTokenRequest, updateUserRequest } from "../../utils/user-api";
+import { REFRESH_TOKEN_FAILED, REFRESH_TOKEN_SUCCESS } from "./refresh-token";
 
 export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
@@ -14,10 +15,22 @@ const updateUserAction = (name, email, password) => (dispatch) => {
     .catch(() => {
       const refreshToken = localStorage.getItem('jwt');
       if (refreshToken) {
-        dispatch(refreshTokenAction());
-        updateUserRequest(name, email, password)
-          .then((res) => {
-            dispatch({ type: UPDATE_USER_SUCCESS, user: res.user })
+        refreshTokenRequest()
+          .then(res => {
+            if (res && res.success) {
+              setCookie('token', res.accessToken, { expires: 1200 });
+              localStorage.setItem("jwt", res.refreshToken);
+              dispatch({ type: REFRESH_TOKEN_SUCCESS })
+            }
+            else {
+              dispatch({ type: REFRESH_TOKEN_FAILED })
+            }
+          })
+          .then(() => {
+            updateUserRequest(name, email, password)
+              .then((res) => {
+                dispatch({ type: UPDATE_USER_SUCCESS, user: res.user })
+              })
           })
       } else { dispatch({ type: UPDATE_USER_FAILED }) }
     })
