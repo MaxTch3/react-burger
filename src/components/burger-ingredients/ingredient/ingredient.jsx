@@ -4,13 +4,10 @@ import { useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import styles from './ingredient.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientType } from '../../../utils/componentTypes';
+import { ingredientType } from '../../../utils/component-types';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
-import {
-  GET_INGREDIENT_CURRENT_INFO,
-  REMOVE_INGREDIENT_CURRENT_INFO
-} from '../../../services/actions/ingredient-current-info.js';
+import { GET_INGREDIENT_CURRENT_INFO, REMOVE_INGREDIENT_CURRENT_INFO } from '../../../services/actions/ingredient-current-info.js';
 
 const Ingredient = ({ item, count }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,15 +21,17 @@ const Ingredient = ({ item, count }) => {
   })
 
   const onClose = () => {
-    dispatch({ type: REMOVE_INGREDIENT_CURRENT_INFO })
+    dispatch({ type: REMOVE_INGREDIENT_CURRENT_INFO });
+    window.history.pushState({ path: `/` }, '', `/`)
   }
 
   return (
     <>
       <div className={styles.ingredient_card + ' ml-3 mr-3'}
         onClick={() => {
-          dispatch({ type: GET_INGREDIENT_CURRENT_INFO, item })
-          setIsOpen(true)
+          dispatch({ type: GET_INGREDIENT_CURRENT_INFO, item });
+          setIsOpen(true);
+          window.history.pushState({ path: `/ingredients/${item._id}` }, '', `/ingredients/${item._id}`)
         }}
         draggable
         ref={ref}

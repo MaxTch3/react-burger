@@ -21,7 +21,6 @@
   transform: scale(0);
   z-index: 2;
   animation: close 0.3s ease-in;
-
 }
 
 .modal__content_active {
@@ -36,7 +35,6 @@
 
   100% {
     transform: scale(1);
-
   }
 }
 
@@ -47,6 +45,5 @@
 
   100% {
     transform: scale(0);
-
   }
 }

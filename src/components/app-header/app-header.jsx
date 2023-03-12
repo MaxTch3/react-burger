@@ -1,29 +1,42 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon, } from '@ya.praktikum/react-developer-burger-ui-components';
-import style from './app-header.module.css'
+import { Link, useMatch } from 'react-router-dom';
+import styles from './app-header.module.css'
 
 const AppHeader = () => {
+
+  const constructorActive = useMatch('/');
+  const feedActive = useMatch('/feed');
+  const profileActive = useMatch('/profile/*');
+
   return (
-    <header className={'pt-4 pb-4 ' + style.header}>
-      <div className={style.header__container}>
-        <div className={style.header__links}>
-          <a className={'pt-4 pr-5 pb-4 pl-5 ' + style.header__link} href='#'>
-            <BurgerIcon type='primary' />
-            <span className='text text_type_main-default ml-2'>Конструктор</span>
-          </a>
-          <a className={'pt-4 pr-5 pb-4 pl-5 ml-2 ' + style.header__link} href='#'>
-            <ListIcon type='secondary' />
-            <span style={{ color: '#8585AD' }} className='text text_type_main-default ml-2'>Лента заказов</span>
-          </a>
+    <header className={'pt-4 pb-4 ' + styles.header}>
+      <nav className={styles.header__container}>
+        <div className={styles.header__links}>
+          <Link className={'pt-4 pr-5 pb-4 pl-5 ' + styles.header__link}
+            to='/'
+          >
+            <BurgerIcon type={constructorActive ? 'primary' : 'secondary'} />
+            <span className={`text text_type_main-default ml-2 ${constructorActive ? '' : 'text_color_inactive'}`}
+            >Конструктор</span>
+          </Link>
+          <Link className={'pt-4 pr-5 pb-4 pl-5 ml-2 ' + styles.header__link}
+            to='/feed'
+          >
+            <ListIcon type={feedActive ? 'primary' : 'secondary'} />
+            <span className={`text text_type_main-default ml-2 ${feedActive ? '' : 'text_color_inactive'}`}>Лента заказов</span>
+          </Link>
         </div>
-        <div className={style.header__logo}>
+        <div className={styles.header__logo}>
           <Logo />
         </div>
 
-        <a style={{ color: '#8585AD' }} className={'pt-4 pr-5 pb-4 pl-5 ' + style.header__link} href='#'>
-          <ProfileIcon type='secondary' />
-          <span className='text text_type_main-default ml-2'>Личный кабинет</span>
-        </a>
-      </div>
+        <Link className={'pt-4 pr-5 pb-4 pl-5 ' + styles.header__link}
+          to='/profile'
+        >
+          <ProfileIcon type={profileActive ? 'primary' : 'secondary'} />
+          <span className={`text text_type_main-default ml-2 ${profileActive ? '' : 'text_color_inactive'}`}>Личный кабинет</span>
+        </Link>
+      </nav>
     </header>
   )
 }
