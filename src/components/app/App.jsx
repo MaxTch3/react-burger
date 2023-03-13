@@ -15,6 +15,7 @@ import ProtectedRouteElement from '../protected-route-element/protected-route-el
 import getUserAction from '../../services/actions/get-user';
 import IngredientPage from '../../pages/ingredient-page/ingredient-page';
 import { getCookie } from '../../utils/cookie-functions';
+import FeedPage from '../../pages/feed-page/feed-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -41,8 +42,8 @@ function App() {
         <Route path='/forgot-password' element={<ForgotPasswordPage />} />
         <Route path='/reset-password' element={<ResetPasswordPage />} />
         <Route path='/profile/*' element={
-          <ProtectedRouteElement element={<ProfilePage />} />
-        } />
+          <ProtectedRouteElement element={<ProfilePage />} /> } />
+        <Route path='/feed' element={<FeedPage />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
     </div>

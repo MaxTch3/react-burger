@@ -1,0 +1,36 @@
+.main {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: overlay;
+  position: relative;
+  height: 60vh;
+  /* max-width: 600px;
+  width: 100%; */
+  width: 600px;
+  box-sizing: border-box;
+}
+
+@-moz-document url-prefix() {
+  .container {
+    overflow-y: scroll;
+    scrollbar-color: #8585AD #2F2F37;
+    scrollbar-width: thin;
+    max-width: 614px;
+  }
+}
+
+.container::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
