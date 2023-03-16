@@ -3,14 +3,31 @@ import styles from './order-card.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import RoundIcon from './round-icon/round-icon';
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 
 
 const OrderCard = ({ order }) => {
-  const ingredientsToDraw = useMemo(() => order.ingredients.slice(0, 6), [order])
+  const ingredients = useSelector(state => state.ingredientsData.data);
+  const ingredientsToDraw = useMemo(() => order.ingredients.slice(0, 6), [order]);
+  
   const count = useMemo(() =>
     order.ingredients.length > 6 ? (order.ingredients.length - 6) : 0
-    , [order])
+    , [order]);
+
+  const cost = useMemo(() => {
+    let totalCost = 0;
+    order.ingredients.forEach((id) => {
+      const ingredient = ingredients.find((item) => (item._id === id));
+      if (ingredient?.type === 'bun') {
+        totalCost += ingredient?.price * 2;
+      } else {
+        totalCost += ingredient?.price;
+      }
+    });
+    return totalCost
+
+  }, [ingredients, order])
   return (
     <div className={styles.order}>
       <div className={styles.header}>
@@ -31,7 +48,7 @@ const OrderCard = ({ order }) => {
           }
         </div>
         <div className={styles.cost}>
-          <p className='text text_type_digits-default'>480</p>
+          <p className='text text_type_digits-default'>{cost}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>
