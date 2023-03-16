@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 const OrderCard = ({ order }) => {
   const ingredients = useSelector(state => state.ingredientsData.data);
   const ingredientsToDraw = useMemo(() => order.ingredients.slice(0, 6), [order]);
-  
+
   const count = useMemo(() =>
     order.ingredients.length > 6 ? (order.ingredients.length - 6) : 0
     , [order]);
@@ -48,7 +48,7 @@ const OrderCard = ({ order }) => {
           }
         </div>
         <div className={styles.cost}>
-          <p className='text text_type_digits-default'>{cost}</p>
+          <p className='text text_type_digits-default'>{`${cost}`}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>
