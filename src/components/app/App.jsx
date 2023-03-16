@@ -16,6 +16,7 @@ import getUserAction from '../../services/actions/get-user';
 import IngredientPage from '../../pages/ingredient-page/ingredient-page';
 import { getCookie } from '../../utils/cookie-functions';
 import FeedPage from '../../pages/feed-page/feed-page';
+import OrderPage from '../../pages/order-page/order-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function App() {
         <Route path='/profile/*' element={
           <ProtectedRouteElement element={<ProfilePage />} /> } />
         <Route path='/feed' element={<FeedPage />} />
+        <Route path='/feed/*' element={<OrderPage />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
     </div>

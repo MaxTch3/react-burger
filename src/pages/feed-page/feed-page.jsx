@@ -77,7 +77,7 @@ export default FeedPage;
 
 
 
-const orderFeed = {
+export const orderFeed = {
   "success": true,
   "orders":
     [
