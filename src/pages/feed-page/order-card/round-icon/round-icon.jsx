@@ -10,15 +10,18 @@ const RoundIcon = ({ id, count, index }) => {
   const ingredient = useMemo(() => ingredients.find((item) => (item._id === id)), [ingredients]);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+
   const onClick = () => {
     dispatch({ type: GET_INGREDIENT_CURRENT_INFO, item: ingredient });
     setIsOpen(true);
     window.history.pushState({ path: `/ingredients/${ingredient._id}` }, '', `/ingredients/${ingredient._id}`)
   };
+
   const onClose = () => {
     dispatch({ type: REMOVE_INGREDIENT_CURRENT_INFO });
     window.history.pushState({ path: `/feed` }, '', `/feed`)
   }
+  
   return (
     <>
       {count > 0 && index === 5 &&
