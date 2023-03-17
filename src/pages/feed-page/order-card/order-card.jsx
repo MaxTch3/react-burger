@@ -76,7 +76,7 @@ const OrderCard = ({ order }) => {
       </div>
       {
         isOpen &&
-        <Modal setActive={setIsOpen} onClose={onClose} header={'Детали ингредиента'}>
+        <Modal setActive={setIsOpen} onClose={onClose} header={`#${order.number}`} textStyle={'text text_type_digits-default'}>
           <OrderWindow />
         </Modal>
       }

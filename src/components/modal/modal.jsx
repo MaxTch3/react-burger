@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import ModalHeader from './modal-header/modal-header';
 
 
-const Modal = ({ setActive, onClose, header, children }) => {
+const Modal = ({ setActive, onClose, header, children, textStyle }) => {
 
   const [animation, setAnimation] = useState(true);
 
@@ -38,7 +38,7 @@ const Modal = ({ setActive, onClose, header, children }) => {
         <div
           className={animation ? `${styles.modal__content} ${styles.modal__content_active}` : `${styles.modal__content}`}
           onClick={(evt) => evt.stopPropagation()}>
-          <ModalHeader header={header} closeModal={closeModalAnimation} />
+          <ModalHeader header={header} closeModal={closeModalAnimation} textStyle={textStyle} />
           {children}
         </div>
       </div>
