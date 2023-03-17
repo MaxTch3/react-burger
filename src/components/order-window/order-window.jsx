@@ -36,14 +36,21 @@ const OrderWindow = () => {
         {
           ingredientsUniq.map((ingredient, index) => (
             <div className={styles.ingredients_box} key={index}>
-              <div className={styles.image_container} >
+              <div className={styles.ingredient}>
+<div className={styles.image_container} >
                 <img className={styles.image} src={ingredient?.image_mobile} alt={ingredient?.name} />
               </div>
-              <p className='text text_type_main-default'>{ingredient?.name}</p>
-              <p className='text text_type_main-default'>{ingredient?.price}</p>
+                <p className='text text_type_main-default'>{ingredient?.name}</p>
+              </div>
 
-              <CurrencyIcon />
-              <p className='text text_type_main-default'>{countObj[ingredient._id]}</p>
+
+              <div className={styles.cost}>
+                <p className='text text_type_digits-default'>{`${countObj[ingredient._id]} x ${ingredient?.price} `}</p>
+                <CurrencyIcon />
+              </div>
+
+
+
             </div>
           ))
         }

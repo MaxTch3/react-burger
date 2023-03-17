@@ -10,12 +10,12 @@
   display: flex;
   align-items: center;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .image_container {
   width: 64px;
   height: 64px;
-  margin-left: -16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,9 +31,26 @@
   transition: opacity 0.4s ease;
 }
 
-
 .image {
   object-fit: cover;
   width: 112px;
   height: 56px;
+}
+
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+  gap: 16px;
+}
+
+.cost {
+  display: flex;
+  gap: 9px;
+}
+
+.ingredient {
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
