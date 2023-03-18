@@ -30,7 +30,7 @@ function App() {
       if (accessToken) {
         dispatch(getUserAction())
       }
-    }, [])
+    }, [dispatch])
 
   return (
     <div className={styles.app}>

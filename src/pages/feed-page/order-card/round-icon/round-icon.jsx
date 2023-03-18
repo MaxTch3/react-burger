@@ -7,7 +7,7 @@ import styles from './round-icon.module.css';
 
 const RoundIcon = ({ id, count, index }) => {
   const ingredients = useSelector(state => state.ingredientsData.data);
-  const ingredient = useMemo(() => ingredients.find((item) => (item._id === id)), [ingredients]);
+  const ingredient = useMemo(() => ingredients.find((item) => (item._id === id)), [ingredients, id]);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ const RoundIcon = ({ id, count, index }) => {
     dispatch({ type: REMOVE_INGREDIENT_CURRENT_INFO });
     window.history.pushState({ path: `/feed` }, '', `/feed`)
   }
-  
+
   return (
     <>
       {count > 0 && index === 5 &&

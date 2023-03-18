@@ -5,8 +5,8 @@ import OrderCard from './order-card/order-card';
 
 const FeedPage = () => {
 
-  const ordersDone = useMemo(() => orderFeed.orders.filter((item) => (item.status === 'done')), [orderFeed]);
-  const ordersWork = useMemo(() => orderFeed.orders.filter((item) => (item.status === 'work')), [orderFeed]);
+  const ordersDone = useMemo(() => orderFeed.orders.filter((item) => (item.status === 'done')), []);
+  const ordersWork = useMemo(() => orderFeed.orders.filter((item) => (item.status === 'work')), []);
 
   return (
     <main className={styles.main} >

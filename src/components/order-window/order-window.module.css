@@ -3,7 +3,7 @@
   padding-bottom: 120px;
   display: flex;
   flex-direction: column;
-  padding: 0px 40px 20px;
+  padding: 0px 40px 40px;
 }
 
 .ingredients_box {
@@ -40,17 +40,50 @@
 .ingredients {
   display: flex;
   flex-direction: column;
-  padding-top: 24px;
+  margin-top: 24px;
   gap: 16px;
+  overflow-y: overlay;
+  position: relative;
+  max-height: 310px;
+}
+
+@-moz-document url-prefix() {
+  .ingredients {
+    overflow-y: scroll;
+    scrollbar-color: #8585AD #2F2F37;
+    scrollbar-width: thin;
+    max-width: 614px;
+  }
+}
+
+.ingredients::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
 }
 
 .cost {
   display: flex;
   gap: 9px;
+  margin-right: 32px;
 }
 
 .ingredient {
   display: flex;
   gap: 16px;
   align-items: center;
+}
+
+.date_and_cost {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 40px;
+}
+
+.total {
+  display: flex;
+  gap: 9px;
 }
