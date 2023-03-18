@@ -20,7 +20,7 @@
 
 .header__link {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   color: #F2F2F3;
   cursor: pointer;
