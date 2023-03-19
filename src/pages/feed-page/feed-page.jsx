@@ -6,7 +6,7 @@ import OrderCard from './order-card/order-card';
 const FeedPage = () => {
 
   const ordersDone = useMemo(() => orderFeed.orders.filter((item) => (item.status === 'done')), []);
-  const ordersWork = useMemo(() => orderFeed.orders.filter((item) => (item.status === 'work')), []);
+  const ordersWork = useMemo(() => orderFeed.orders.filter((item) => (item.status === 'pending' || item.status === 'created')), []);
 
   return (
     <main className={styles.main} >
@@ -90,9 +90,9 @@ export const orderFeed = {
           "60d3b41abdacab0026a733c9",
           "60d3b41abdacab0026a733c9"
         ],
-        "_id": "453174987593",
+        "_id": "453174987593i",
         "status": "done",
-        "number": 3345,
+        "number": 31345,
         "createdAt": "2021-06-23T14:43:22.587Z",
         "updatedAt": "2021-06-23T14:43:22.603Z"
       },
@@ -112,9 +112,9 @@ export const orderFeed = {
           "60d3b41abdacab0026a733cc",
           "60d3b41abdacab0026a733cc"
         ],
-        "_id": "453724e987593",
-        "status": "done",
-        "number": 4345,
+        "_id": "453724e987593y",
+        "status": "created",
+        "number": 42345,
         "createdAt": "2021-06-23T14:43:22.587Z",
         "updatedAt": "2021-06-23T14:43:22.603Z"
       },
@@ -127,9 +127,9 @@ export const orderFeed = {
           "60d3b41abdacab0026a733c9",
           "60d3b41abdacab0026a733c9"
         ],
-        "_id": "453734987593",
-        "status": "done",
-        "number": 3345,
+        "_id": "453734987593k",
+        "status": "pending",
+        "number": 33345,
         "createdAt": "2021-06-23T14:43:22.587Z",
         "updatedAt": "2021-06-23T14:43:22.603Z"
       },
@@ -149,9 +149,9 @@ export const orderFeed = {
           "60d3b41abdacab0026a733cc",
           "60d3b41abdacab0026a733cc"
         ],
-        "_id": "45374e9487593",
+        "_id": "45374e9487593l",
         "status": "done",
-        "number": 4345,
+        "number": 43445,
         "createdAt": "2021-06-23T14:43:22.587Z",
         "updatedAt": "2021-06-23T14:43:22.603Z"
       },
@@ -164,9 +164,9 @@ export const orderFeed = {
           "60d3b41abdacab0026a733c9",
           "60d3b41abdacab0026a733c9"
         ],
-        "_id": "453749587593",
-        "status": "work",
-        "number": 33545,
+        "_id": "453749587593z",
+        "status": "pending",
+        "number": 335545,
         "createdAt": "2021-06-23T14:43:22.587Z",
         "updatedAt": "2021-06-23T14:43:22.603Z"
       },
@@ -186,9 +186,9 @@ export const orderFeed = {
           "60d3b41abdacab0026a733cc",
           "60d3b41abdacab0026a733cc"
         ],
-        "_id": "45374e9876593",
-        "status": "done",
-        "number": 4345,
+        "_id": "45374e9876593c",
+        "status": "pending",
+        "number": 46345,
         "createdAt": "2021-06-23T14:43:22.587Z",
         "updatedAt": "2021-06-23T14:43:22.603Z"
       },
@@ -201,9 +201,9 @@ export const orderFeed = {
           "60d3b41abdacab0026a733c9",
           "60d3b41abdacab0026a733c9"
         ],
-        "_id": "453749877593",
+        "_id": "453749877593v",
         "status": "done",
-        "number": 3345,
+        "number": 33945,
         "createdAt": "2021-06-23T14:43:22.587Z",
         "updatedAt": "2021-06-23T14:43:22.603Z"
       },
@@ -223,8 +223,8 @@ export const orderFeed = {
           "60d3b41abdacab0026a733cc",
           "60d3b41abdacab0026a733cc"
         ],
-        "_id": "45374e9879593",
-        "status": "work",
+        "_id": "45374e9879593m",
+        "status": "created",
         "number": 4777345,
         "createdAt": "2021-06-23T14:43:22.587Z",
         "updatedAt": "2021-06-23T14:43:22.603Z"

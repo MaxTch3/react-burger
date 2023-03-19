@@ -45,7 +45,7 @@ function App() {
         <Route path='/profile/*' element={
           <ProtectedRouteElement element={<ProfilePage />} /> } />
         <Route path='/feed' element={<FeedPage />} />
-        <Route path='/feed/*' element={<OrderPage />} />
+        <Route path='/feed/:id' element={<OrderPage />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
     </div>

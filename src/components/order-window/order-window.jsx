@@ -7,14 +7,17 @@ const OrderWindow = () => {
 
   const order = useSelector(state => state.orderCurrentInfo.order);
   const ingredientsData = useSelector(state => state.ingredientsData.data)
-  const status = order.status === 'done' ? 'Выполнен' : '';
 
+  const status =
+    order.status === 'done' ? 'Выполнен'
+      : order.status === 'created' ? 'Создан'
+        : order.status === 'pending' ? 'Готовится' : '';
+  
   const ingredientsUniq = useMemo(() => {
     return Array.from(new Set(
       ingredientsData.filter((item) => order.ingredients.includes(item._id))
     ));
   }, [ingredientsData, order]);
-
 
   const countsObject = useMemo(() => {
     const counts = order.ingredients.reduce((acc, i) => {
@@ -25,9 +28,9 @@ const OrderWindow = () => {
       }
       return acc;
     }, {});
-    counts[ingredientsUniq[0]._id] = 2;
+    counts[order.ingredients[0]] = 2;
     return counts
-  }, [ingredientsUniq, order])
+  }, [order])
 
   const cost = useMemo(() => {
     let totalCost = 0;
@@ -40,14 +43,13 @@ const OrderWindow = () => {
       }
     });
     return totalCost
-
   }, [ingredientsUniq, order])
 
 
   return (
     <div className={styles.container}>
       <p className='text text_type_main-medium pt-5'>Black Hole Singularity острый бургер</p>
-      <p className='text text_type_main-default pt-2' style={{ color: '#00CCCC' }}>{status}</p>
+      <p className='text text_type_main-default pt-2' style={order.status === 'done' ? { color: '#00CCCC' } : {}}>{status}</p>
       <p className='text text_type_main-medium pt-15'>Состав:</p>
       <div className={styles.ingredients}>
         {
@@ -74,7 +76,7 @@ const OrderWindow = () => {
           <FormattedDate date={new Date(order.createdAt)} />
         </p>
         <div className={styles.total}>
-          <p className='text text_type_digits-default'>{cost}</p>
+          <p className='text text_type_digits-default'>{`${cost}`}</p>
           <CurrencyIcon />
         </div>
       </div>
