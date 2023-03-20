@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Route, Routes, useMatch, useNavigate } from 'react-router-dom';
 import styles from './profile-page.module.css';
 import ProfileInfoForm from './profile-info-form/profile-info-form.jsx';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,22 +8,22 @@ import logoutUserAction from '../../services/actions/logout-user';
 import UserOrdersPage from './user-orders-page/user-orders-page';
 
 const ProfilePage = () => {
-  const on = '';
-  const off = ' text_color_inactive';
-  const [linkStatus, setLinkStatus] = useState({ profileLink: on, orderListLink: off, logOutLink: off });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const logoutUserFailed = useSelector(state => state.userReducer.logoutUserFailed);
+
+  const profileLinkActive = useMatch('/profile');
+  const ordersLinkActive = useMatch('/profile/orders/*');
+  const profileLinkStyle = !profileLinkActive ? ' text_color_inactive' : '';
+  const ordersLinkStyle = !ordersLinkActive ? ' text_color_inactive' : '';
 
   useEffect(() => {
     dispatch(getUserAction());
   }, [dispatch]);
 
   const logoutUser = () => {
-    setLinkStatus({ profileLink: off, orderListLink: off, logOutLink: on });
     dispatch(logoutUserAction());
     if (!logoutUserFailed) {
-      setLinkStatus({ profileLink: on, orderListLink: off, logOutLink: off });
       navigate('/')
     }
   }
@@ -33,21 +33,19 @@ const ProfilePage = () => {
       <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '320px' }}>
         <ul className={styles.links}>
           <li
-            className={'text text_type_main-medium ' + styles.link + linkStatus.profileLink}
+            className={'text text_type_main-medium ' + styles.link + profileLinkStyle}
             onClick={() => {
-              setLinkStatus({ profileLink: on, orderListLink: off, logOutLink: off })
               navigate('/profile');
             }}
           >Профиль</li>
           <li
-            className={'text text_type_main-medium ' + styles.link + linkStatus.orderListLink}
+            className={'text text_type_main-medium ' + styles.link + ordersLinkStyle}
             onClick={() => {
-              setLinkStatus({ profileLink: off, orderListLink: on, logOutLink: off })
               navigate('/profile/orders');
             }}
           >История заказов</li>
           <li
-            className={'text text_type_main-medium ' + styles.link + linkStatus.logOutLink}
+            className={'text text_type_main-medium text_color_inactive ' + styles.link}
             onClick={logoutUser}
           >Выход</li>
         </ul>
