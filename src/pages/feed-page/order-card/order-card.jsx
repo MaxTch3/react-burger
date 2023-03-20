@@ -8,7 +8,7 @@ import { GET_ORDER_CURRENT_INFO, REMOVE_ORDER_CURRENT_INFO } from '../../../serv
 import Modal from '../../../components/modal/modal';
 import OrderWindow from '../../../components/order-window/order-window';
 
-const OrderCard = ({ order, onStatus }) => {
+const OrderCard = ({ order, onStatus, path }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
@@ -17,12 +17,12 @@ const OrderCard = ({ order, onStatus }) => {
   const onClick = () => {
     dispatch({ type: GET_ORDER_CURRENT_INFO, order });
     setIsOpen(true);
-    window.history.pushState({ path: `/feed/${order._id}` }, '', `/feed/${order._id}`)
+    window.history.pushState({ path: `${path}/${order._id}` }, '', `${path}/${order._id}`)
   };
 
   const onClose = () => {
     dispatch({ type: REMOVE_ORDER_CURRENT_INFO });
-    window.history.pushState({ path: `/feed` }, '', `/feed`)
+    window.history.pushState({ path: { path } }, '', { path })
   }
 
   const uniqueList = useMemo(() => Array.from(

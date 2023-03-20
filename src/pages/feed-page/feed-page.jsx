@@ -15,7 +15,7 @@ const FeedPage = () => {
         <div className='pt-5'></div>
         <div className={styles.container + ' pl-1 pr-1'} >
           {orderFeed.orders.map((order) => (
-            <OrderCard order={order} key={uuidv4()} />
+            <OrderCard order={order} key={uuidv4()} path={'/feed'} />
           ))
           }
         </div>
