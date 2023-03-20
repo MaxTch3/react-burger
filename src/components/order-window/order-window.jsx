@@ -12,7 +12,7 @@ const OrderWindow = () => {
     order.status === 'done' ? 'Выполнен'
       : order.status === 'created' ? 'Создан'
         : order.status === 'pending' ? 'Готовится' : '';
-  
+
   const ingredientsUniq = useMemo(() => {
     return Array.from(new Set(
       ingredientsData.filter((item) => order.ingredients.includes(item._id))

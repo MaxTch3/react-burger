@@ -8,9 +8,7 @@ import { GET_ORDER_CURRENT_INFO, REMOVE_ORDER_CURRENT_INFO } from '../../../serv
 import Modal from '../../../components/modal/modal';
 import OrderWindow from '../../../components/order-window/order-window';
 
-
-
-const OrderCard = ({ order }) => {
+const OrderCard = ({ order, onStatus }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
@@ -48,20 +46,27 @@ const OrderCard = ({ order }) => {
       }
     });
     return totalCost
-  }, [ingredients, order])
+  }, [ingredients, order]);
+
+  const status =
+    order.status === 'done' ? 'Выполнен'
+      : order.status === 'created' ? 'Создан'
+        : order.status === 'pending' ? 'Готовится' : '';
 
   return (
     <>
       <div className={styles.order}>
-        <div onClick={onClick}>
+        <div className='pb-6' onClick={onClick}>
           <div className={styles.header}>
             <p className='text text_type_digits-default' >{`#${order.number}`}</p>
             <p className='text text_type_main-default text_color_inactive'>
               <FormattedDate date={new Date(order.createdAt)} />
             </p>
           </div>
-
-          <p className='text text_type_main-medium pt-6 pl-6 pr-6 pb-6'>Death Star Starship Main бургер</p>
+          <p className='text text_type_main-medium pt-6 pl-6 pr-6'>Death Star Starship Main бургер</p>
+          {onStatus &&
+            <p className='text text_type_main-default pt-2 pl-6' style={order.status === 'done' ? { color: '#00CCCC' } : {}}>{status}</p>
+          }
         </div>
 
         <div className={styles.images_and_cost}>

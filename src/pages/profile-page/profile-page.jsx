@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useMatch, useNavigate } from 'react-router-dom';
 import styles from './profile-page.module.css';
 import ProfileInfoForm from './profile-info-form/profile-info-form.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import getUserAction from '../../services/actions/get-user';
 import logoutUserAction from '../../services/actions/logout-user';
+import UserOrdersPage from './user-orders-page/user-orders-page';
 
 const ProfilePage = () => {
   const on = '';
@@ -42,7 +43,7 @@ const ProfilePage = () => {
             className={'text text_type_main-medium ' + styles.link + linkStatus.orderListLink}
             onClick={() => {
               setLinkStatus({ profileLink: off, orderListLink: on, logOutLink: off })
-              navigate('/profile/order');
+              navigate('/profile/orders');
             }}
           >История заказов</li>
           <li
@@ -55,9 +56,7 @@ const ProfilePage = () => {
       </div>
       <Routes>
         <Route path='/' element={<ProfileInfoForm />} />
-        <Route path='/*' element={
-          <div className='text text_type_main-default pt-20' style={{ color: '#4C4CFF' }}>Раздел в процессе разработки</div>
-        } />
+        <Route path='/orders/' element={<UserOrdersPage />} />
       </Routes>
     </div >
   )
