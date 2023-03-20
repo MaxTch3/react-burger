@@ -14,6 +14,7 @@ const OrderCard = ({ order }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const ingredients = useSelector(state => state.ingredientsData.data);
 
   const onClick = () => {
     dispatch({ type: GET_ORDER_CURRENT_INFO, order });
@@ -26,12 +27,15 @@ const OrderCard = ({ order }) => {
     window.history.pushState({ path: `/feed` }, '', `/feed`)
   }
 
-  const ingredients = useSelector(state => state.ingredientsData.data);
-  const ingredientsToDraw = useMemo(() => order.ingredients.slice(0, 6), [order]);
+  const uniqueList = useMemo(() => Array.from(
+    new Set(order.ingredients)), [order])
+
+  const ingredientsToDraw = useMemo(() => uniqueList.slice(0, 6)
+    , [uniqueList]);
 
   const count = useMemo(() =>
-    order.ingredients.length > 6 ? (order.ingredients.length - 6) : 0
-    , [order]);
+    uniqueList.length > 6 ? (uniqueList.length - 6) : 0
+    , [uniqueList]);
 
   const cost = useMemo(() => {
     let totalCost = 0;
@@ -44,8 +48,8 @@ const OrderCard = ({ order }) => {
       }
     });
     return totalCost
-
   }, [ingredients, order])
+
   return (
     <>
       <div className={styles.order}>

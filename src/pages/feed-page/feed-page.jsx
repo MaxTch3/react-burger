@@ -184,10 +184,12 @@ export const orderFeed = {
           "60d3b41abdacab0026a733cc",
           "60d3b41abdacab0026a733ca",
           "60d3b41abdacab0026a733cc",
-          "60d3b41abdacab0026a733cc"
+          "60d3b41abdacab0026a733cc",
+          "60d3b41abdacab0026a733d0",
+          "60d3b41abdacab0026a733d4"
         ],
         "_id": "45374e9876593c",
-        "status": "pending",
+        "status": "done",
         "number": 46345,
         "createdAt": "2021-06-23T14:43:22.587Z",
         "updatedAt": "2021-06-23T14:43:22.603Z"
