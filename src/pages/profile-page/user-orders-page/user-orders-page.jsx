@@ -10,7 +10,7 @@ const UserOrdersPage = () => {
       <div className='pt-5'></div>
       <div className={styles.container + ' pl-1 pr-1'} >
         {orderFeed.orders.map((order) => (
-          <OrderCard order={order} key={uuidv4()} onStatus={true} />
+          <OrderCard order={order} key={uuidv4()} onStatus={true} pathOrder={'/profile/orders'} />
         ))
         }
       </div>

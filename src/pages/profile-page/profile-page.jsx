@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, useMatch, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import styles from './profile-page.module.css';
 import ProfileInfoForm from './profile-info-form/profile-info-form.jsx';
 import { useDispatch, useSelector } from 'react-redux';
@@ -56,7 +56,7 @@ const ProfilePage = () => {
       </div>
       <Routes>
         <Route path='/' element={<ProfileInfoForm />} />
-        <Route path='/orders/' element={<UserOrdersPage />} />
+        <Route path='/orders' element={<UserOrdersPage />} />
       </Routes>
     </div >
   )

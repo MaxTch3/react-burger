@@ -42,6 +42,8 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/forgot-password' element={<ForgotPasswordPage />} />
         <Route path='/reset-password' element={<ResetPasswordPage />} />
+        <Route path='/profile/orders/:id' element={
+          <ProtectedRouteElement element={<OrderPage />} />} />
         <Route path='/profile/*' element={
           <ProtectedRouteElement element={<ProfilePage />} /> } />
         <Route path='/feed' element={<FeedPage />} />

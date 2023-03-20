@@ -8,7 +8,7 @@ const ProtectedRouteElement = ({ element }) => {
   return (
     isAuthorization
       ? (element)
-      : (<Navigate replace to='/login' state={{ from: location }} />)
+      : (<Navigate  to='/login' state={{ from: location }} />)
   )
 }
 export default ProtectedRouteElement;
