@@ -4,7 +4,7 @@ const socketMiddleware = (wsUrl, wsActions) => {
     let socket = null;
 
     return next => action => {
-      const { dispatch, getState } = store;
+      const { dispatch } = store;
       const { type, payload } = action;
       const { wsInit, onOpen, onError, onMessage, onClose, wsSendMessage } = wsActions;
 
