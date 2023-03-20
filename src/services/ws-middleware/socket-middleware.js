@@ -6,36 +6,30 @@ const socketMiddleware = (wsUrl, wsActions) => {
     return next => action => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
+      const { wsInit, onOpen, onError, onMessage, onClose, wsSendMessage } = wsActions;
 
-      if (type === 'WS_CONNECTION_START') {
-        // объект класса WebSocket
-        socket = new WebSocket(wsUrl);
-      }
+      if (type === wsInit) { socket = new WebSocket(`${wsUrl}/all`) };
+      if (type === wsClose && socket) { socket.close() }
+
       if (socket) {
-
-        // функция, которая вызывается при открытии сокета
         socket.onopen = event => {
-          dispatch({ type: 'WS_CONNECTION_SUCCESS', payload: event });
+          dispatch({ type: onOpen, payload: event });
         };
-
-        // функция, которая вызывается при ошибке соединения
         socket.onerror = event => {
-          dispatch({ type: 'WS_CONNECTION_ERROR', payload: event });
+          dispatch({ type: onError, payload: event });
         };
-
-        // функция, которая вызывается при получении события от сервера
         socket.onmessage = event => {
           const { data } = event;
-          dispatch({ type: 'WS_GET_MESSAGE', payload: data });
+          const parsedData = JSON.parse(data);
+          const { success, ...restParsedData } = parsedData;
+          dispatch({ type: onMessage, payload: restParsedData });
         };
-        // функция, которая вызывается при закрытии соединения
         socket.onclose = event => {
-          dispatch({ type: 'WS_CONNECTION_CLOSED', payload: event });
+          dispatch({ type: onClose, payload: event });
         };
 
-        if (type === 'WS_SEND_MESSAGE') {
-          const message = payload;
-          // функция для отправки сообщения на сервер
+        if (type === wsSendMessage) {
+          const message = { ...payload, token: token };
           socket.send(JSON.stringify(message));
         }
       }
@@ -44,5 +38,6 @@ const socketMiddleware = (wsUrl, wsActions) => {
     };
   };
 };
+
 export default socketMiddleware;
 
