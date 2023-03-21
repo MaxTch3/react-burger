@@ -16,9 +16,9 @@ const FeedPage = () => {
     return () => { dispatch({ type: WS_CONNECTION_END }) }
   }, [dispatch])
 
-  // заказы за последние полчаса
+  // заказы за последний час
   const filterToHour = (ordersDone) => {
-    let date = (new Date()).getTime() - 0.5 * 60 * 60 * 1000;
+    let date = (new Date()).getTime() - 1 * 60 * 60 * 1000;
     let dayTransactions = ordersDone.filter((item) => (new Date(item.updatedAt)).getTime() >= date);
     return dayTransactions;
   }
