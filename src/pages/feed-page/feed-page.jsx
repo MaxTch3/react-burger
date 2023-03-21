@@ -16,6 +16,11 @@ const FeedPage = () => {
     return () => { dispatch({ type: WS_CONNECTION_END }) }
   }, [dispatch])
 
+  const filterToHour = (ordersDone) => {
+    let date = (new Date()).getTime() - 1 * 60 * 60 * 1000;
+    let dayTransactions = ordersDone.filter((item) => (new Date(item.updatedAt)).getTime() >= date);
+    return dayTransactions;
+  }
 
   return (
     <main className={styles.main} >
@@ -30,32 +35,35 @@ const FeedPage = () => {
         </div>
       </div>
 
-      <div className={styles.info_container}>
-        <div className={styles.boards}>
-          <div className={styles.board_done}>
-            <h3 className='text text_type_main-medium pb-6'>Готовы:</h3>
-            <div className={styles.work_box}>
-              {ordersDone.map((item) => (
-                <p style={{ color: '#00cccc' }} className='text text_type_digits-default' key={uuidv4()}>{String(item.number)}</p>
-              ))}
-            </div>
-          </div>
-          <div className={styles.board_work}>
-            <h3 className='text text_type_main-medium pb-6'>В работе:</h3>
-            <div className={styles.work_box}>
-              {ordersWork.map((item) => (
-                <p className='text text_type_digits-default' key={uuidv4()}>{String(item.number)}</p>
-              ))}
-            </div>
 
+        <div className={styles.info_container}>
+          <div className={styles.boards}>
+            <div className={styles.board_done}>
+              <h3 className='text text_type_main-medium pb-6'>Готовы:</h3>
+              <div className={styles.work_box}>
+                {filterToHour(ordersDone).map((item) => (
+                  <p style={{ color: '#00cccc' }} className='text text_type_digits-default' key={uuidv4()}>{String(item.number)}</p>
+                ))}
+              </div>
+            </div>
+            <div className={styles.board_work}>
+              <h3 className='text text_type_main-medium pb-6'>В работе:</h3>
+              <div className={styles.work_box}>
+                {ordersWork.map((item) => (
+                  <p className='text text_type_digits-default' key={uuidv4()}>{String(item.number)}</p>
+                ))}
+              </div>
+
+            </div>
           </div>
+          <p className='text text_type_main-medium pt-15'>Выполнено за все время:</p>
+          <p className={'text text_type_digits-large ' + styles.total_count}>{new Intl.NumberFormat('ru-RU').format(total)}</p>
+          <p className='text text_type_main-medium pt-15'>Выполнено за сегодня:</p>
+          <p className={'text text_type_digits-large ' + styles.total_count}>{new Intl.NumberFormat('ru-RU').format(totalToday)}</p>
         </div>
-        <p className='text text_type_main-medium pt-15'>Выполнено за все время:</p>
-        <p className={'text text_type_digits-large ' + styles.total_count}>{new Intl.NumberFormat('ru-RU').format(total)}</p>
-        <p className='text text_type_main-medium pt-15'>Выполнено за сегодня:</p>
-        <p className={'text text_type_digits-large ' + styles.total_count}>{new Intl.NumberFormat('ru-RU').format(totalToday)}</p>
-      </div>
+
     </main>
+
   )
 };
 

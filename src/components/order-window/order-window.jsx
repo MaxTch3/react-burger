@@ -28,7 +28,6 @@ const OrderWindow = () => {
       }
       return acc;
     }, {});
-    counts[order.ingredients[0]] = 2;
     return counts
   }, [order])
 

@@ -38,11 +38,7 @@ const OrderPage = () => {
     let totalCost = 0;
     order.ingredients.forEach((id) => {
       const ingredient = ingredientsUniq.find((item) => (item._id === id));
-      if (ingredient?.type === 'bun') {
-        totalCost += ingredient?.price * 2;
-      } else {
         totalCost += ingredient?.price;
-      }
     });
     return totalCost
 
