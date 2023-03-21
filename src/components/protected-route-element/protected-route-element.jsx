@@ -11,4 +11,5 @@ const ProtectedRouteElement = ({ element }) => {
       : (<Navigate  to='/login' state={{ from: location }} />)
   )
 }
+
 export default ProtectedRouteElement;

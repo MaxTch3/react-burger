@@ -16,8 +16,9 @@ const FeedPage = () => {
     return () => { dispatch({ type: WS_CONNECTION_END }) }
   }, [dispatch])
 
+  // заказы за последние полчаса
   const filterToHour = (ordersDone) => {
-    let date = (new Date()).getTime() - 2 * 60 * 60 * 1000;
+    let date = (new Date()).getTime() - 0.5 * 60 * 60 * 1000;
     let dayTransactions = ordersDone.filter((item) => (new Date(item.updatedAt)).getTime() >= date);
     return dayTransactions;
   }
@@ -34,8 +35,7 @@ const FeedPage = () => {
           }
         </div>
       </div>
-
-
+      { total !== 0 &&
         <div className={styles.info_container}>
           <div className={styles.boards}>
             <div className={styles.board_done}>
@@ -60,7 +60,7 @@ const FeedPage = () => {
           <p className={'text text_type_digits-large ' + styles.total_count}>{new Intl.NumberFormat('ru-RU').format(total)}</p>
           <p className='text text_type_main-medium pt-15'>Выполнено за сегодня:</p>
           <p className={'text text_type_digits-large ' + styles.total_count}>{new Intl.NumberFormat('ru-RU').format(totalToday)}</p>
-        </div>
+        </div>}
 
     </main>
 

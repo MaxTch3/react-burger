@@ -3,12 +3,11 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { WS_CONNECTION_END, WS_CONNECTION_START } from '../../services/actions/ws-actions';
-import { orderFeed2 } from '../feed-page/feed-page';
 import styles from './order-page.module.css';
 
 const OrderPage = () => {
   const dispatch = useDispatch();
-  const { orders, total, totalToday } = useSelector(state => state.wsReducer)
+  const { orders } = useSelector(state => state.wsReducer)
 
   const ingredientsData = useSelector((state) => state.ingredientsData.data);
   const params = useParams();
@@ -18,8 +17,6 @@ const OrderPage = () => {
     dispatch({ type: WS_CONNECTION_START });
     return () => { dispatch({ type: WS_CONNECTION_END }) }
   }, [dispatch]);
-
-
 
   const ingredientsUniq = useMemo(() => {
     return Array.from(new Set(
@@ -44,8 +41,6 @@ const OrderPage = () => {
     return counts
   }, [order])
 
-
-
   const cost = useMemo(() => {
     let totalCost = 0;
     order?.ingredients.forEach((id) => {
@@ -56,9 +51,8 @@ const OrderPage = () => {
 
   }, [ingredientsUniq, order])
 
-
-
   return (
+    order &&
     <div className={styles.container}>
       <p className='text text_type_digits-default'
         style={{ height: '64px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{`#${order?.number}`}</p>

@@ -35,7 +35,7 @@ const OrderWindow = () => {
     let totalCost = 0;
     order.ingredients.forEach((id) => {
       const ingredient = ingredientsUniq.find((item) => (item._id === id));
-        totalCost += ingredient?.price;
+      totalCost += ingredient?.price;
     });
     return totalCost
   }, [ingredientsUniq, order])
