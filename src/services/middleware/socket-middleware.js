@@ -1,3 +1,4 @@
+import { getCookie } from "../../utils/cookie-functions";
 
 const socketMiddleware = (wsUrl, wsActions) => {
   return store => {
@@ -6,10 +7,10 @@ const socketMiddleware = (wsUrl, wsActions) => {
     return next => action => {
       const { dispatch } = store;
       const { type, payload } = action;
-      const { wsInit, onOpen, onError, onMessage, onClose, wsSendMessage } = wsActions;
-
+      const { wsInit, onOpen, onError, onMessage, onClose, wsSendMessage, wsClose } = wsActions;
+      const token = getCookie('token');
       if (type === wsInit) { socket = new WebSocket(`${wsUrl}/all`) };
-      if (type === wsClose && socket) { socket.close() }
+      // if (type === wsClose && socket) { socket.close(1000, 'User disconnected') }
 
       if (socket) {
         socket.onopen = event => {

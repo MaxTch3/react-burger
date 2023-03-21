@@ -1,12 +1,21 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import { WS_CONNECTION_END, WS_CONNECTION_START } from '../../services/actions/ws-actions';
 import styles from './feed-page.module.css'
 import OrderCard from './order-card/order-card';
 
 const FeedPage = () => {
+  const dispatch = useDispatch();
+  const { orders, total, totalToday } = useSelector(state => state.wsReducer)
+  const ordersDone = useMemo(() => orders.filter((item) => (item.status === 'done')), [orders]);
+  const ordersWork = useMemo(() => orders.filter((item) => (item.status === 'pending' || item.status === 'created')), [orders]);
 
-  const ordersDone = useMemo(() => orderFeed.orders.filter((item) => (item.status === 'done')), []);
-  const ordersWork = useMemo(() => orderFeed.orders.filter((item) => (item.status === 'pending' || item.status === 'created')), []);
+  useEffect(() => {
+    dispatch({ type: WS_CONNECTION_START });
+    return () => { dispatch({ type: WS_CONNECTION_END }) }
+  }, [dispatch])
+
 
   return (
     <main className={styles.main} >
@@ -14,7 +23,7 @@ const FeedPage = () => {
         <h2 className='text text_type_main-large pt-10'>Лента заказов</h2>
         <div className='pt-5'></div>
         <div className={styles.container + ' pl-1 pr-1'} >
-          {orderFeed.orders.map((order) => (
+          {orders.map((order) => (
             <OrderCard order={order} key={uuidv4()} pathOrder={'/feed'} />
           ))
           }
@@ -42,9 +51,9 @@ const FeedPage = () => {
           </div>
         </div>
         <p className='text text_type_main-medium pt-15'>Выполнено за все время:</p>
-        <p className={'text text_type_digits-large ' + styles.total_count}>{new Intl.NumberFormat('ru-RU').format(orderFeed.total)}</p>
+        <p className={'text text_type_digits-large ' + styles.total_count}>{new Intl.NumberFormat('ru-RU').format(total)}</p>
         <p className='text text_type_main-medium pt-15'>Выполнено за сегодня:</p>
-        <p className={'text text_type_digits-large ' + styles.total_count}>{new Intl.NumberFormat('ru-RU').format(orderFeed.totalToday)}</p>
+        <p className={'text text_type_digits-large ' + styles.total_count}>{new Intl.NumberFormat('ru-RU').format(totalToday)}</p>
       </div>
     </main>
   )
@@ -77,7 +86,7 @@ export default FeedPage;
 
 
 
-export const orderFeed = {
+export const orderFeed2 = {
   "success": true,
   "orders":
     [

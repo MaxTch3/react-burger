@@ -39,11 +39,7 @@ const OrderCard = ({ order, onStatus, pathOrder }) => {
     let totalCost = 0;
     order.ingredients.forEach((id) => {
       const ingredient = ingredients.find((item) => (item._id === id));
-      if (ingredient?.type === 'bun') {
-        totalCost += ingredient?.price * 2;
-      } else {
         totalCost += ingredient?.price;
-      }
     });
     return totalCost
   }, [ingredients, order]);
@@ -63,7 +59,7 @@ const OrderCard = ({ order, onStatus, pathOrder }) => {
               <FormattedDate date={new Date(order.createdAt)} />
             </p>
           </div>
-          <p className='text text_type_main-medium pt-6 pl-6 pr-6'>Death Star Starship Main бургер</p>
+          <p className='text text_type_main-medium pt-6 pl-6 pr-6'>{order.name}</p>
           {onStatus &&
             <p className='text text_type_main-default pt-2 pl-6' style={order.status === 'done' ? { color: '#00CCCC' } : {}}>{status}</p>
           }

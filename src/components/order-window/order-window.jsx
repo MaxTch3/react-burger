@@ -36,11 +36,7 @@ const OrderWindow = () => {
     let totalCost = 0;
     order.ingredients.forEach((id) => {
       const ingredient = ingredientsUniq.find((item) => (item._id === id));
-      if (ingredient?.type === 'bun') {
-        totalCost += ingredient?.price * 2;
-      } else {
         totalCost += ingredient?.price;
-      }
     });
     return totalCost
   }, [ingredientsUniq, order])
@@ -48,7 +44,7 @@ const OrderWindow = () => {
 
   return (
     <div className={styles.container}>
-      <p className='text text_type_main-medium pt-5'>Black Hole Singularity острый бургер</p>
+      <p className='text text_type_main-medium pt-5'>{order.name}</p>
       <p className='text text_type_main-default pt-2' style={order.status === 'done' ? { color: '#00CCCC' } : {}}>{status}</p>
       <p className='text text_type_main-medium pt-15'>Состав:</p>
       <div className={styles.ingredients}>

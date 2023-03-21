@@ -2,13 +2,13 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { orderFeed } from '../feed-page/feed-page';
+import { orderFeed2 } from '../feed-page/feed-page';
 import styles from './order-page.module.css';
 
 const OrderPage = () => {
   const ingredientsData = useSelector((state) => state.ingredientsData.data);
   const params = useParams();
-  const order = useMemo(() => orderFeed.orders.find((item) => item._id === params.id), [params.id]);
+  const order = useMemo(() => orderFeed2.orders.find((item) => item._id === params.id), [params.id]);
 
   const status =
     order.status === 'done' ? 'Выполнен'

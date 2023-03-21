@@ -4,6 +4,7 @@ export const WS_CONNECTION_ERROR = 'WS_CONNECTION_ERROR';
 export const WS_GET_MESSAGE = 'WS_GET_MESSAGE';
 export const WS_CONNECTION_CLOSED = 'WS_CONNECTION_CLOSED';
 export const WS_SEND_MESSAGE = 'WS_SEND_MESSAGE';
+export const WS_CONNECTION_END = 'WS_CONNECTION_END';
 
 export const wsActions = {
   wsInit: WS_CONNECTION_START,
@@ -11,5 +12,6 @@ export const wsActions = {
   onError: WS_CONNECTION_ERROR,
   onMessage: WS_GET_MESSAGE,
   onClose: WS_CONNECTION_CLOSED,
-  wsSendMessage: WS_SEND_MESSAGE
+  wsSendMessage: WS_SEND_MESSAGE,
+  wsClose: WS_CONNECTION_END
 }

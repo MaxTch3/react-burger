@@ -64,7 +64,6 @@
 .boards {
   display: flex;
   gap: 36px;
-
 }
 
 .board_done {
@@ -84,6 +83,7 @@
   flex-direction: column;
   gap: 8px;
   flex-wrap: wrap;
+  max-height: 20vh;
 }
 
 .total_count {
