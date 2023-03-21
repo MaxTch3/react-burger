@@ -1,28 +1,39 @@
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { WS_CONNECTION_END, WS_CONNECTION_START } from '../../services/actions/ws-actions';
 import { orderFeed2 } from '../feed-page/feed-page';
 import styles from './order-page.module.css';
 
 const OrderPage = () => {
+  const dispatch = useDispatch();
+  const { orders, total, totalToday } = useSelector(state => state.wsReducer)
+
   const ingredientsData = useSelector((state) => state.ingredientsData.data);
   const params = useParams();
-  const order = useMemo(() => orderFeed2.orders.find((item) => item._id === params.id), [params.id]);
+  const order = orders.find((item) => item._id === params.id)
 
-  const status =
-    order.status === 'done' ? 'Выполнен'
-      : order.status === 'created' ? 'Создан'
-        : order.status === 'pending' ? 'В работе' : '';
+  useEffect(() => {
+    dispatch({ type: WS_CONNECTION_START });
+    return () => { dispatch({ type: WS_CONNECTION_END }) }
+  }, [dispatch]);
+
+
 
   const ingredientsUniq = useMemo(() => {
     return Array.from(new Set(
-      ingredientsData.filter((item) => order.ingredients.includes(item._id))
+      ingredientsData.filter((item) => order?.ingredients.includes(item._id))
     ));
   }, [ingredientsData, order]);
 
+  const status =
+    order?.status === 'done' ? 'Выполнен'
+      : order?.status === 'created' ? 'Создан'
+        : order?.status === 'pending' ? 'Готовится' : '';
+
   const countsObject = useMemo(() => {
-    const counts = order.ingredients.reduce((acc, i) => {
+    const counts = order?.ingredients.reduce((acc, i) => {
       if (acc.hasOwnProperty(i)) {
         acc[i] += 1;
       } else {
@@ -30,26 +41,29 @@ const OrderPage = () => {
       }
       return acc;
     }, {});
-    counts[order.ingredients[0]] = 2;
     return counts
   }, [order])
 
+
+
   const cost = useMemo(() => {
     let totalCost = 0;
-    order.ingredients.forEach((id) => {
+    order?.ingredients.forEach((id) => {
       const ingredient = ingredientsUniq.find((item) => (item._id === id));
-        totalCost += ingredient?.price;
+      totalCost += ingredient?.price;
     });
     return totalCost
 
   }, [ingredientsUniq, order])
 
+
+
   return (
     <div className={styles.container}>
       <p className='text text_type_digits-default'
-        style={{ height: '64px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{`#${order.number}`}</p>
+        style={{ height: '64px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{`#${order?.number}`}</p>
       <p className='text text_type_main-medium pt-5'>Black Hole Singularity острый бургер</p>
-      <p className='text text_type_main-default pt-2' style={order.status === 'done' ? { color: '#00CCCC' } : {}}>{status}</p>
+      <p className='text text_type_main-default pt-2' style={order?.status === 'done' ? { color: '#00CCCC' } : {}}>{status}</p>
       <p className='text text_type_main-medium pt-15'>Состав:</p>
       <div className={styles.ingredients}>
         {
@@ -73,7 +87,7 @@ const OrderPage = () => {
       </div>
       <div className={styles.date_and_cost}>
         <p className='text text_type_main-default text_color_inactive'>
-          <FormattedDate date={new Date(order.createdAt)} />
+          <FormattedDate date={new Date(order?.createdAt)} />
         </p>
         <div className={styles.total}>
           <p className='text text_type_digits-default'>{`${cost}`}</p>
