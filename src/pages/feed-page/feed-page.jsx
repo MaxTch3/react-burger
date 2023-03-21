@@ -17,7 +17,7 @@ const FeedPage = () => {
   }, [dispatch])
 
   const filterToHour = (ordersDone) => {
-    let date = (new Date()).getTime() - 1 * 60 * 60 * 1000;
+    let date = (new Date()).getTime() - 2 * 60 * 60 * 1000;
     let dayTransactions = ordersDone.filter((item) => (new Date(item.updatedAt)).getTime() >= date);
     return dayTransactions;
   }
