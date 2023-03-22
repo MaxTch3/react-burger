@@ -42,7 +42,8 @@ const FeedPage = () => {
               <h3 className='text text_type_main-medium pb-6'>Готовы:</h3>
               <div className={styles.work_box}>
                 {filterToHour(ordersDone).map((item) => (
-                  <p style={{ color: '#00cccc' }} className='text text_type_digits-default' key={uuidv4()}>{String(item.number)}</p>
+                  <p style={{ color: '#00cccc' }}
+                    className={filterToHour(ordersDone).length > 30 ? 'text text_type_digits-small' : 'text text_type_digits-default'} key={uuidv4()}>{String(item.number)}</p>
                 ))}
               </div>
             </div>

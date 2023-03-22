@@ -56,7 +56,7 @@ const OrderPage = () => {
     <div className={styles.container}>
       <p className='text text_type_digits-default'
         style={{ height: '64px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{`#${order?.number}`}</p>
-      <p className='text text_type_main-medium pt-5'>Black Hole Singularity острый бургер</p>
+      <p className='text text_type_main-medium pt-5'>{order?.name}</p>
       <p className='text text_type_main-default pt-2' style={order?.status === 'done' ? { color: '#00CCCC' } : {}}>{status}</p>
       <p className='text text_type_main-medium pt-15'>Состав:</p>
       <div className={styles.ingredients}>
