@@ -13,7 +13,6 @@ export function getIngredients() {
 
 export function postOrderData(orderData) {
   const accessToken = getCookie('token')
-  console.log(accessToken)
   return fetch(`${NORMA_API}/orders`, {
     method: 'POST',
     headers: {
