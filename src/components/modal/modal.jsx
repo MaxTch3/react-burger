@@ -51,7 +51,8 @@ Modal.propTypes = {
   setActive: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   onClose: PropTypes.func.isRequired,
-  header: PropTypes.string
+  header: PropTypes.string,
+  textStyle: PropTypes.string
 };
 
 export default Modal;

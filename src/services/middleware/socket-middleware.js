@@ -6,8 +6,8 @@ const socketMiddleware = (wsUrl, wsActions) => {
 
     return next => action => {
       const { dispatch } = store;
-      const { type, payload } = action;
-      const { wsInit, onOpen, onError, onMessage, onClose, wsSendMessage, wsInitOrders, wsClose } = wsActions;
+      const { type } = action;
+      const { wsInit, onOpen, onError, onMessage, onClose, wsInitOrders } = wsActions;
 
       if (type === wsInit) { socket = new WebSocket(`${wsUrl}/all`) }
       else {
@@ -15,12 +15,7 @@ const socketMiddleware = (wsUrl, wsActions) => {
           const accessToken = getCookie('token').split('Bearer ')[1];
           socket = new WebSocket(`${wsUrl}?token=${accessToken}`)
         }
-
       };
-
-      if (type === wsClose && socket) {
-        socket.close(1000, 'Закрытие страницы')
-      }
 
       if (socket) {
         socket.onopen = event => {
@@ -39,11 +34,6 @@ const socketMiddleware = (wsUrl, wsActions) => {
           dispatch({ type: onClose, payload: event });
         };
 
-        // if (type === wsSendMessage) {
-        //   const accessToken = getCookie('token').split('Bearer ')[1];
-        //   const message = { ...payload, token: accessToken };
-        //   socket.send(JSON.stringify(message));
-        // }
       }
 
       next(action);

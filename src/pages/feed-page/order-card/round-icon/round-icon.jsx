@@ -4,6 +4,7 @@ import IngredientDetails from '../../../../components/ingredient-details/ingredi
 import Modal from '../../../../components/modal/modal';
 import { GET_INGREDIENT_CURRENT_INFO, REMOVE_INGREDIENT_CURRENT_INFO } from '../../../../services/actions/ingredient-current-info';
 import styles from './round-icon.module.css';
+import PropTypes from 'prop-types';
 
 const RoundIcon = ({ id, count, index }) => {
   const ingredients = useSelector(state => state.ingredientsData.data);
@@ -46,4 +47,13 @@ const RoundIcon = ({ id, count, index }) => {
     </>
   )
 }
+
+RoundIcon.propTypes = {
+  id: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+};
+
+
+
 export default RoundIcon;

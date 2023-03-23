@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GET_ORDER_CURRENT_INFO, REMOVE_ORDER_CURRENT_INFO } from '../../../services/actions/order-current-info';
 import Modal from '../../../components/modal/modal';
 import OrderWindow from '../../../components/order-window/order-window';
+import PropTypes from 'prop-types';
 
 const OrderCard = ({ order, onStatus, pathOrder }) => {
 
@@ -90,3 +91,9 @@ const OrderCard = ({ order, onStatus, pathOrder }) => {
 };
 
 export default OrderCard;
+
+OrderCard.propTypes = {
+  order: PropTypes.object.isRequired,
+  onStatus: PropTypes.bool,
+  pathOrder: PropTypes.string.isRequired,
+};
