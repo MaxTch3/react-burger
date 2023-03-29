@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers';
 import { BrowserRouter as Router } from 'react-router-dom';
 import socketMiddleware from './services/middleware/socket-middleware.js';
-import { wsActions } from './services/actions/ws-actions';
+import { wsActions, wsActionsOrders } from './services/actions/ws-actions';
 
 const wsUrl = 'wss://norma.nomoreparties.space/orders';
 
@@ -20,7 +20,7 @@ const composeEnhancers =
 
 const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions)))
+  composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions), socketMiddleware(wsUrl, wsActionsOrders)))
 );
 
 const root = ReactDOM.createRoot(

@@ -4,7 +4,7 @@ import styles from './user-orders-page.module.css';
 import { useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { WS_CONNECTION_END, WS_CONNECTION_ORDERS_START } from "../../../services/actions/ws-actions";
+import { WS_CONNECTION_ORDERS_END, WS_CONNECTION_ORDERS_START } from "../../../services/actions/ws-actions";
 
 
 const UserOrdersPage = () => {
@@ -16,11 +16,11 @@ const UserOrdersPage = () => {
       dispatch({ type: WS_CONNECTION_ORDERS_START })
     }
     return () => {
-      dispatch({ type: WS_CONNECTION_END })
+      dispatch({ type: WS_CONNECTION_ORDERS_END })
     }
   }, [dispatch, location.pathname])
 
-  const orders = useSelector(state => state.wsReducer.orders);
+  const orders = useSelector(state => state.wsReducerOrders.orders);
   const orderSort = useMemo(() => orders.sort(function (a, b) {
     return b.number - a.number
   }), [orders])

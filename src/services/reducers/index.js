@@ -5,7 +5,8 @@ import { ingredientCurrentInfo } from './ingredient-current-info.js';
 import { order } from './order.js';
 import { userReducer } from './user-reducer.js';
 import { orderCurrentInfo } from './order-current-info.js';
-import { wsReducer } from './ws-reducer.js'
+import { wsReducer } from './ws-reducer.js';
+import { wsReducerOrders } from './auth-ws-reducer.js'
 
 export const rootReducer = combineReducers({
   ingredientsData,
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
   order,
   userReducer,
   orderCurrentInfo,
-  wsReducer
+  wsReducer,
+  wsReducerOrders
 });

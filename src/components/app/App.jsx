@@ -17,6 +17,7 @@ import IngredientPage from '../../pages/ingredient-page/ingredient-page';
 import { getCookie } from '../../utils/cookie-functions';
 import FeedPage from '../../pages/feed-page/feed-page';
 import OrderPage from '../../pages/order-page/order-page';
+import AuthOrderPage from '../../pages/auth-order-page/auth-order-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function App() {
         <Route path='/forgot-password' element={<ForgotPasswordPage />} />
         <Route path='/reset-password' element={<ResetPasswordPage />} />
         <Route path='/profile/orders/:id' element={
-          <ProtectedRouteElement element={<OrderPage />} />} />
+          <ProtectedRouteElement element={<AuthOrderPage />} />} />
         <Route path='/profile/*' element={
           <ProtectedRouteElement element={<ProfilePage />} /> } />
         <Route path='/feed' element={<FeedPage />} />
