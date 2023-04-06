@@ -17,7 +17,7 @@ const BurgerConstructor = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { bun, otherIngredients } = useSelector(state => state.ingredientsConstructor);
   const isAuthorization = useSelector(state => state.userReducer.isAuthorization);
-  const { orderNumber } = useSelector((state) => state.order);
+  const { orderNumber, orderRequest } = useSelector((state) => state.order);
 
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
@@ -103,7 +103,7 @@ const BurgerConstructor = () => {
             <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }} className='pt-10 pr-4'>
               <p className='text text_type_digits-medium mr-2'>{String(priceTotal)}</p>
               <CurrencyIcon type='primary' />
-              <Button htmlType='button' type='primary' size='large' extraClass='ml-10'
+              <Button htmlType='button' type='primary' size='large' extraClass='ml-10' disabled={orderRequest}
                 onClick={handleOrder}>
                 Оформить заказ
               </Button>

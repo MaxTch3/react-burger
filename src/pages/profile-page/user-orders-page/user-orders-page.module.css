@@ -1,0 +1,30 @@
+.container {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: overlay;
+  position: relative;
+  height: 70vh;
+  width: 860px;
+  box-sizing: border-box;
+  gap: 16px;
+  padding-right: 16px;
+}
+
+@-moz-document url-prefix() {
+  .container {
+    overflow-y: scroll;
+    scrollbar-color: #8585AD #2F2F37;
+    scrollbar-width: thin;
+    max-width: 614px;
+  }
+}
+
+.container::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}

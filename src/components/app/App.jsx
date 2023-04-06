@@ -15,6 +15,9 @@ import ProtectedRouteElement from '../protected-route-element/protected-route-el
 import getUserAction from '../../services/actions/get-user';
 import IngredientPage from '../../pages/ingredient-page/ingredient-page';
 import { getCookie } from '../../utils/cookie-functions';
+import FeedPage from '../../pages/feed-page/feed-page';
+import OrderPage from '../../pages/order-page/order-page';
+import AuthOrderPage from '../../pages/auth-order-page/auth-order-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,7 +31,7 @@ function App() {
       if (accessToken) {
         dispatch(getUserAction())
       }
-    }, [])
+    }, [dispatch])
 
   return (
     <div className={styles.app}>
@@ -40,9 +43,12 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/forgot-password' element={<ForgotPasswordPage />} />
         <Route path='/reset-password' element={<ResetPasswordPage />} />
+        <Route path='/profile/orders/:id' element={
+          <ProtectedRouteElement element={<AuthOrderPage />} />} />
         <Route path='/profile/*' element={
-          <ProtectedRouteElement element={<ProfilePage />} />
-        } />
+          <ProtectedRouteElement element={<ProfilePage />} /> } />
+        <Route path='/feed' element={<FeedPage />} />
+        <Route path='/feed/:id' element={<OrderPage />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
     </div>

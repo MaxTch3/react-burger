@@ -5,7 +5,7 @@ import styles from './app-header.module.css'
 const AppHeader = () => {
 
   const constructorActive = useMatch('/');
-  const feedActive = useMatch('/feed');
+  const feedActive = useMatch('/feed/*');
   const profileActive = useMatch('/profile/*');
 
   return (
