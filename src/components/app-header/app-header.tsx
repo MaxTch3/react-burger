@@ -1,8 +1,9 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon, } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useMatch } from 'react-router-dom';
 import styles from './app-header.module.css'
+import { FC } from 'react';
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
 
   const constructorActive = useMatch('/');
   const feedActive = useMatch('/feed/*');

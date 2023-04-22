@@ -1,8 +1,14 @@
-import PropTypes from 'prop-types';
 import styles from './modal-header.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { FC } from 'react';
 
-const ModalHeader = ({ header, closeModal, textStyle }) => {
+type TModalHeaderProps = {
+  header: string;
+  closeModal: () => void;
+  textStyle?: string
+};
+
+const ModalHeader: FC<TModalHeaderProps> = ({ header, closeModal, textStyle }) => {
   return (
     <div className={styles.container + ' pt-10 pl-10 pr-10'}>
       <p className={!textStyle ? 'text text_type_main-large' : textStyle}>{header}</p>
@@ -13,8 +19,4 @@ const ModalHeader = ({ header, closeModal, textStyle }) => {
   )
 }
 
-ModalHeader.propTypes = {
-  header: PropTypes.string.isRequired,
-  closeModal: PropTypes.func.isRequired
-}
 export default ModalHeader;

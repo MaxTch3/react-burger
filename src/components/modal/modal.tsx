@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { FC, ReactNode, useState } from 'react';
 import { createPortal } from "react-dom";
 import styles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay.jsx';
-import PropTypes from 'prop-types';
 import ModalHeader from './modal-header/modal-header';
 
-
-const Modal = ({ setActive, onClose, header, children, textStyle }) => {
+type TModalProps = {
+  setActive: FC;
+  children?: ReactNode;
+  onClose: FC;
+  header: string;
+  textStyle?: string
+}
+const Modal: FC<TModalProps> = ({ setActive, onClose, header, children, textStyle }) => {
 
   const [animation, setAnimation] = useState(true);
 
@@ -22,7 +27,7 @@ const Modal = ({ setActive, onClose, header, children, textStyle }) => {
   }
 
   React.useEffect(() => {
-    const close = (evt) => {
+    const close = (evt: any) => {
       if (evt.key === 'Escape') {
         closeModalAnimation()
       }
@@ -30,6 +35,8 @@ const Modal = ({ setActive, onClose, header, children, textStyle }) => {
     document.addEventListener('keydown', close)
     return () => document.removeEventListener('keydown', close)
   })
+
+  const modalRootElement = document.getElementById('modal-root') as HTMLElement;
 
   return createPortal(
     <>
@@ -43,16 +50,9 @@ const Modal = ({ setActive, onClose, header, children, textStyle }) => {
         </div>
       </div>
     </>,
-    document.getElementById('modal-root')
+    modalRootElement
   )
 };
 
-Modal.propTypes = {
-  setActive: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-  onClose: PropTypes.func.isRequired,
-  header: PropTypes.string,
-  textStyle: PropTypes.string
-};
 
 export default Modal;

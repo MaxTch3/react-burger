@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import styles from './ingredient.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientType } from '../../../utils/component-types';
+//import { ingredientType } from '../../../utils/component-types';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { GET_INGREDIENT_CURRENT_INFO, REMOVE_INGREDIENT_CURRENT_INFO } from '../../../services/actions/ingredient-current-info.js';
@@ -58,9 +58,9 @@ const Ingredient = ({ item, count }) => {
   )
 };
 
-Ingredient.propTypes = {
-  item: ingredientType,
-  count: PropTypes.number
-};
+// Ingredient.propTypes = {
+//   item: ingredientType,
+//   count: PropTypes.number
+// };
 
 export default Ingredient;
