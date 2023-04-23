@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import styles from './App.module.css';
@@ -19,8 +19,13 @@ import FeedPage from '../../pages/feed-page/feed-page';
 import OrderPage from '../../pages/order-page/order-page';
 import AuthOrderPage from '../../pages/auth-order-page/auth-order-page';
 
-function App() {
-  const dispatch = useDispatch();
+import { store } from '../../services/store';
+export type AppDispatch = typeof store.dispatch;
+export const useDispatchApp = () => useDispatch<AppDispatch>();
+
+
+const App: FC = () => {
+  const dispatch = useDispatchApp();
 
   useEffect(() => {
     dispatch(getIngredientsData())
@@ -38,7 +43,7 @@ function App() {
       <AppHeader />
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/ingredients/:id' element={<IngredientPage />} exact={true} />
+        <Route path='/ingredients/:id' element={<IngredientPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/forgot-password' element={<ForgotPasswordPage />} />

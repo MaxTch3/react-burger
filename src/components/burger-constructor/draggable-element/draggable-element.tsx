@@ -45,7 +45,7 @@ const DraggableElement: FC<TDraggableElementProps> = ({ item, index, moveList })
     },
   })
 
-  const ref = useRef<HTMLInputElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   dragRef(dropRef(ref));
   const opacity = isDragging ? 0 : 1;
 
