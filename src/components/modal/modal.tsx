@@ -5,12 +5,13 @@ import ModalOverlay from '../modal-overlay/modal-overlay.jsx';
 import ModalHeader from './modal-header/modal-header';
 
 type TModalProps = {
-  setActive: FC;
+  setActive: (a: boolean) => void;
   children?: ReactNode;
-  onClose: FC;
+  onClose: () => void;
   header: string;
-  textStyle?: string
+  textStyle?: string;
 }
+
 const Modal: FC<TModalProps> = ({ setActive, onClose, header, children, textStyle }) => {
 
   const [animation, setAnimation] = useState(true);

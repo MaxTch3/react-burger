@@ -23,7 +23,6 @@ import { store } from '../../services/store';
 export type AppDispatch = typeof store.dispatch;
 export const useDispatchApp = () => useDispatch<AppDispatch>();
 
-
 const App: FC = () => {
   const dispatch = useDispatchApp();
 
@@ -31,12 +30,12 @@ const App: FC = () => {
     dispatch(getIngredientsData())
   }, [dispatch]);
 
-    useEffect(() => {
-      const accessToken = getCookie('token');
-      if (accessToken) {
-        dispatch(getUserAction())
-      }
-    }, [dispatch])
+  useEffect(() => {
+    const accessToken = getCookie('token');
+    if (accessToken) {
+      dispatch(getUserAction())
+    }
+  }, [dispatch])
 
   return (
     <div className={styles.app}>
@@ -51,7 +50,7 @@ const App: FC = () => {
         <Route path='/profile/orders/:id' element={
           <ProtectedRouteElement element={<AuthOrderPage />} />} />
         <Route path='/profile/*' element={
-          <ProtectedRouteElement element={<ProfilePage />} /> } />
+          <ProtectedRouteElement element={<ProfilePage />} />} />
         <Route path='/feed' element={<FeedPage />} />
         <Route path='/feed/:id' element={<OrderPage />} />
         <Route path='*' element={<NotFound404 />} />

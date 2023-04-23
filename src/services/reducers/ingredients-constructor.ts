@@ -3,15 +3,25 @@ import {
   ADD_INGREDIENT,
   MOVE_INGREDIENT,
   REMOVE_INGREDIENT,
-  RESET_INGREDIENTS
-} from '../actions/ingredients-constructor.js'
+  RESET_INGREDIENTS,
+  TIngredientsConstructorActions
+} from '../actions/ingredients-constructor'
+import { TIngredient } from '../../utils/component-types';
 
-const initialState = {
+export type TIngredientConstructor = TIngredient & { id?: string };
+
+
+type TInitialState = {
+  bun: TIngredientConstructor | null;
+  otherIngredients: TIngredientConstructor[];
+}
+
+const initialState: TInitialState = {
   bun: null,
   otherIngredients: []
 }
 
-export const ingredientsConstructor = (state = initialState, action) => {
+export const ingredientsConstructor = (state = initialState, action: TIngredientsConstructorActions) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
       if (action.item.type === 'bun') {

@@ -1,7 +1,7 @@
-import { useState, useMemo, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, useMemo, useCallback, FC } from 'react';
+import { useSelector, TypedUseSelectorHook } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CurrencyIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
@@ -9,15 +9,19 @@ import DraggableElement from './draggable-element/draggable-element';
 import { getOrderData, GET_ORDER_RESET } from '../../services/actions/order.js';
 import { ADD_INGREDIENT, MOVE_INGREDIENT, RESET_INGREDIENTS } from '../../services/actions/ingredients-constructor';
 import styles from './burger-constructor.module.css';
+import { store } from '../../services/store';
+import { useDispatchApp } from '../app/App';
 
-const BurgerConstructor = () => {
-  const location = useLocation();
+export type RootState = ReturnType<typeof store.getState>;
+export const useSelectorApp: TypedUseSelectorHook<RootState> = useSelector;
+
+const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatchApp();
   const [isOpen, setIsOpen] = useState(false);
-  const { bun, otherIngredients } = useSelector(state => state.ingredientsConstructor);
-  const isAuthorization = useSelector(state => state.userReducer.isAuthorization);
-  const { orderNumber, orderRequest } = useSelector((state) => state.order);
+  const { bun, otherIngredients } = useSelectorApp(state => state.ingredientsConstructor);
+  const isAuthorization = useSelectorApp(state => state.userReducer.isAuthorization);
+  const { orderNumber, orderRequest } = useSelectorApp((state) => state.order);
 
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
@@ -34,20 +38,21 @@ const BurgerConstructor = () => {
   });
 
   const priceTotal = useMemo(() => (
-    bun?.price * 2 + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0)), [otherIngredients, bun]);
+    (bun ? bun.price * 2 : 0) + otherIngredients.map(item => item.price).reduce((prev, curr) => prev + curr, 0))
+    , [otherIngredients, bun]);
 
   const handleOrder = () => {
     if (!isAuthorization) {
-      navigate({ pathname: '/login', state: { from: location } })
+      navigate('/login')
     } else {
-      const orderData = [bun._id].concat(otherIngredients.map((item) => item._id)).concat([bun._id]);
+      const orderData = [bun!._id].concat(otherIngredients.map((item) => item._id)).concat([bun!._id]);
       dispatch(getOrderData(orderData));
       setIsOpen(true);
     }
   }
 
   const moveList = useCallback(
-    (dragIndex, hoverIndex) => {
+    (dragIndex: number, hoverIndex: number) => {
       dispatch({ type: MOVE_INGREDIENT, dragIndex, hoverIndex })
     },
     [dispatch],
@@ -115,7 +120,7 @@ const BurgerConstructor = () => {
         </>
       </section>
       {isOpen && orderNumber > 0 &&
-        <Modal active={isOpen} setActive={setIsOpen} header={''} onClose={onClose}>
+        <Modal setActive={setIsOpen} header={''} onClose={onClose}>
           <OrderDetails />
         </Modal>}
     </>

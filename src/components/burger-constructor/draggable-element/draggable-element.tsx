@@ -8,8 +8,9 @@ import { TIngredient } from '../../../utils/component-types';
 type TDraggableElementProps = {
   item: TIngredient;
   index: number;
-  moveList: FC
+  moveList: (a: number, b: number) => void
 }
+
 type TDraggableElement = {
   type?: string;
   item: TIngredient;
@@ -31,7 +32,7 @@ const DraggableElement: FC<TDraggableElementProps> = ({ item, index, moveList })
   const [, dropRef] = useDrop({
     accept: 'item',
     hover: (item: TDraggableElement, monitor: any) => {
-      if (!ref.current) {return};
+      if (!ref.current) { return };
       const hoverIndex = index;
       const dragIndex = item.index;
       if (dragIndex === hoverIndex) { return };
