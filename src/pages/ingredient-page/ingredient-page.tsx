@@ -1,10 +1,10 @@
 import styles from './ingredient-page.module.css';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
 
 const IngredientPage = () => {
 
-  const { data } = useSelector((state) => state.ingredientsData);
+  const { data } = useSelectorApp((state) => state.ingredientsData);
   const params = useParams();
   const item = data.find((item) => item._id === params.id)
 

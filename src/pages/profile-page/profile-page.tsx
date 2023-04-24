@@ -6,11 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import getUserAction from '../../services/actions/get-user';
 import logoutUserAction from '../../services/actions/logout-user';
 import UserOrdersPage from './user-orders-page/user-orders-page';
+import { useDispatchApp } from '../../components/app/App';
+import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const logoutUserFailed = useSelector(state => state.userReducer.logoutUserFailed);
+  const dispatch = useDispatchApp();
+  const logoutUserFailed = useSelectorApp(state => state.userReducer.logoutUserFailed);
 
   const profileLinkActive = useMatch('/profile');
   const ordersLinkActive = useMatch('/profile/orders/*');
