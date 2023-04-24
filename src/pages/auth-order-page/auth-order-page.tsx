@@ -1,15 +1,16 @@
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { WS_CONNECTION_ORDERS_END, WS_CONNECTION_ORDERS_START } from '../../services/actions/ws-actions';
 import styles from './auth-order-page.module.css';
+import { useDispatchApp } from '../../components/app/App';
+import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
 
 const AuthOrderPage = () => {
-  const dispatch = useDispatch();
-  const { orders } = useSelector(state => state.wsReducerOrders)
+  const dispatch = useDispatchApp();
+  const { orders } = useSelectorApp(state => state.wsReducerOrders)
 
-  const ingredientsData = useSelector((state) => state.ingredientsData.data);
+  const ingredientsData = useSelectorApp((state) => state.ingredientsData.data);
   const params = useParams();
   const order = orders.find((item) => item._id === params.id)
 
@@ -30,7 +31,7 @@ const AuthOrderPage = () => {
         : order?.status === 'pending' ? 'Готовится' : '';
 
   const countsObject = useMemo(() => {
-    const counts = order?.ingredients.reduce((acc, i) => {
+    const counts = order?.ingredients.reduce((acc: { [a: string]: number }, i) => {
       if (acc.hasOwnProperty(i)) {
         acc[i] += 1;
       } else {
@@ -45,7 +46,7 @@ const AuthOrderPage = () => {
     let totalCost = 0;
     order?.ingredients.forEach((id) => {
       const ingredient = ingredientsUniq.find((item) => (item._id === id));
-      totalCost += ingredient?.price;
+      if (ingredient) { totalCost += ingredient.price };
     });
     return totalCost
 
@@ -72,8 +73,8 @@ const AuthOrderPage = () => {
 
 
               <div className={styles.cost}>
-                <p className='text text_type_digits-default'>{`${countsObject[ingredient._id]} x ${ingredient?.price} `}</p>
-                <CurrencyIcon />
+                <p className='text text_type_digits-default'>{countsObject ? `${countsObject[ingredient._id]} x ${ingredient?.price} ` : '0'}</p>
+                <CurrencyIcon type={'primary'} />
               </div>
             </div>
           ))
@@ -85,7 +86,7 @@ const AuthOrderPage = () => {
         </p>
         <div className={styles.total}>
           <p className='text text_type_digits-default'>{`${cost}`}</p>
-          <CurrencyIcon />
+          <CurrencyIcon type={'primary'} />
         </div>
       </div>
     </div>

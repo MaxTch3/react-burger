@@ -1,12 +1,12 @@
 import {
   GET_ORDER_CURRENT_INFO,
   REMOVE_ORDER_CURRENT_INFO,
-  TOrderCurrentInfo,
+  TOrderInfo,
   TOrderCurrentInfoActons
 } from "../actions/order-current-info"
 
 type TInitialState = {
-  order: TOrderCurrentInfo | null
+  order: TOrderInfo | null
 }
 
 const initialState: TInitialState = {

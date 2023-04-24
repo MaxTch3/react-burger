@@ -1,9 +1,10 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelectorApp } from "../burger-constructor/burger-constructor";
-import { FC, ReactElement } from "react";
+import { FC } from "react";
+
 
 type TProtectedRouteElementProps = {
-  element: ReactElement
+  element: any
 }
 
 const ProtectedRouteElement: FC<TProtectedRouteElementProps> = ({ element }) => {

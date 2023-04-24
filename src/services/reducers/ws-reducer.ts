@@ -3,17 +3,26 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
-  WS_CONNECTION_END
+  WS_CONNECTION_END,
+  TWsConnectActions
 } from '../actions/ws-actions';
+import { TOrderInfo } from '../actions/order-current-info';
 
-const initialState = {
+type TInitialState = {
+  orders: TOrderInfo[];
+  total: number;
+  totalToday: number;
+  wsConnected: boolean
+};
+
+const initialState: TInitialState = {
   orders: [],
   total: 0,
   totalToday: 0,
   wsConnected: false
 };
 
-export const wsReducer = (state = initialState, action) => {
+export const wsReducer = (state = initialState, action: TWsConnectActions) => {
 
   switch (action.type) {
 

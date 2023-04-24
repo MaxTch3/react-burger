@@ -1,7 +1,7 @@
 export const GET_ORDER_CURRENT_INFO: 'GET_ORDER_CURRENT_INFO' = 'GET_ORDER_CURRENT_INFO';
 export const REMOVE_ORDER_CURRENT_INFO: 'REMOVE_ORDER_CURRENT_INFO' = 'REMOVE_ORDER_CURRENT_INFO';
 
-export type TOrderCurrentInfo = {
+export type TOrderInfo = {
   _id: string;
   ingredients: string[];
   status: string;
@@ -13,7 +13,7 @@ export type TOrderCurrentInfo = {
 
 export interface IGetOrderCurrentInfo {
   readonly type: typeof GET_ORDER_CURRENT_INFO;
-  order: TOrderCurrentInfo
+  order: TOrderInfo
 }
 
 export interface IRemoveOrderCurrentInfo {
