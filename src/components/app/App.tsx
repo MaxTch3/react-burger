@@ -5,7 +5,7 @@ import styles from './App.module.css';
 import AppHeader from '../app-header/app-header'
 import HomePage from '../../pages/home-page/home-page';
 import LoginPage from '../../pages/login-page/login-page';
-import { getIngredientsData } from '../../services/actions/ingredients-data.js';
+import { getIngredientsData } from '../../services/actions/ingredients-data';
 import RegisterPage from '../../pages/register-page/register-page';
 import ForgotPasswordPage from '../../pages/forgot-password-page/forgot-password';
 import ResetPasswordPage from '../../pages/reset-password-page/reset-password-page';
