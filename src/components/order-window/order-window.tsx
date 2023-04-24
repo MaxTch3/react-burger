@@ -1,26 +1,26 @@
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { FC, useMemo } from 'react';
 import styles from './order-window.module.css'
+import { useSelectorApp } from '../burger-constructor/burger-constructor';
 
-const OrderWindow = () => {
+const OrderWindow: FC = () => {
 
-  const order = useSelector(state => state.orderCurrentInfo.order);
-  const ingredientsData = useSelector(state => state.ingredientsData.data)
+  const order = useSelectorApp(state => state.orderCurrentInfo.order);
+  const ingredientsData = useSelectorApp(state => state.ingredientsData.data)
 
   const status =
-    order.status === 'done' ? 'Выполнен'
-      : order.status === 'created' ? 'Создан'
-        : order.status === 'pending' ? 'Готовится' : '';
+    order?.status === 'done' ? 'Выполнен'
+      : order?.status === 'created' ? 'Создан'
+        : order?.status === 'pending' ? 'Готовится' : '';
 
   const ingredientsUniq = useMemo(() => {
     return Array.from(new Set(
-      ingredientsData.filter((item) => order.ingredients.includes(item._id))
+      ingredientsData.filter((item) => order?.ingredients.includes(item._id))
     ));
   }, [ingredientsData, order]);
 
   const countsObject = useMemo(() => {
-    const counts = order.ingredients.reduce((acc, i) => {
+    const counts = order?.ingredients.reduce((acc: { [a: string]: number }, i) => {
       if (acc.hasOwnProperty(i)) {
         acc[i] += 1;
       } else {
@@ -33,18 +33,20 @@ const OrderWindow = () => {
 
   const cost = useMemo(() => {
     let totalCost = 0;
-    order.ingredients.forEach((id) => {
-      const ingredient = ingredientsUniq.find((item) => (item._id === id));
-      totalCost += ingredient?.price;
-    });
+    if (order) {
+      order.ingredients.forEach((id) => {
+        const ingredient = ingredientsUniq.find((item) => (item._id === id));
+        if (ingredient) { totalCost += ingredient.price };
+      })
+    };
     return totalCost
   }, [ingredientsUniq, order])
 
 
   return (
     <div className={styles.container}>
-      <p className='text text_type_main-medium pt-5'>{order.name}</p>
-      <p className='text text_type_main-default pt-2' style={order.status === 'done' ? { color: '#00CCCC' } : {}}>{status}</p>
+      <p className='text text_type_main-medium pt-5'>{order?.name}</p>
+      <p className='text text_type_main-default pt-2' style={order?.status === 'done' ? { color: '#00CCCC' } : {}}>{status}</p>
       <p className='text text_type_main-medium pt-15'>Состав:</p>
       <div className={styles.ingredients}>
         {
@@ -59,8 +61,8 @@ const OrderWindow = () => {
 
 
               <div className={styles.cost}>
-                <p className='text text_type_digits-default'>{`${countsObject[ingredient._id]} x ${ingredient?.price} `}</p>
-                <CurrencyIcon />
+                <p className='text text_type_digits-default'>{countsObject ? `${countsObject[ingredient._id]} x ${ingredient?.price} ` : '0'}</p>
+                <CurrencyIcon type={'primary'} />
               </div>
             </div>
           ))
@@ -68,11 +70,14 @@ const OrderWindow = () => {
       </div>
       <div className={styles.date_and_cost}>
         <p className='text text_type_main-default text_color_inactive'>
-          <FormattedDate date={new Date(order.createdAt)} />
+          {order
+            ? <FormattedDate date={new Date(order.createdAt)} />
+            : ''
+          }
         </p>
         <div className={styles.total}>
           <p className='text text_type_digits-default'>{`${cost}`}</p>
-          <CurrencyIcon />
+          <CurrencyIcon type={'primary'} />
         </div>
       </div>
     </div>
