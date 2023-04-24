@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css'
-import Ingredient from './ingredient/ingredient.jsx';
+import Ingredient from './ingredient/ingredient';
 import { useSelector } from 'react-redux';
 
 const BurgerIngredients = () => {
