@@ -1,6 +1,6 @@
-import { AppDispatch } from '../../components/app/App.js';
-import { getIngredients } from '../../utils/burgers-api.js';
-import { TIngredient } from '../../utils/component-types.js';
+import { AppDispatch } from '../../components/app/App';
+import { getIngredients } from '../../utils/burgers-api';
+import { TIngredient } from '../../utils/component-types';
 export const GET_INGREDIENTS_DATA_REQUEST: 'GET_INGREDIENTS_DATA_REQUEST' = 'GET_INGREDIENTS_DATA_REQUEST';
 export const GET_INGREDIENTS_DATA_SUCCESS: 'GET_INGREDIENTS_DATA_SUCCESS' = 'GET_INGREDIENTS_DATA_SUCCESS';
 export const GET_INGREDIENTS_DATA_FAILED: 'GET_INGREDIENTS_DATA_FAILED' = 'GET_INGREDIENTS_DATA_FAILED';
