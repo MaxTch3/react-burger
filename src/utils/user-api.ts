@@ -2,11 +2,20 @@ import { getCookie } from "./cookie-functions";
 
 const NORMA_API = 'https://norma.nomoreparties.space/api';
 
-function checkResponse(res) {
+const checkResponse = (res: Response) => {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
 };
 
-export function registerUser(email, password, name) {
+export type TUserAnswer = {
+  accessToken: string;
+  refreshToken: string;
+  user: {
+    email: string;
+    name: string
+  };
+}
+
+export const registerUser = (email: string, password: string, name: string): Promise<TUserAnswer> => {
   return fetch(`${NORMA_API}/auth/register`, {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
@@ -15,7 +24,7 @@ export function registerUser(email, password, name) {
     .then((res) => checkResponse(res))
 };
 
-export function loginUser(email, password) {
+export const loginUser = (email: string, password: string): Promise<TUserAnswer> => {
   return fetch(`${NORMA_API}/auth/login`, {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
@@ -24,7 +33,7 @@ export function loginUser(email, password) {
     .then((res) => checkResponse(res))
 };
 
-export function forgotPassword(email) {
+export const forgotPassword = (email: string)  => {
   return fetch(`${NORMA_API}/password-reset`, {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
@@ -33,7 +42,7 @@ export function forgotPassword(email) {
     .then((res) => checkResponse(res))
 }
 
-export function resetPassword(password, token) {
+export const resetPassword = (password: string, token: string) => {
   return fetch(`${NORMA_API}/password-reset/reset`, {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
@@ -42,7 +51,7 @@ export function resetPassword(password, token) {
     .then((res) => checkResponse(res))
 }
 
-export function getUserRequest() {
+export function getUserRequest(): Promise<TUserAnswer> {
   return fetch(`${NORMA_API}/auth/user`, {
     method: 'GET',
     headers: {
@@ -53,7 +62,7 @@ export function getUserRequest() {
     .then((res) => checkResponse(res))
 };
 
-export function updateUserRequest(name, email, password) {
+export const updateUserRequest = (name: string, email: string, password: string): Promise<TUserAnswer> =>{
   return fetch(`${NORMA_API}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -65,7 +74,7 @@ export function updateUserRequest(name, email, password) {
     .then((res) => checkResponse(res))
 }
 
-export function refreshTokenRequest() {
+export const refreshTokenRequest = (): Promise<TUserAnswer> => {
   return fetch(`${NORMA_API}/auth/token`, {
     method: 'POST',
     headers: {
