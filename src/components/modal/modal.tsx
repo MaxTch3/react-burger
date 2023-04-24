@@ -1,7 +1,7 @@
 import React, { FC, ReactNode, useState } from 'react';
 import { createPortal } from "react-dom";
 import styles from './modal.module.css';
-import ModalOverlay from '../modal-overlay/modal-overlay.jsx';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 import ModalHeader from './modal-header/modal-header';
 
 type TModalProps = {
