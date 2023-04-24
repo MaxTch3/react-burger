@@ -1,8 +1,9 @@
+import { useSelectorApp } from '../burger-constructor/burger-constructor';
 import styles from './ingredient-details.module.css';
-import { useSelector } from 'react-redux';
+
 
 const IngredientDetails = () => {
-  const item = useSelector((state) => state.ingredientCurrentInfo.item);
+  const item = useSelectorApp((state) => state.ingredientCurrentInfo.item);
   return (
     <div className={styles.container + ' pl-10 pr-10 pb-15'}>
       <div className='pl-5 pr-5'>
