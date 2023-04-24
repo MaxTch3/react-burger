@@ -18,8 +18,8 @@ import { getCookie } from '../../utils/cookie-functions';
 import FeedPage from '../../pages/feed-page/feed-page';
 import OrderPage from '../../pages/order-page/order-page';
 import AuthOrderPage from '../../pages/auth-order-page/auth-order-page';
-
 import { store } from '../../services/store';
+
 export type AppDispatch = typeof store.dispatch;
 export const useDispatchApp = () => useDispatch<AppDispatch>();
 
