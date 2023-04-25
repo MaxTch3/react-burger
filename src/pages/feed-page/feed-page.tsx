@@ -1,13 +1,15 @@
-import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useEffect, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { WS_CONNECTION_END, WS_CONNECTION_START } from '../../services/actions/ws-actions';
 import styles from './feed-page.module.css'
 import OrderCard from './order-card/order-card';
+import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
+import { useDispatchApp } from '../../components/app/App';
+import { TOrderInfo } from '../../services/actions/order-current-info';
 
-const FeedPage = () => {
-  const dispatch = useDispatch();
-  const { orders, total, totalToday } = useSelector(state => state.wsReducer)
+const FeedPage: FC = () => {
+  const dispatch = useDispatchApp();
+  const { orders, total, totalToday } = useSelectorApp(state => state.wsReducer)
   const ordersDone = useMemo(() => orders.filter((item) => (item.status === 'done')), [orders]);
   const ordersWork = useMemo(() => orders.filter((item) => (item.status === 'pending' || item.status === 'created')), [orders]);
 
@@ -17,7 +19,7 @@ const FeedPage = () => {
   }, [dispatch])
 
   // заказы за последний час
-  const filterToHour = (ordersDone) => {
+  const filterToHour = (ordersDone: TOrderInfo[]) => {
     let date = (new Date()).getTime() - 1 * 60 * 60 * 1000;
     let dayTransactions = ordersDone.filter((item) => (new Date(item.updatedAt)).getTime() >= date);
     return dayTransactions;
@@ -64,7 +66,6 @@ const FeedPage = () => {
         </div>}
 
     </main>
-
   )
 };
 
