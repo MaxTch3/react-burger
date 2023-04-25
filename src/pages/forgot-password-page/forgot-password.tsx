@@ -1,18 +1,19 @@
 import styles from './forgot-password.module.css'
-import { useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import forgotAction from '../../services/actions/forgot-password';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
+import { useDispatchApp } from '../../components/app/App';
 
-const ForgotPasswordPage = () => {
+const ForgotPasswordPage: FC = () => {
   const [email, setEmail] = useState('');
-  const dispatch = useDispatch();
-  const isAuthorization = useSelector(state => state.userReducer.isAuthorization);
-  const forgotCodeSend = useSelector(state => state.userReducer.forgotCodeSend);
+  const dispatch = useDispatchApp();
+  const isAuthorization = useSelectorApp(state => state.userReducer.isAuthorization);
+  const forgotCodeSend = useSelectorApp(state => state.userReducer.forgotCodeSend);
 
   const location = useLocation();
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (email) { dispatch(forgotAction(email)) };
   }
