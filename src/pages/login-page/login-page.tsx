@@ -3,7 +3,6 @@ import { FormEvent, useRef, useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login-page.module.css'
 import { Link, Navigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import loginAction from '../../services/actions/login-user';
 import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
 import { useDispatchApp } from '../../components/app/App';

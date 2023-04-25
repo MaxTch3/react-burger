@@ -1,22 +1,22 @@
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { WS_CONNECTION_ORDERS_END, WS_CONNECTION_ORDERS_START } from '../../services/actions/ws-actions';
-import styles from './auth-order-page.module.css';
+import { WS_CONNECTION_END, WS_CONNECTION_START } from '../../services/actions/ws-actions';
+import styles from './order-page.module.css';
 import { useDispatchApp } from '../../components/app/App';
 import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
 
-const AuthOrderPage: FC = () => {
+const OrderPage: FC = () => {
   const dispatch = useDispatchApp();
-  const { orders } = useSelectorApp(state => state.wsReducerOrders)
+  const { orders } = useSelectorApp(state => state.wsReducer)
 
   const ingredientsData = useSelectorApp((state) => state.ingredientsData.data);
   const params = useParams();
   const order = orders.find((item) => item._id === params.id)
 
   useEffect(() => {
-    dispatch({ type: WS_CONNECTION_ORDERS_START });
-    return () => { dispatch({ type: WS_CONNECTION_ORDERS_END }) }
+    dispatch({ type: WS_CONNECTION_START });
+    return () => { dispatch({ type: WS_CONNECTION_END }) }
   }, [dispatch]);
 
   const ingredientsUniq = useMemo(() => {
@@ -88,7 +88,7 @@ const AuthOrderPage: FC = () => {
             </p>
             <div className={styles.total}>
               <p className='text text_type_digits-default'>{`${cost}`}</p>
-              <CurrencyIcon type={'primary'} />
+            <CurrencyIcon type={'primary'} />
             </div>
           </div>
         </>
@@ -97,4 +97,4 @@ const AuthOrderPage: FC = () => {
   )
 };
 
-export default AuthOrderPage;
+export default OrderPage;
