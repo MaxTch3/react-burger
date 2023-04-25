@@ -1,30 +1,33 @@
 
-import { useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login-page.module.css'
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import loginAction from '../../services/actions/login-user';
+import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
+import { useDispatchApp } from '../../components/app/App';
+import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 
 const LoginPage = () => {
   const [signIn, setSignIn] = useState({ email: '', password: '' });
-  const [showIcon, setShowIcon] = useState('HideIcon');
-  const passwordRef = useRef(null);
-  const dispatch = useDispatch();
-  const isAuthorization = useSelector(state => state.userReducer.isAuthorization);
+  const [showIcon, setShowIcon] = useState<keyof TICons>('HideIcon');
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const dispatch = useDispatchApp();
+  const isAuthorization = useSelectorApp(state => state.userReducer.isAuthorization);
   const location = useLocation();
 
   const onIconClick = () => {
-    if (passwordRef.current.type === 'password') {
+    if (passwordRef.current){if (passwordRef.current.type === 'password') {
       setShowIcon('ShowIcon');
       passwordRef.current.type = 'text'
     } else {
       setShowIcon('HideIcon');
       passwordRef.current.type = 'password'
-    }
+    }}
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(loginAction(signIn.email, signIn.password));
   };
