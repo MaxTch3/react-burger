@@ -1,21 +1,27 @@
-import { useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useMemo, useState } from 'react';
 import IngredientDetails from '../../../../components/ingredient-details/ingredient-details';
 import Modal from '../../../../components/modal/modal';
 import { GET_INGREDIENT_CURRENT_INFO, REMOVE_INGREDIENT_CURRENT_INFO } from '../../../../services/actions/ingredient-current-info';
 import styles from './round-icon.module.css';
-import PropTypes from 'prop-types';
+import { useSelectorApp } from '../../../../components/burger-constructor/burger-constructor';
+import { useDispatchApp } from '../../../../components/app/App';
 
-const RoundIcon = ({ id, count, index }) => {
-  const ingredients = useSelector(state => state.ingredientsData.data);
+export type TRoundIconProps = {
+  id: string;
+  count: number;
+  index: number
+}
+
+const RoundIcon: FC<TRoundIconProps> = ({ id, count, index }) => {
+  const ingredients = useSelectorApp(state => state.ingredientsData.data);
   const ingredient = useMemo(() => ingredients.find((item) => (item._id === id)), [ingredients, id]);
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatchApp();
 
   const onClick = () => {
     dispatch({ type: GET_INGREDIENT_CURRENT_INFO, item: ingredient });
     setIsOpen(true);
-    window.history.pushState({ path: `/ingredients/${ingredient._id}` }, '', `/ingredients/${ingredient._id}`)
+    window.history.pushState({ path: `/ingredients/${ingredient!._id}` }, '', `/ingredients/${ingredient!._id}`)
   };
 
   const onClose = () => {
@@ -47,13 +53,5 @@ const RoundIcon = ({ id, count, index }) => {
     </>
   )
 }
-
-RoundIcon.propTypes = {
-  id: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired,
-  index: PropTypes.number.isRequired,
-};
-
-
 
 export default RoundIcon;
