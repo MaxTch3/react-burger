@@ -1,35 +1,40 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useRef, useState } from 'react';
 import updateUserAction from '../../../services/actions/update-user';
 import styles from './profile-info-form.module.css';
+import { useSelectorApp } from '../../../components/burger-constructor/burger-constructor';
+import { useDispatchApp } from '../../../components/app/App';
 
-const ProfileInfoForm = () => {
 
-  const initialForm = { name: '', email: '', password: '' };
-  const initialIcons = { name: 'EditIcon', email: 'EditIcon', password: 'EditIcon' };
-  const initialDisabled = { name: true, email: true, password: true };
+type TRefKeyString = {
+  [key: string]: any;
+}
+const ProfileInfoForm: FC = () => {
+
+  const initialForm: TRefKeyString = { name: '', email: '', password: '' };
+  const initialIcons: TRefKeyString = { name: 'EditIcon', email: 'EditIcon', password: 'EditIcon' };
+  const initialDisabled: TRefKeyString = { name: true, email: true, password: true };
 
   const [profileInfo, setProfileInfo] = useState(initialForm);
   const [icon, setIcon] = useState(initialIcons);
   const [isDisabled, setIsDisabled] = useState(initialDisabled);
   const [activeButtons, setActiveButtons] = useState(false);
 
-  const nameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const nameRef: { current: any } = useRef<HTMLInputElement>();
+  const emailRef: { current: any } = useRef<HTMLInputElement>();
+  const passwordRef: { current: any } = useRef<HTMLInputElement>();
 
-  const userInfo = useSelector(state => state.userReducer.user);
-  const updateUserFailed = useSelector(state => state.userReducer.updateUserFailed);
-  const dispatch = useDispatch();
+  const userInfo = useSelectorApp(state => state.userReducer.user);
+  const updateUserFailed = useSelectorApp(state => state.userReducer.updateUserFailed);
+  const dispatch = useDispatchApp();
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setProfileInfo({ ...profileInfo, [e.target.name]: e.target.value });
     setActiveButtons(true)
   };
 
-  const clickIcon = (ref) => {
-    if (isDisabled[ref.current.name]) {
+  const clickIcon = (ref: { current: any }) => {
+    if (ref.current && isDisabled[ref.current.name]) {
       setIsDisabled({ ...isDisabled, [ref.current.name]: false });
       setIcon({ ...icon, [ref.current.name]: 'CloseIcon' })
     } else {
@@ -63,7 +68,7 @@ const ProfileInfoForm = () => {
     setProfileInfo({ password: '', name: userInfo.name, email: userInfo.email })
   }, []);
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(updateUserAction(profileInfo.name, profileInfo.email, profileInfo.password));
     if (!updateUserFailed) {

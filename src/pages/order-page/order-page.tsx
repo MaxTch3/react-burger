@@ -88,7 +88,7 @@ const OrderPage: FC = () => {
             </p>
             <div className={styles.total}>
               <p className='text text_type_digits-default'>{`${cost}`}</p>
-            <CurrencyIcon type={'primary'} />
+              <CurrencyIcon type={'primary'} />
             </div>
           </div>
         </>

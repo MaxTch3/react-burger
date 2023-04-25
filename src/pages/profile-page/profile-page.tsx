@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { Route, Routes, useMatch, useNavigate } from 'react-router-dom';
 import styles from './profile-page.module.css';
-import ProfileInfoForm from './profile-info-form/profile-info-form.jsx';
-import { useDispatch, useSelector } from 'react-redux';
+import ProfileInfoForm from './profile-info-form/profile-info-form';
 import getUserAction from '../../services/actions/get-user';
 import logoutUserAction from '../../services/actions/logout-user';
 import UserOrdersPage from './user-orders-page/user-orders-page';

@@ -1,4 +1,3 @@
-
 import { FormEvent, useRef, useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login-page.module.css'
@@ -17,13 +16,15 @@ const LoginPage = () => {
   const location = useLocation();
 
   const onIconClick = () => {
-    if (passwordRef.current){if (passwordRef.current.type === 'password') {
-      setShowIcon('ShowIcon');
-      passwordRef.current.type = 'text'
-    } else {
-      setShowIcon('HideIcon');
-      passwordRef.current.type = 'password'
-    }}
+    if (passwordRef.current) {
+      if (passwordRef.current.type === 'password') {
+        setShowIcon('ShowIcon');
+        passwordRef.current.type = 'text'
+      } else {
+        setShowIcon('HideIcon');
+        passwordRef.current.type = 'password'
+      }
+    }
   }
 
   const onSubmit = (e: FormEvent) => {
