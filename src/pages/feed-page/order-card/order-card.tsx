@@ -2,18 +2,24 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import styles from './order-card.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import RoundIcon from './round-icon/round-icon';
-import { useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { GET_ORDER_CURRENT_INFO, REMOVE_ORDER_CURRENT_INFO } from '../../../services/actions/order-current-info';
+import { FC, useMemo, useState } from 'react';
+import { GET_ORDER_CURRENT_INFO, REMOVE_ORDER_CURRENT_INFO, TOrderInfo } from '../../../services/actions/order-current-info';
 import Modal from '../../../components/modal/modal';
 import OrderWindow from '../../../components/order-window/order-window';
-import PropTypes from 'prop-types';
+import { useDispatchApp } from '../../../components/app/App';
+import { useSelectorApp } from '../../../components/burger-constructor/burger-constructor';
 
-const OrderCard = ({ order, onStatus, pathOrder }) => {
+type TOrderCardProps = {
+  order: TOrderInfo;
+  onStatus?: boolean;
+  pathOrder: string
+}
+
+const OrderCard: FC<TOrderCardProps> = ({ order, onStatus, pathOrder }) => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
-  const ingredients = useSelector(state => state.ingredientsData.data);
+  const dispatch = useDispatchApp();
+  const ingredients = useSelectorApp(state => state.ingredientsData.data);
 
   const onClick = () => {
     dispatch({ type: GET_ORDER_CURRENT_INFO, order });
@@ -40,7 +46,7 @@ const OrderCard = ({ order, onStatus, pathOrder }) => {
     let totalCost = 0;
     order.ingredients.forEach((id) => {
       const ingredient = ingredients.find((item) => (item._id === id));
-        totalCost += ingredient?.price;
+      if (ingredient) { totalCost += ingredient.price };
     });
     return totalCost
   }, [ingredients, order]);
@@ -92,8 +98,4 @@ const OrderCard = ({ order, onStatus, pathOrder }) => {
 
 export default OrderCard;
 
-OrderCard.propTypes = {
-  order: PropTypes.object.isRequired,
-  onStatus: PropTypes.bool,
-  pathOrder: PropTypes.string.isRequired,
-};
+
