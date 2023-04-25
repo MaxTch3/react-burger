@@ -1,3 +1,4 @@
+import { AppDispatch } from "../../components/app/App";
 import { setCookie } from "../../utils/cookie-functions";
 import { loginUser } from "../../utils/user-api";
 
@@ -7,7 +8,7 @@ export const LOGIN_FAILED = 'LOGIN_FAILED';
 
 
 
-const loginAction = (email, password) => (dispatch) => {
+const loginAction = (email: string, password: string) => (dispatch: AppDispatch) => {
   dispatch({
     type: LOGIN_REQUEST
   });

@@ -7,6 +7,7 @@ const checkResponse = (res: Response) => {
 };
 
 export type TUserAnswer = {
+  success: boolean;
   accessToken: string;
   refreshToken: string;
   user: {
