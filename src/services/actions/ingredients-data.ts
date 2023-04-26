@@ -1,11 +1,11 @@
-import { AppDispatch } from '../../components/app/App';
+import { AppDispatch, AppThunk } from '../types';
 import { getIngredients } from '../../utils/burgers-api';
 import { TIngredient } from '../../utils/component-types';
 export const GET_INGREDIENTS_DATA_REQUEST: 'GET_INGREDIENTS_DATA_REQUEST' = 'GET_INGREDIENTS_DATA_REQUEST';
 export const GET_INGREDIENTS_DATA_SUCCESS: 'GET_INGREDIENTS_DATA_SUCCESS' = 'GET_INGREDIENTS_DATA_SUCCESS';
 export const GET_INGREDIENTS_DATA_FAILED: 'GET_INGREDIENTS_DATA_FAILED' = 'GET_INGREDIENTS_DATA_FAILED';
 
-export const getIngredientsData = () => (dispatch: AppDispatch) => {
+export const getIngredientsData: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch({
     type: GET_INGREDIENTS_DATA_REQUEST
   });

@@ -1,5 +1,5 @@
 import styles from './order-details.module.css';
-import { useSelectorApp } from '../burger-constructor/burger-constructor';
+import { useSelectorApp } from '../../services/hooks';
 import { FC } from 'react';
 
 const OrderDetails: FC = () => {

@@ -3,8 +3,7 @@ import IngredientDetails from '../../../../components/ingredient-details/ingredi
 import Modal from '../../../../components/modal/modal';
 import { GET_INGREDIENT_CURRENT_INFO, REMOVE_INGREDIENT_CURRENT_INFO } from '../../../../services/actions/ingredient-current-info';
 import styles from './round-icon.module.css';
-import { useSelectorApp } from '../../../../components/burger-constructor/burger-constructor';
-import { useDispatchApp } from '../../../../components/app/App';
+import { useDispatchApp, useSelectorApp } from '../../../../services/hooks';
 
 export type TRoundIconProps = {
   id: string;

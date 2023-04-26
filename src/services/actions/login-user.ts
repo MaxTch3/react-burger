@@ -1,4 +1,4 @@
-import { AppDispatch } from "../../components/app/App";
+import { AppDispatch, AppThunk } from "../types";
 import { setCookie } from "../../utils/cookie-functions";
 import { loginUser } from "../../utils/user-api";
 import { IUser } from "./get-user";
@@ -24,7 +24,7 @@ export type TLoginActions =
   | ILoginSuccess
   | ILoginFailed
 
-const loginAction = (email: string, password: string) => (dispatch: AppDispatch) => {
+const loginAction: AppThunk = (email: string, password: string) => (dispatch: AppDispatch) => {
   dispatch({
     type: LOGIN_REQUEST
   });

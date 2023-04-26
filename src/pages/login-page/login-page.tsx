@@ -3,8 +3,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import styles from './login-page.module.css'
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import loginAction from '../../services/actions/login-user';
-import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
-import { useDispatchApp } from '../../components/app/App';
+import { useDispatchApp, useSelectorApp } from '../../services/hooks';
 import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 
 const LoginPage = () => {

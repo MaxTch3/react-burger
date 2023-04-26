@@ -1,4 +1,4 @@
-import { AppDispatch } from "../../components/app/App";
+import { AppDispatch, AppThunk } from "../types";
 import { setCookie } from "../../utils/cookie-functions";
 import { refreshTokenRequest, updateUserRequest } from "../../utils/user-api";
 import { IUser } from "./get-user";
@@ -24,7 +24,7 @@ export type TUpdateUserActions =
   | IUpdateUserSuccess
   | IUpdateUserFailed
 
-const updateUserAction = (name: string, email: string, password: string) => (dispatch: AppDispatch) => {
+const updateUserAction: AppThunk = (name: string, email: string, password: string) => (dispatch: AppDispatch) => {
   dispatch({
     type: UPDATE_USER_REQUEST
   });

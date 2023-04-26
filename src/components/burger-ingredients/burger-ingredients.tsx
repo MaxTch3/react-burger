@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css'
 import Ingredient from './ingredient/ingredient';
-import { useSelectorApp } from '../burger-constructor/burger-constructor';
+import { useSelectorApp } from '../../services/hooks';
 
 type TCounters = {
   [id: string]: number

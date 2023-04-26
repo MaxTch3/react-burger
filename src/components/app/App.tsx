@@ -1,5 +1,4 @@
 import { FC, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import styles from './App.module.css';
 import AppHeader from '../app-header/app-header'
@@ -18,10 +17,7 @@ import { getCookie } from '../../utils/cookie-functions';
 import FeedPage from '../../pages/feed-page/feed-page';
 import OrderPage from '../../pages/order-page/order-page';
 import AuthOrderPage from '../../pages/auth-order-page/auth-order-page';
-import { store } from '../../services/store';
-
-export type AppDispatch = typeof store.dispatch;
-export const useDispatchApp = () => useDispatch<AppDispatch>();
+import { useDispatchApp } from '../../services/hooks';
 
 const App: FC = () => {
   const dispatch = useDispatchApp();

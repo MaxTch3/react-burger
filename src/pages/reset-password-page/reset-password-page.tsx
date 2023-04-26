@@ -3,8 +3,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import styles from './reset-password-page.module.css';
 import resetAction from '../../services/actions/reset-password';
-import { useDispatchApp } from '../../components/app/App';
-import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
+import { useDispatchApp, useSelectorApp } from '../../services/hooks';
 import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 
 const ResetPasswordPage: FC = () => {

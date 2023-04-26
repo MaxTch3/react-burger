@@ -1,4 +1,4 @@
-import { AppDispatch } from "../../components/app/App";
+import { AppDispatch, AppThunk } from "../types";
 import { setCookie } from "../../utils/cookie-functions";
 import { registerUser } from "../../utils/user-api";
 import { IUser } from "./get-user";
@@ -23,7 +23,7 @@ export type TRegisterActions =
   | IRegisterSuccess
   | IRegisterFailed
 
-const registerAction = (email: string, password: string, name: string) => (dispatch: AppDispatch) => {
+const registerAction: AppThunk = (email: string, password: string, name: string) => (dispatch: AppDispatch) => {
   dispatch({
     type: REGISTER_REQUEST
   });

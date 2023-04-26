@@ -1,6 +1,6 @@
 import styles from './ingredient-page.module.css';
 import { useParams } from 'react-router-dom';
-import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
+import { useSelectorApp } from '../../services/hooks';
 
 const IngredientPage = () => {
 

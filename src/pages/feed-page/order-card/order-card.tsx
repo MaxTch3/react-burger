@@ -6,8 +6,7 @@ import { FC, useMemo, useState } from 'react';
 import { GET_ORDER_CURRENT_INFO, REMOVE_ORDER_CURRENT_INFO, TOrderInfo } from '../../../services/actions/order-current-info';
 import Modal from '../../../components/modal/modal';
 import OrderWindow from '../../../components/order-window/order-window';
-import { useDispatchApp } from '../../../components/app/App';
-import { useSelectorApp } from '../../../components/burger-constructor/burger-constructor';
+import { useDispatchApp, useSelectorApp } from '../../../services/hooks';
 
 type TOrderCardProps = {
   order: TOrderInfo;

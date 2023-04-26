@@ -2,8 +2,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
 import updateUserAction from '../../../services/actions/update-user';
 import styles from './profile-info-form.module.css';
-import { useSelectorApp } from '../../../components/burger-constructor/burger-constructor';
-import { useDispatchApp } from '../../../components/app/App';
+import { useDispatchApp, useSelectorApp } from '../../../services/hooks';
 import getUserAction from '../../../services/actions/get-user';
 
 

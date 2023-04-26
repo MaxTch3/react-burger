@@ -1,4 +1,4 @@
-import { AppDispatch } from '../../components/app/App';
+import { AppDispatch, AppThunk } from "../types";
 import { postOrderData } from '../../utils/burgers-api';
 export const GET_ORDER_REQUEST: 'GET_ORDER_REQUEST' = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS: 'GET_ORDER_SUCCESS' = 'GET_ORDER_SUCCESS';
@@ -25,7 +25,7 @@ export type TGetOrderActions =
   | IGetOrderFailed
   | IGetOrderReset
 
-export const getOrderData = (orderData: string[]) => (dispatch: AppDispatch) => {
+export const getOrderData: AppThunk = (orderData: string[]) => (dispatch: AppDispatch) => {
   dispatch({
     type: GET_ORDER_REQUEST
   });

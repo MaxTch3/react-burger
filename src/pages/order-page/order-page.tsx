@@ -3,8 +3,7 @@ import { FC, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { WS_CONNECTION_END, WS_CONNECTION_START } from '../../services/actions/ws-actions';
 import styles from './order-page.module.css';
-import { useDispatchApp } from '../../components/app/App';
-import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
+import { useDispatchApp, useSelectorApp } from '../../services/hooks';
 
 const OrderPage: FC = () => {
   const dispatch = useDispatchApp();

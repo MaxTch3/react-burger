@@ -1,5 +1,4 @@
 import { useState, useMemo, useCallback, FC } from 'react';
-import { useSelector, TypedUseSelectorHook } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
 import { CurrencyIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -9,11 +8,7 @@ import DraggableElement from './draggable-element/draggable-element';
 import { getOrderData, GET_ORDER_RESET } from '../../services/actions/order';
 import { ADD_INGREDIENT, MOVE_INGREDIENT, RESET_INGREDIENTS } from '../../services/actions/ingredients-constructor';
 import styles from './burger-constructor.module.css';
-import { store } from '../../services/store';
-import { useDispatchApp } from '../app/App';
-
-export type RootState = ReturnType<typeof store.getState>;
-export const useSelectorApp: TypedUseSelectorHook<RootState> = useSelector;
+import { useDispatchApp, useSelectorApp } from '../../services/hooks';
 
 const BurgerConstructor: FC = () => {
   const navigate = useNavigate();

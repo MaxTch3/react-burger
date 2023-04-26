@@ -5,8 +5,7 @@ import ProfileInfoForm from './profile-info-form/profile-info-form';
 import getUserAction from '../../services/actions/get-user';
 import logoutUserAction from '../../services/actions/logout-user';
 import UserOrdersPage from './user-orders-page/user-orders-page';
-import { useDispatchApp } from '../../components/app/App';
-import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
+import { useDispatchApp, useSelectorApp } from '../../services/hooks';
 
 const ProfilePage = () => {
   const navigate = useNavigate();

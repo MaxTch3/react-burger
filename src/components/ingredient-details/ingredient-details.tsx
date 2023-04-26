@@ -1,4 +1,4 @@
-import { useSelectorApp } from '../burger-constructor/burger-constructor';
+import { useSelectorApp } from '../../services/hooks';
 import styles from './ingredient-details.module.css';
 
 

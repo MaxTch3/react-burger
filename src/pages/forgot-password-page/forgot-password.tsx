@@ -3,8 +3,7 @@ import { FC, FormEvent, useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import forgotAction from '../../services/actions/forgot-password';
-import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
-import { useDispatchApp } from '../../components/app/App';
+import { useDispatchApp, useSelectorApp } from '../../services/hooks';
 
 const ForgotPasswordPage: FC = () => {
   const [email, setEmail] = useState('');

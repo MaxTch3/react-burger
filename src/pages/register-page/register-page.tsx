@@ -3,8 +3,7 @@ import { FC, FormEvent, useRef, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import registerAction from '../../services/actions/register-user';
 import styles from './register-page.module.css';
-import { useDispatchApp } from '../../components/app/App';
-import { useSelectorApp } from '../../components/burger-constructor/burger-constructor';
+import { useDispatchApp, useSelectorApp } from '../../services/hooks';
 import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 
 const RegisterPage: FC = () => {

@@ -1,7 +1,7 @@
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC, useMemo } from 'react';
 import styles from './order-window.module.css'
-import { useSelectorApp } from '../burger-constructor/burger-constructor';
+import { useSelectorApp } from '../../services/hooks';
 
 const OrderWindow: FC = () => {
 

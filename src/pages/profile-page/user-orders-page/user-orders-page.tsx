@@ -4,8 +4,7 @@ import styles from './user-orders-page.module.css';
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { WS_CONNECTION_ORDERS_END, WS_CONNECTION_ORDERS_START } from "../../../services/actions/ws-actions";
-import { useSelectorApp } from "../../../components/burger-constructor/burger-constructor";
-import { useDispatchApp } from "../../../components/app/App";
+import { useDispatchApp, useSelectorApp } from "../../../services/hooks";
 import getUserAction from "../../../services/actions/get-user";
 
 

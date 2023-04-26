@@ -1,4 +1,4 @@
-import { AppDispatch } from "../../components/app/App";
+import { AppDispatch, AppThunk } from "../types";
 import { setCookie } from "../../utils/cookie-functions";
 import { refreshTokenRequest } from "../../utils/user-api";
 
@@ -16,12 +16,12 @@ export interface IRefreshTokenFailed {
   readonly type: typeof REFRESH_TOKEN_FAILED;
 }
 
-export type IRefreshTokenActions =
+export type TRefreshTokenActions =
   IRefreshTokenRequest
   | IRefreshTokenSuccess
   | IRefreshTokenFailed
 
-const refreshTokenAction = () => (dispatch: AppDispatch) => {
+const refreshTokenAction: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch({ type: REFRESH_TOKEN_REQUEST });
   refreshTokenRequest()
     .then(res => {

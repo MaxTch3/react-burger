@@ -1,4 +1,4 @@
-import { AppDispatch } from "../../components/app/App";
+import { AppDispatch, AppThunk } from "../types";
 import { removeCookie } from "../../utils/cookie-functions";
 import { logoutUserRequest } from "../../utils/user-api";
 
@@ -23,7 +23,7 @@ export type TLogoutActions =
   | ILogoutSuccess
   | ILogoutFailed
 
-const logoutUserAction = () => (dispatch: AppDispatch) => {
+const logoutUserAction: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch({ type: LOGOUT_REQUEST });
   logoutUserRequest()
     .then(res => {

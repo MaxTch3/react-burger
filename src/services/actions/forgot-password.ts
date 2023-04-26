@@ -1,4 +1,4 @@
-import { AppDispatch } from "../../components/app/App";
+import { AppDispatch, AppThunk } from "../types";
 import { forgotPassword } from "../../utils/user-api";
 
 export const FORGOT_REQUEST: 'FORGOT_REQUEST' = 'FORGOT_REQUEST';
@@ -23,7 +23,7 @@ export type TForgotActions =
   | IForgotFailed;
 
 
-const forgotAction = (email: string) => (dispatch: AppDispatch) => {
+const forgotAction: AppThunk = (email: string) => (dispatch: AppDispatch) => {
   dispatch({
     type: FORGOT_REQUEST
   });

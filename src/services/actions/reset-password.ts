@@ -1,4 +1,4 @@
-import { AppDispatch } from "../../components/app/App";
+import { AppDispatch, AppThunk } from "../types";
 import { resetPassword } from "../../utils/user-api";
 
 export const RESET_REQUEST: 'RESET_REQUEST' = 'RESET_REQUEST';
@@ -20,7 +20,7 @@ export type TResetActions =
   | IResetSuccess
   | IResetFailed
 
-const resetAction = (password: string, token: string) => (dispatch: AppDispatch) => {
+const resetAction: AppThunk = (password: string, token: string) => (dispatch: AppDispatch) => {
   dispatch({
     type: RESET_REQUEST
   });
