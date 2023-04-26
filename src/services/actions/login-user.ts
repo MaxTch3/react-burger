@@ -1,12 +1,28 @@
 import { AppDispatch } from "../../components/app/App";
 import { setCookie } from "../../utils/cookie-functions";
 import { loginUser } from "../../utils/user-api";
+import { IUser } from "./get-user";
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGIN_REQUEST: 'LOGIN_REQUEST' = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS: 'LOGIN_SUCCESS' = 'LOGIN_SUCCESS';
+export const LOGIN_FAILED: 'LOGIN_FAILED' = 'LOGIN_FAILED';
 
+export interface ILoginRequest {
+  readonly type: typeof LOGIN_REQUEST
+}
 
+export interface ILoginSuccess {
+  readonly type: typeof LOGIN_SUCCESS;
+  user: IUser
+}
+export interface ILoginFailed{
+  readonly type: typeof LOGIN_FAILED
+}
+
+export type TLoginActions =
+  ILoginRequest
+  | ILoginSuccess
+  | ILoginFailed
 
 const loginAction = (email: string, password: string) => (dispatch: AppDispatch) => {
   dispatch({
