@@ -104,6 +104,13 @@ export interface IWsActions {
   readonly onClose: typeof WS_CONNECTION_CLOSED;
   readonly wsSendMessage: typeof WS_SEND_MESSAGE;
   readonly wsClose: typeof WS_CONNECTION_END;
+  readonly wsInitOrders: typeof WS_CONNECTION_ORDERS_START;
+  readonly onOpenOrders: typeof WS_CONNECTION_ORDERS_SUCCESS;
+  readonly onErrorOrders: typeof WS_CONNECTION_ORDERS_ERROR;
+  readonly onMessageOrders: typeof WS_GET_ORDERS_MESSAGE;
+  readonly onCloseOrders: typeof WS_CONNECTION_ORDERS_CLOSED;
+  readonly wsSendMessageOrders: typeof WS_SEND_ORDERS_MESSAGE;
+  readonly wsCloseOrders: typeof WS_CONNECTION_ORDERS_END;
 }
 
 export const wsActions: IWsActions = {
@@ -114,23 +121,12 @@ export const wsActions: IWsActions = {
   onClose: WS_CONNECTION_CLOSED,
   wsSendMessage: WS_SEND_MESSAGE,
   wsClose: WS_CONNECTION_END,
-}
-export interface IWsActionsOrders {
-  readonly wsInitOrders: typeof WS_CONNECTION_ORDERS_START;
-  readonly onOpen: typeof WS_CONNECTION_ORDERS_SUCCESS;
-  readonly onError: typeof WS_CONNECTION_ORDERS_ERROR;
-  readonly onMessage: typeof WS_GET_ORDERS_MESSAGE;
-  readonly onClose: typeof WS_CONNECTION_ORDERS_CLOSED;
-  readonly wsSendMessage: typeof WS_SEND_ORDERS_MESSAGE;
-  readonly wsClose: typeof WS_CONNECTION_ORDERS_END;
+  wsInitOrders: WS_CONNECTION_ORDERS_START,
+  onOpenOrders: WS_CONNECTION_ORDERS_SUCCESS,
+  onErrorOrders: WS_CONNECTION_ORDERS_ERROR,
+  onMessageOrders: WS_GET_ORDERS_MESSAGE,
+  onCloseOrders: WS_CONNECTION_ORDERS_CLOSED,
+  wsSendMessageOrders: WS_SEND_ORDERS_MESSAGE,
+  wsCloseOrders: WS_CONNECTION_ORDERS_END
 }
 
-export const wsActionsOrders: IWsActionsOrders = {
-  wsInitOrders: WS_CONNECTION_ORDERS_START,
-  onOpen: WS_CONNECTION_ORDERS_SUCCESS,
-  onError: WS_CONNECTION_ORDERS_ERROR,
-  onMessage: WS_GET_ORDERS_MESSAGE,
-  onClose: WS_CONNECTION_ORDERS_CLOSED,
-  wsSendMessage: WS_SEND_ORDERS_MESSAGE,
-  wsClose: WS_CONNECTION_ORDERS_END
-}

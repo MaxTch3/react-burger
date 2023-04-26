@@ -3,7 +3,7 @@ import { legacy_createStore as createStore, compose, applyMiddleware } from 'red
 import thunk from 'redux-thunk';
 import { rootReducer } from './reducers';
 import socketMiddleware from './middleware/socket-middleware';
-import { wsActions, wsActionsOrders } from './actions/ws-actions';
+import { wsActions } from './actions/ws-actions';
 
 const wsUrl = 'wss://norma.nomoreparties.space/orders';
 declare const window: any;
@@ -15,5 +15,5 @@ const composeEnhancers =
 
 export const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions), socketMiddleware(wsUrl, wsActionsOrders)))
+  composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions)))
 );
