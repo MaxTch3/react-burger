@@ -1,4 +1,4 @@
-import { TOrderInfo } from "./order-current-info";
+import { IPayload } from "../types/types";
 
 export const WS_CONNECTION_START: 'WS_CONNECTION_START' = 'WS_CONNECTION_START';
 export const WS_CONNECTION_SUCCESS: 'WS_CONNECTION_SUCCESS' = 'WS_CONNECTION_SUCCESS';
@@ -16,11 +16,6 @@ export const WS_CONNECTION_ORDERS_CLOSED: 'WS_CONNECTION_ORDERS_CLOSED' = 'WS_CO
 export const WS_SEND_ORDERS_MESSAGE: 'WS_SEND_ORDERS_MESSAGE' = 'WS_SEND_ORDERS_MESSAGE';
 export const WS_CONNECTION_ORDERS_END: 'WS_CONNECTION_ORDERS_END' = 'WS_CONNECTION_ORDERS_END';
 
-export interface IPayload {
-  orders: TOrderInfo[];
-  total: number;
-  totalToday: number;
-}
 
 export interface IWsConnectionStart {
   readonly type: typeof WS_CONNECTION_START;

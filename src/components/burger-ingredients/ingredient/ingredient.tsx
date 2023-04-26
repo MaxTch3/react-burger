@@ -6,7 +6,7 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { GET_INGREDIENT_CURRENT_INFO, REMOVE_INGREDIENT_CURRENT_INFO } from '../../../services/actions/ingredient-current-info';
-import { TIngredient } from '../../../utils/component-types';
+import { TIngredient } from '../../../services/types/types';
 
 type TIngredientProps = {
   item: TIngredient;

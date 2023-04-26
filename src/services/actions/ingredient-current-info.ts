@@ -1,4 +1,4 @@
-import { TIngredient } from "../../utils/component-types";
+import { TIngredient } from "../types/types";
 
 export const GET_INGREDIENT_CURRENT_INFO: 'GET_INGREDIENT_CURRENT_INFO' = 'GET_INGREDIENT_CURRENT_INFO';
 export const REMOVE_INGREDIENT_CURRENT_INFO: 'REMOVE_INGREDIENT_CURRENT_INFO' = 'REMOVE_INGREDIENT_CURRENT_INFO';

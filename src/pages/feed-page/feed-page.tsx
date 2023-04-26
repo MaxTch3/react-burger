@@ -4,7 +4,7 @@ import { WS_CONNECTION_END, WS_CONNECTION_START } from '../../services/actions/w
 import styles from './feed-page.module.css'
 import OrderCard from './order-card/order-card';
 import { useDispatch, useSelectorApp } from '../../services/hooks';
-import { TOrderInfo } from '../../services/actions/order-current-info';
+import { TOrderInfo } from '../../services/types/types';
 
 const FeedPage: FC = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const FeedPage: FC = () => {
           }
         </div>
       </div>
-      { total !== 0 &&
+      {total !== 0 &&
         <div className={styles.info_container}>
           <div className={styles.boards}>
             <div className={styles.board_done}>

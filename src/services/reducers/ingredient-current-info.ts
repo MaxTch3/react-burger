@@ -1,9 +1,9 @@
-import { TIngredient } from '../../utils/component-types'
 import {
   GET_INGREDIENT_CURRENT_INFO,
   REMOVE_INGREDIENT_CURRENT_INFO,
   TIngredientsCurrentInfoActions
 } from '../actions/ingredient-current-info'
+import { TIngredient } from '../types/types'
 
 type TInitialState = {
   item: TIngredient | null

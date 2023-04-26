@@ -3,8 +3,8 @@ import {
   GET_INGREDIENTS_DATA_SUCCESS,
   GET_INGREDIENTS_DATA_FAILED,
   TIngredientsDataActions
-} from '../actions/ingredients-data'
-import { TIngredient } from '../../utils/component-types'
+} from '../actions/ingredients-data';
+import { TIngredient } from '../types/types';
 
 type TInitialState = {
   data: TIngredient[];

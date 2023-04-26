@@ -6,7 +6,7 @@ import {
   WS_CONNECTION_END,
   TWsConnectActions
 } from '../actions/ws-actions';
-import { TOrderInfo } from '../actions/order-current-info';
+import { TOrderInfo } from '../types/types';
 
 type TInitialState = {
   orders: TOrderInfo[];

@@ -1,8 +1,8 @@
 import { AppDispatch, AppThunk } from "../types";
 import { setCookie } from "../../utils/cookie-functions";
 import { refreshTokenRequest, updateUserRequest } from "../../utils/user-api";
-import { IUser } from "./get-user";
 import { REFRESH_TOKEN_FAILED, REFRESH_TOKEN_SUCCESS } from "./refresh-token";
+import { IUser } from "../types/types";
 
 export const UPDATE_USER_REQUEST: 'UPDATE_USER_REQUEST' = 'UPDATE_USER_REQUEST';
 export const UPDATE_USER_SUCCESS: 'UPDATE_USER_SUCCESS' = 'UPDATE_USER_SUCCESS';

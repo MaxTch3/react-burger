@@ -1,7 +1,7 @@
 import { AppDispatch, AppThunk } from "../types";
 import { setCookie } from "../../utils/cookie-functions";
 import { registerUser } from "../../utils/user-api";
-import { IUser } from "./get-user";
+import { IUser } from "../types/types";
 
 export const REGISTER_REQUEST: 'REGISTER_REQUEST' = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS: 'REGISTER_SUCCESS' = 'REGISTER_SUCCESS';

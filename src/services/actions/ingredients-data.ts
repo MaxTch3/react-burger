@@ -1,6 +1,6 @@
 import { AppDispatch, AppThunk } from '../types';
 import { getIngredients } from '../../utils/burgers-api';
-import { TIngredient } from '../../utils/component-types';
+import { TIngredient } from '../types/types';
 export const GET_INGREDIENTS_DATA_REQUEST: 'GET_INGREDIENTS_DATA_REQUEST' = 'GET_INGREDIENTS_DATA_REQUEST';
 export const GET_INGREDIENTS_DATA_SUCCESS: 'GET_INGREDIENTS_DATA_SUCCESS' = 'GET_INGREDIENTS_DATA_SUCCESS';
 export const GET_INGREDIENTS_DATA_FAILED: 'GET_INGREDIENTS_DATA_FAILED' = 'GET_INGREDIENTS_DATA_FAILED';

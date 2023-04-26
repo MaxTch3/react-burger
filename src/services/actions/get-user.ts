@@ -1,15 +1,11 @@
 import { AppDispatch, AppThunk } from "../types";
 import { getUserRequest } from "../../utils/user-api";
 import { refreshTokenAction } from "./refresh-token";
+import { IUser } from "../types/types";
 
 export const GET_USER_REQUEST: 'GET_USER_REQUEST' = 'GET_USER_REQUEST';
 export const GET_USER_SUCCESS: 'GET_USER_SUCCESS' = 'GET_USER_SUCCESS';
 export const GET_USER_FAILED: 'GET_USER_FAILED' = 'GET_USER_FAILED';
-
-export interface IUser {
-  name: string;
-  email: string
-}
 
 export interface IGetRequest {
   readonly type: typeof GET_USER_REQUEST;

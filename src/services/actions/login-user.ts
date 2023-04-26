@@ -1,7 +1,7 @@
 import { AppDispatch, AppThunk } from "../types";
 import { setCookie } from "../../utils/cookie-functions";
 import { loginUser } from "../../utils/user-api";
-import { IUser } from "./get-user";
+import { IUser } from "../types/types";
 
 export const LOGIN_REQUEST: 'LOGIN_REQUEST' = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS: 'LOGIN_SUCCESS' = 'LOGIN_SUCCESS';
@@ -15,6 +15,7 @@ export interface ILoginSuccess {
   readonly type: typeof LOGIN_SUCCESS;
   user: IUser
 }
+
 export interface ILoginFailed{
   readonly type: typeof LOGIN_FAILED
 }

@@ -1,4 +1,4 @@
-import { TIngredient } from "./component-types";
+import { TIngredient } from "../services/types/types";
 import { getCookie } from "./cookie-functions";
 
 const NORMA_API = 'https://norma.nomoreparties.space/api';

@@ -3,7 +3,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { FC, useRef } from "react";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { REMOVE_INGREDIENT } from "../../../services/actions/ingredients-constructor";
-import { TIngredient } from '../../../utils/component-types';
+import { TIngredient } from "../../../services/types/types";
 
 type TDraggableElementProps = {
   item: TIngredient;

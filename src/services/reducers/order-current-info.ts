@@ -1,9 +1,9 @@
 import {
   GET_ORDER_CURRENT_INFO,
   REMOVE_ORDER_CURRENT_INFO,
-  TOrderInfo,
   TOrderCurrentInfoActons
 } from "../actions/order-current-info"
+import { TOrderInfo } from "../types/types"
 
 type TInitialState = {
   order: TOrderInfo | null

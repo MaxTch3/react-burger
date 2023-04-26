@@ -1,4 +1,3 @@
-import { TOrderInfo } from '../actions/order-current-info';
 import {
   WS_CONNECTION_ORDERS_SUCCESS,
   WS_CONNECTION_ORDERS_ERROR,
@@ -7,6 +6,7 @@ import {
   WS_CONNECTION_ORDERS_END,
   TWsConnectActions
 } from '../actions/ws-actions';
+import { TOrderInfo } from '../types/types';
 
 type TInitialState = {
   orders: TOrderInfo[];

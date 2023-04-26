@@ -5,8 +5,8 @@ import {
   REMOVE_INGREDIENT,
   RESET_INGREDIENTS,
   TIngredientsConstructorActions
-} from '../actions/ingredients-constructor'
-import { TIngredient } from '../../utils/component-types';
+} from '../actions/ingredients-constructor';
+import { TIngredient } from '../types/types';
 
 export type TIngredientConstructor = TIngredient & { id?: string };
 

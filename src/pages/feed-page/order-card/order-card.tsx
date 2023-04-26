@@ -3,10 +3,11 @@ import styles from './order-card.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import RoundIcon from './round-icon/round-icon';
 import { FC, useMemo, useState } from 'react';
-import { GET_ORDER_CURRENT_INFO, REMOVE_ORDER_CURRENT_INFO, TOrderInfo } from '../../../services/actions/order-current-info';
+import { GET_ORDER_CURRENT_INFO, REMOVE_ORDER_CURRENT_INFO} from '../../../services/actions/order-current-info';
 import Modal from '../../../components/modal/modal';
 import OrderWindow from '../../../components/order-window/order-window';
 import { useDispatch, useSelectorApp } from '../../../services/hooks';
+import { TOrderInfo } from '../../../services/types/types';
 
 type TOrderCardProps = {
   order: TOrderInfo;

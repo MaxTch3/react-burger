@@ -1,5 +1,5 @@
-import { TIngredient } from "../../utils/component-types";
 import { TIngredientConstructor } from "../reducers/ingredients-constructor";
+import { TIngredient } from "../types/types";
 
 export const ADD_INGREDIENT: 'ADD_INGREDIENT' = 'ADD_INGREDIENT';
 export const REMOVE_INGREDIENT: 'REMOVE_INGREDIENT' = 'REMOVE_INGREDIENT';
