@@ -6,7 +6,7 @@ import { FC, useMemo, useState } from 'react';
 import { GET_ORDER_CURRENT_INFO, REMOVE_ORDER_CURRENT_INFO, TOrderInfo } from '../../../services/actions/order-current-info';
 import Modal from '../../../components/modal/modal';
 import OrderWindow from '../../../components/order-window/order-window';
-import { useDispatchApp, useSelectorApp } from '../../../services/hooks';
+import { useDispatch, useSelectorApp } from '../../../services/hooks';
 
 type TOrderCardProps = {
   order: TOrderInfo;
@@ -17,7 +17,7 @@ type TOrderCardProps = {
 const OrderCard: FC<TOrderCardProps> = ({ order, onStatus, pathOrder }) => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatchApp();
+  const dispatch = useDispatch();
   const ingredients = useSelectorApp(state => state.ingredientsData.data);
 
   const onClick = () => {

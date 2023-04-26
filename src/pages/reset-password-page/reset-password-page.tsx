@@ -3,14 +3,14 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import styles from './reset-password-page.module.css';
 import resetAction from '../../services/actions/reset-password';
-import { useDispatchApp, useSelectorApp } from '../../services/hooks';
+import { useDispatch, useSelectorApp } from '../../services/hooks';
 import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 
 const ResetPasswordPage: FC = () => {
   const [resetInfo, setResetInfo] = useState({ password: '', codeLetter: '' });
   const [showIcon, setShowIcon] = useState<keyof TICons>('HideIcon');
   const passwordRef = useRef<HTMLInputElement>(null);
-  const dispatch = useDispatchApp();
+  const dispatch = useDispatch();
   const { isAuthorization, resetSucces } = useSelectorApp(state => state.userReducer);
   const location = useLocation();
   const prevName = location.state?.prevName;

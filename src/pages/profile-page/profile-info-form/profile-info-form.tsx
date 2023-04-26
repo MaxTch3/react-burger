@@ -2,7 +2,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
 import updateUserAction from '../../../services/actions/update-user';
 import styles from './profile-info-form.module.css';
-import { useDispatchApp, useSelectorApp } from '../../../services/hooks';
+import { useDispatch, useSelectorApp } from '../../../services/hooks';
 import getUserAction from '../../../services/actions/get-user';
 
 
@@ -24,9 +24,9 @@ const ProfileInfoForm: FC = () => {
   const emailRef: { current: any } = useRef<HTMLInputElement>();
   const passwordRef: { current: any } = useRef<HTMLInputElement>();
 
-  const userInfo = useSelectorApp(state => state.userReducer.user);
+  const userInfo: TRefKeyString = useSelectorApp(state => state.userReducer.user);
   const updateUserFailed = useSelectorApp(state => state.userReducer.updateUserFailed);
-  const dispatch = useDispatchApp();
+  const dispatch = useDispatch();
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setProfileInfo({ ...profileInfo, [e.target.name]: e.target.value });

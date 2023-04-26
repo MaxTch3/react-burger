@@ -21,7 +21,7 @@ export type TRefreshTokenActions =
   | IRefreshTokenSuccess
   | IRefreshTokenFailed
 
-const refreshTokenAction: AppThunk = () => (dispatch: AppDispatch) => {
+export const refreshTokenAction: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch({ type: REFRESH_TOKEN_REQUEST });
   refreshTokenRequest()
     .then(res => {
@@ -39,4 +39,4 @@ const refreshTokenAction: AppThunk = () => (dispatch: AppDispatch) => {
     })
 }
 
-export default refreshTokenAction;
+//export default refreshTokenAction;

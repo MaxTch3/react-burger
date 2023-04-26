@@ -1,6 +1,6 @@
 import { ThunkAction } from "redux-thunk";
 import { store } from "./store";
-import { Action, ActionCreator } from "redux";
+import { Action, ActionCreator, Dispatch } from "redux";
 import { TForgotActions } from "./actions/forgot-password";
 import { TGetUserActions } from "./actions/get-user";
 import { TIngredientsDataActions } from "./actions/ingredients-data";
@@ -14,7 +14,7 @@ import { TUpdateUserActions } from "./actions/update-user";
 import { TWsConnectActions } from "./actions/ws-actions";
 
 type TApplicationActions =
-  TForgotActions
+  | TForgotActions
   | TGetUserActions
   | TIngredientsDataActions
   | TLoginActions
@@ -26,7 +26,7 @@ type TApplicationActions =
   | TUpdateUserActions
   | TWsConnectActions;
 
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = Dispatch<TApplicationActions>;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, RootState, TApplicationActions>

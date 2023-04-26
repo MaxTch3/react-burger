@@ -3,10 +3,10 @@ import { FC, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { WS_CONNECTION_ORDERS_END, WS_CONNECTION_ORDERS_START } from '../../services/actions/ws-actions';
 import styles from './auth-order-page.module.css';
-import { useDispatchApp, useSelectorApp} from '../../services/hooks';
+import { useDispatch, useSelectorApp} from '../../services/hooks';
 
 const AuthOrderPage: FC = () => {
-  const dispatch = useDispatchApp();
+  const dispatch = useDispatch();
   const { orders } = useSelectorApp(state => state.wsReducerOrders)
 
   const ingredientsData = useSelectorApp((state) => state.ingredientsData.data);

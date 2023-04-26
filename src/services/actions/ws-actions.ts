@@ -22,79 +22,79 @@ export interface IPayload {
   totalToday: number;
 }
 
-export interface IConnectionStart {
+export interface IWsConnectionStart {
   readonly type: typeof WS_CONNECTION_START;
 }
 
-export interface IConnectionSuccess {
+export interface IWsConnectionSuccess {
   readonly type: typeof WS_CONNECTION_SUCCESS;
 }
 
-export interface IConnectionError {
+export interface IWsConnectionError {
   readonly type: typeof WS_CONNECTION_ERROR;
 }
 
-export interface IGetMessage {
+export interface IWsGetMessage {
   readonly type: typeof WS_GET_MESSAGE;
   payload: IPayload;
 }
 
-export interface IConnectionClosed {
+export interface IWsConnectionClosed {
   readonly type: typeof WS_CONNECTION_CLOSED;
 }
 
-export interface ISendMessage {
+export interface IWsSendMessage {
   readonly type: typeof WS_SEND_MESSAGE;
 }
 
-export interface IConnectionEnd {
+export interface IWsConnectionEnd {
   readonly type: typeof WS_CONNECTION_END;
 }
 
-export interface IConnectionOrdersStart {
+export interface IWsConnectionOrdersStart {
   readonly type: typeof WS_CONNECTION_ORDERS_START;
 }
 
-export interface IConnectionOrdersSuccess {
+export interface IWsConnectionOrdersSuccess {
   readonly type: typeof WS_CONNECTION_ORDERS_SUCCESS;
 }
 
-export interface IConnectionOrdersError {
+export interface IWsConnectionOrdersError {
   readonly type: typeof WS_CONNECTION_ORDERS_ERROR;
 }
 
-export interface IGetOrdersMessage {
+export interface IWsGetOrdersMessage {
   readonly type: typeof WS_GET_ORDERS_MESSAGE;
   payload: IPayload;
 }
 
-export interface IConnectionOrdersClosed {
+export interface IWsConnectionOrdersClosed {
   readonly type: typeof WS_CONNECTION_ORDERS_CLOSED;
 }
 
-export interface ISendOrdersMessage {
+export interface IWsSendOrdersMessage {
   readonly type: typeof WS_SEND_ORDERS_MESSAGE;
 }
 
-export interface IConnectionOrdersEnd {
+export interface IWsConnectionOrdersEnd {
   readonly type: typeof WS_CONNECTION_ORDERS_END;
 }
 
 export type TWsConnectActions =
-  IConnectionStart
-  | IConnectionSuccess
-  | IConnectionError
-  | IGetMessage
-  | IConnectionClosed
-  | ISendMessage
-  | IConnectionEnd
-  | IConnectionOrdersStart
-  | IConnectionOrdersSuccess
-  | IConnectionOrdersError
-  | IGetOrdersMessage
-  | IConnectionOrdersClosed
-  | ISendOrdersMessage
-  | IConnectionOrdersEnd;
+  IWsConnectionStart
+  | IWsConnectionSuccess
+  | IWsConnectionError
+  | IWsGetMessage
+  | IWsConnectionClosed
+  | IWsSendMessage
+  | IWsConnectionEnd
+  | IWsConnectionOrdersStart
+  | IWsConnectionOrdersSuccess
+  | IWsConnectionOrdersError
+  | IWsGetOrdersMessage
+  | IWsConnectionOrdersClosed
+  | IWsSendOrdersMessage
+  | IWsConnectionOrdersEnd;
 
 export interface IWsActions {
   readonly wsInit: typeof WS_CONNECTION_START;

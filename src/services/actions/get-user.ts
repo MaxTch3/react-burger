@@ -1,6 +1,6 @@
 import { AppDispatch, AppThunk } from "../types";
 import { getUserRequest } from "../../utils/user-api";
-import refreshTokenAction from "./refresh-token";
+import { refreshTokenAction } from "./refresh-token";
 
 export const GET_USER_REQUEST: 'GET_USER_REQUEST' = 'GET_USER_REQUEST';
 export const GET_USER_SUCCESS: 'GET_USER_SUCCESS' = 'GET_USER_SUCCESS';
@@ -29,7 +29,7 @@ export type TGetUserActions =
   | IGetSuccess
   | IGetUserFailed;
 
-const getUserAction: AppThunk = () => (dispatch: AppDispatch) => {
+const getUserAction: AppThunk = () => (dispatch: AppDispatch | AppThunk) => {
   dispatch({
     type: GET_USER_REQUEST
   });

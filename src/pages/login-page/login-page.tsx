@@ -3,14 +3,14 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import styles from './login-page.module.css'
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import loginAction from '../../services/actions/login-user';
-import { useDispatchApp, useSelectorApp } from '../../services/hooks';
+import { useDispatch, useSelectorApp } from '../../services/hooks';
 import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 
 const LoginPage = () => {
   const [signIn, setSignIn] = useState({ email: '', password: '' });
   const [showIcon, setShowIcon] = useState<keyof TICons>('HideIcon');
   const passwordRef = useRef<HTMLInputElement>(null);
-  const dispatch = useDispatchApp();
+  const dispatch = useDispatch();
   const isAuthorization = useSelectorApp(state => state.userReducer.isAuthorization);
   const location = useLocation();
 

@@ -1,3 +1,4 @@
+import { TUserActions } from '../actions'
 import { FORGOT_FAILED, FORGOT_REQUEST, FORGOT_SUCCESS } from '../actions/forgot-password'
 import { GET_USER_FAILED, GET_USER_REQUEST, GET_USER_SUCCESS } from '../actions/get-user'
 import { LOGIN_FAILED, LOGIN_REQUEST, LOGIN_SUCCESS } from '../actions/login-user'
@@ -7,7 +8,42 @@ import { REGISTER_FAILED, REGISTER_REQUEST, REGISTER_SUCCESS } from '../actions/
 import { RESET_FAILED, RESET_REQUEST, RESET_SUCCESS } from '../actions/reset-password'
 import { UPDATE_USER_FAILED, UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS } from '../actions/update-user'
 
-const initialState = {
+type TinitialState = {
+  user: {
+    name: string,
+    email: string
+  };
+  isAuthorization: boolean;
+
+  registerRequest: boolean;
+  registerFailed: boolean;
+
+  loginRequest: boolean;
+  loginFailed: boolean;
+
+  forgotRequest: boolean;
+  forgotFailed: boolean;
+  forgotCodeSend: boolean;
+
+  resetRequest: boolean;
+  resetFailed: boolean;
+  resetSucces: boolean;
+
+  getUserRequest: boolean;
+  getUserFailed: boolean;
+
+  updateUserRequest: boolean;
+  updateUserFailed: boolean;
+
+  refreshTokenRequest: boolean;
+  refreshTokenFailed: boolean;
+
+  logoutUserRequest: boolean;
+  logoutUserFailed: boolean
+
+}
+
+const initialState: TinitialState = {
   user: { name: '', email: '' },
   isAuthorization: false,
 
@@ -36,9 +72,9 @@ const initialState = {
 
   logoutUserRequest: false,
   logoutUserFailed: false
-}
+};
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: TUserActions) => {
   switch (action.type) {
     case REGISTER_REQUEST: {
       return {

@@ -3,14 +3,14 @@ import { FC, FormEvent, useRef, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import registerAction from '../../services/actions/register-user';
 import styles from './register-page.module.css';
-import { useDispatchApp, useSelectorApp } from '../../services/hooks';
+import { useDispatch, useSelectorApp } from '../../services/hooks';
 import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 
 const RegisterPage: FC = () => {
   const [registerInfo, setRegisterInfo] = useState({ name: '', email: '', password: '' });
   const [showIcon, setShowIcon] = useState<keyof TICons>('HideIcon');
   const passwordRef = useRef<HTMLInputElement>(null);
-  const dispatch = useDispatchApp();
+  const dispatch = useDispatch();
   const isAuthorization = useSelectorApp(state => state.userReducer.isAuthorization);
 
   const onIconClick = () => {

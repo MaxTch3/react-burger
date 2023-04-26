@@ -3,11 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { WS_CONNECTION_END, WS_CONNECTION_START } from '../../services/actions/ws-actions';
 import styles from './feed-page.module.css'
 import OrderCard from './order-card/order-card';
-import { useDispatchApp, useSelectorApp } from '../../services/hooks';
+import { useDispatch, useSelectorApp } from '../../services/hooks';
 import { TOrderInfo } from '../../services/actions/order-current-info';
 
 const FeedPage: FC = () => {
-  const dispatch = useDispatchApp();
+  const dispatch = useDispatch();
   const { orders, total, totalToday } = useSelectorApp(state => state.wsReducer)
   const ordersDone = useMemo(() => orders.filter((item) => (item.status === 'done')), [orders]);
   const ordersWork = useMemo(() => orders.filter((item) => (item.status === 'pending' || item.status === 'created')), [orders]);

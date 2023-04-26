@@ -8,11 +8,11 @@ import DraggableElement from './draggable-element/draggable-element';
 import { getOrderData, GET_ORDER_RESET } from '../../services/actions/order';
 import { ADD_INGREDIENT, MOVE_INGREDIENT, RESET_INGREDIENTS } from '../../services/actions/ingredients-constructor';
 import styles from './burger-constructor.module.css';
-import { useDispatchApp, useSelectorApp } from '../../services/hooks';
+import { useDispatch, useSelectorApp } from '../../services/hooks';
 
 const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatchApp();
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const { bun, otherIngredients } = useSelectorApp(state => state.ingredientsConstructor);
   const isAuthorization = useSelectorApp(state => state.userReducer.isAuthorization);

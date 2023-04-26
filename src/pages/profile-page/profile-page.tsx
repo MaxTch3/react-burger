@@ -5,11 +5,11 @@ import ProfileInfoForm from './profile-info-form/profile-info-form';
 import getUserAction from '../../services/actions/get-user';
 import logoutUserAction from '../../services/actions/logout-user';
 import UserOrdersPage from './user-orders-page/user-orders-page';
-import { useDispatchApp, useSelectorApp } from '../../services/hooks';
+import { useDispatch, useSelectorApp } from '../../services/hooks';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatchApp();
+  const dispatch = useDispatch();
   const logoutUserFailed = useSelectorApp(state => state.userReducer.logoutUserFailed);
 
   const profileLinkActive = useMatch('/profile');

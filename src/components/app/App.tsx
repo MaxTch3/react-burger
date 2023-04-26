@@ -17,10 +17,10 @@ import { getCookie } from '../../utils/cookie-functions';
 import FeedPage from '../../pages/feed-page/feed-page';
 import OrderPage from '../../pages/order-page/order-page';
 import AuthOrderPage from '../../pages/auth-order-page/auth-order-page';
-import { useDispatchApp } from '../../services/hooks';
+import { useDispatch } from '../../services/hooks';
 
 const App: FC = () => {
-  const dispatch = useDispatchApp();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getIngredientsData())

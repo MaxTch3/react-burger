@@ -4,12 +4,12 @@ import styles from './user-orders-page.module.css';
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { WS_CONNECTION_ORDERS_END, WS_CONNECTION_ORDERS_START } from "../../../services/actions/ws-actions";
-import { useDispatchApp, useSelectorApp } from "../../../services/hooks";
+import { useDispatch, useSelectorApp } from "../../../services/hooks";
 import getUserAction from "../../../services/actions/get-user";
 
 
 const UserOrdersPage = () => {
-  const dispatch = useDispatchApp();
+  const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import IngredientDetails from '../../../../components/ingredient-details/ingredi
 import Modal from '../../../../components/modal/modal';
 import { GET_INGREDIENT_CURRENT_INFO, REMOVE_INGREDIENT_CURRENT_INFO } from '../../../../services/actions/ingredient-current-info';
 import styles from './round-icon.module.css';
-import { useDispatchApp, useSelectorApp } from '../../../../services/hooks';
+import { useDispatch, useSelectorApp } from '../../../../services/hooks';
 
 export type TRoundIconProps = {
   id: string;
@@ -15,7 +15,7 @@ const RoundIcon: FC<TRoundIconProps> = ({ id, count, index }) => {
   const ingredients = useSelectorApp(state => state.ingredientsData.data);
   const ingredient = useMemo(() => ingredients.find((item) => (item._id === id)), [ingredients, id]);
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatchApp();
+  const dispatch = useDispatch();
 
   const onClick = () => {
     dispatch({ type: GET_INGREDIENT_CURRENT_INFO, item: ingredient });

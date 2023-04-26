@@ -16,6 +16,12 @@ export type TUserAnswer = {
   };
 }
 
+export type TRefreshAnswer = {
+  success: boolean;
+  accessToken: string;
+  refreshToken: string
+}
+
 export const registerUser = (email: string, password: string, name: string): Promise<TUserAnswer> => {
   return fetch(`${NORMA_API}/auth/register`, {
     method: 'POST',
@@ -34,7 +40,7 @@ export const loginUser = (email: string, password: string): Promise<TUserAnswer>
     .then((res) => checkResponse(res))
 };
 
-export const forgotPassword = (email: string)  => {
+export const forgotPassword = (email: string) => {
   return fetch(`${NORMA_API}/password-reset`, {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
@@ -63,7 +69,7 @@ export function getUserRequest(): Promise<TUserAnswer> {
     .then((res) => checkResponse(res))
 };
 
-export const updateUserRequest = (name: string, email: string, password: string): Promise<TUserAnswer> =>{
+export const updateUserRequest = (name: string, email: string, password: string): Promise<TUserAnswer> => {
   return fetch(`${NORMA_API}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -75,7 +81,7 @@ export const updateUserRequest = (name: string, email: string, password: string)
     .then((res) => checkResponse(res))
 }
 
-export const refreshTokenRequest = (): Promise<TUserAnswer> => {
+export const refreshTokenRequest = (): Promise<TRefreshAnswer> => {
   return fetch(`${NORMA_API}/auth/token`, {
     method: 'POST',
     headers: {
