@@ -1,5 +1,5 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
 import updateUserAction from '../../../services/actions/update-user';
 import styles from './profile-info-form.module.css';
 import { useSelectorApp } from '../../../components/burger-constructor/burger-constructor';
@@ -67,11 +67,11 @@ const ProfileInfoForm: FC = () => {
     ) {
       setActiveButtons(false)
     }
-  }, [profileInfo])
+  }, [profileInfo.name, profileInfo.email, profileInfo.password, userInfo.email, userInfo.name])
 
   useEffect(() => {
     setProfileInfo({ password: '', name: userInfo.name, email: userInfo.email })
-  }, []);
+  }, [userInfo.name, userInfo.email]);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();

@@ -1,4 +1,3 @@
-import { AppDispatch } from "../../components/app/App"
 import {
   GET_ORDER_FAILED,
   GET_ORDER_REQUEST,
