@@ -28,7 +28,13 @@ const socketMiddleware = (wsUrl, wsActions) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
-          dispatch({ type: onMessage, payload: restParsedData });
+
+          if (restParsedData.orders) {
+            restParsedData.orders.sort(function (a, b) {
+              return b.number - a.number
+            });
+            dispatch({ type: onMessage, payload: restParsedData });
+          }
         };
         socket.onclose = event => {
           dispatch({ type: onClose, payload: event });
