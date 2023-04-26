@@ -4,6 +4,7 @@ import updateUserAction from '../../../services/actions/update-user';
 import styles from './profile-info-form.module.css';
 import { useSelectorApp } from '../../../components/burger-constructor/burger-constructor';
 import { useDispatchApp } from '../../../components/app/App';
+import getUserAction from '../../../services/actions/get-user';
 
 
 type TRefKeyString = {
@@ -53,6 +54,10 @@ const ProfileInfoForm: FC = () => {
     setIcon(initialIcons);
     setIsDisabled(initialDisabled)
   }
+
+  useEffect(() => {
+    dispatch(getUserAction());
+  }, [dispatch]);
 
   useEffect(() => {
     if (

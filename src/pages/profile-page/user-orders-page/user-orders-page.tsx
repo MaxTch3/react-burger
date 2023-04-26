@@ -6,11 +6,16 @@ import { useLocation } from "react-router-dom";
 import { WS_CONNECTION_ORDERS_END, WS_CONNECTION_ORDERS_START } from "../../../services/actions/ws-actions";
 import { useSelectorApp } from "../../../components/burger-constructor/burger-constructor";
 import { useDispatchApp } from "../../../components/app/App";
+import getUserAction from "../../../services/actions/get-user";
 
 
 const UserOrdersPage = () => {
   const dispatch = useDispatchApp();
   const location = useLocation();
+
+  useEffect(() => {
+    dispatch(getUserAction());
+  }, [dispatch]);
 
   useEffect(() => {
     if (location.pathname === '/profile/orders') {
