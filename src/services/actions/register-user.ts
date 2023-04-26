@@ -1,6 +1,7 @@
 import { AppDispatch } from "../../components/app/App";
 import { setCookie } from "../../utils/cookie-functions";
-import { TUserAnswer, registerUser } from "../../utils/user-api";
+import { registerUser } from "../../utils/user-api";
+import { IUser } from "./get-user";
 
 export const REGISTER_REQUEST: 'REGISTER_REQUEST' = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS: 'REGISTER_SUCCESS' = 'REGISTER_SUCCESS';
@@ -11,7 +12,7 @@ export interface IRegisterRequest {
 }
 export interface IRegisterSuccess {
   readonly type: typeof REGISTER_SUCCESS;
-  user: TUserAnswer
+  user: IUser
 }
 export interface IRegisterFailed {
   readonly type: typeof REGISTER_FAILED;

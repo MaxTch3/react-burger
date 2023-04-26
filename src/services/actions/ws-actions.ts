@@ -96,7 +96,17 @@ export type TWsConnectActions =
   | ISendOrdersMessage
   | IConnectionOrdersEnd;
 
-export const wsActions = {
+export interface IWsActions {
+  readonly wsInit: typeof WS_CONNECTION_START;
+  readonly onOpen: typeof WS_CONNECTION_SUCCESS;
+  readonly onError: typeof WS_CONNECTION_ERROR;
+  readonly onMessage: typeof WS_GET_MESSAGE;
+  readonly onClose: typeof WS_CONNECTION_CLOSED;
+  readonly wsSendMessage: typeof WS_SEND_MESSAGE;
+  readonly wsClose: typeof WS_CONNECTION_END;
+}
+
+export const wsActions: IWsActions = {
   wsInit: WS_CONNECTION_START,
   onOpen: WS_CONNECTION_SUCCESS,
   onError: WS_CONNECTION_ERROR,
@@ -105,8 +115,17 @@ export const wsActions = {
   wsSendMessage: WS_SEND_MESSAGE,
   wsClose: WS_CONNECTION_END,
 }
+export interface IWsActionsOrders {
+  readonly wsInitOrders: typeof WS_CONNECTION_ORDERS_START;
+  readonly onOpen: typeof WS_CONNECTION_ORDERS_SUCCESS;
+  readonly onError: typeof WS_CONNECTION_ORDERS_ERROR;
+  readonly onMessage: typeof WS_GET_ORDERS_MESSAGE;
+  readonly onClose: typeof WS_CONNECTION_ORDERS_CLOSED;
+  readonly wsSendMessage: typeof WS_SEND_ORDERS_MESSAGE;
+  readonly wsClose: typeof WS_CONNECTION_ORDERS_END;
+}
 
-export const wsActionsOrders = {
+export const wsActionsOrders: IWsActionsOrders = {
   wsInitOrders: WS_CONNECTION_ORDERS_START,
   onOpen: WS_CONNECTION_ORDERS_SUCCESS,
   onError: WS_CONNECTION_ORDERS_ERROR,

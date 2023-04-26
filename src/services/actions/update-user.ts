@@ -1,12 +1,30 @@
+import { AppDispatch } from "../../components/app/App";
 import { setCookie } from "../../utils/cookie-functions";
 import { refreshTokenRequest, updateUserRequest } from "../../utils/user-api";
+import { IUser } from "./get-user";
 import { REFRESH_TOKEN_FAILED, REFRESH_TOKEN_SUCCESS } from "./refresh-token";
 
-export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
-export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
-export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
+export const UPDATE_USER_REQUEST: 'UPDATE_USER_REQUEST' = 'UPDATE_USER_REQUEST';
+export const UPDATE_USER_SUCCESS: 'UPDATE_USER_SUCCESS' = 'UPDATE_USER_SUCCESS';
+export const UPDATE_USER_FAILED: 'UPDATE_USER_FAILED' = 'UPDATE_USER_FAILED';
 
-const updateUserAction = (name, email, password) => (dispatch) => {
+export interface IUpdateUserRequest {
+  readonly type: typeof UPDATE_USER_REQUEST;
+}
+export interface IUpdateUserSuccess {
+  readonly type: typeof UPDATE_USER_SUCCESS;
+  user: IUser
+}
+export interface IUpdateUserFailed {
+  readonly type: typeof UPDATE_USER_FAILED;
+}
+
+export type TUpdateUserActions =
+  IUpdateUserRequest
+  | IUpdateUserSuccess
+  | IUpdateUserFailed
+
+const updateUserAction = (name: string, email: string, password: string) => (dispatch: AppDispatch) => {
   dispatch({
     type: UPDATE_USER_REQUEST
   });
