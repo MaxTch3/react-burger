@@ -6,7 +6,7 @@ import { CurrencyIcon, ConstructorElement, Button } from '@ya.praktikum/react-de
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import DraggableElement from './draggable-element/draggable-element';
-import { getOrderData, GET_ORDER_RESET } from '../../services/actions/order.js';
+import { getOrderData, GET_ORDER_RESET } from '../../services/actions/order';
 import { ADD_INGREDIENT, MOVE_INGREDIENT, RESET_INGREDIENTS } from '../../services/actions/ingredients-constructor';
 import styles from './burger-constructor.module.css';
 import { store } from '../../services/store';

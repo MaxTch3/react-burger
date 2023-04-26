@@ -9,6 +9,8 @@ export type TIngredientsData = {
 };
 
 export type TOrderAnswer = {
+  name: string
+  success: boolean;
   order: { number: number };
 };
 
