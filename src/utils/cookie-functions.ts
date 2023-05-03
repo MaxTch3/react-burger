@@ -1,13 +1,20 @@
-export function setCookie(name: string, value: string, props?: any) {
-  props = { path: '/', ...props};
+export function setCookie(
+  name: string,
+  value: string,
+  props: {
+    path?: string,
+    expires?: Date | string | number,
+    [propName: string]: any
+  }) {
+  props = { path: '/', ...props };
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
     const d = new Date();
     d.setTime(d.getTime() + exp * 1000);
     exp = props.expires = d;
   }
-  if (exp && exp.toUTCString) {
-    props.expires = exp.toUTCString();
+  if (exp && exp.toString) {
+    props.expires = exp.toString();
   }
   value = encodeURIComponent(value);
   let updatedCookie = name + '=' + value;
@@ -22,7 +29,7 @@ export function setCookie(name: string, value: string, props?: any) {
 }
 
 export function removeCookie(name: string) {
-  setCookie(name, '', {expires: -1})
+  setCookie(name, '', { expires: -1 })
 }
 
 export function getCookie(name: string) {

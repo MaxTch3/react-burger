@@ -1,6 +1,7 @@
 import { Middleware } from "redux";
 import { getCookie } from "../../utils/cookie-functions";
 import { IWsActions } from "../actions/ws-actions";
+import { TOrderInfo } from "../types/types";
 
 const socketMiddleware = (wsUrl: string, wsActions: IWsActions): Middleware => {
   return store => {
@@ -42,7 +43,7 @@ const socketMiddleware = (wsUrl: string, wsActions: IWsActions): Middleware => {
           const { success, ...restParsedData } = parsedData;
 
           if (restParsedData.orders) {
-            restParsedData.orders.sort(function (a: any, b: any) {
+            restParsedData.orders.sort(function (a: TOrderInfo, b: TOrderInfo) {
               return b.number - a.number
             });
             dispatch({ type: onMessage, payload: restParsedData });

@@ -1,5 +1,5 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, RefObject, useEffect, useRef, useState } from 'react';
 import updateUserAction from '../../../services/actions/update-user';
 import styles from './profile-info-form.module.css';
 import { useDispatch, useSelectorApp } from '../../../services/hooks';
@@ -20,9 +20,9 @@ const ProfileInfoForm: FC = () => {
   const [isDisabled, setIsDisabled] = useState(initialDisabled);
   const [activeButtons, setActiveButtons] = useState(false);
 
-  const nameRef: { current: any } = useRef<HTMLInputElement>();
-  const emailRef: { current: any } = useRef<HTMLInputElement>();
-  const passwordRef: { current: any } = useRef<HTMLInputElement>();
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   const userInfo: TRefKeyString = useSelectorApp(state => state.userReducer.user);
   const updateUserFailed = useSelectorApp(state => state.userReducer.updateUserFailed);
@@ -33,18 +33,18 @@ const ProfileInfoForm: FC = () => {
     setActiveButtons(true)
   };
 
-  const clickIcon = (ref: { current: any }) => {
-    if (ref.current && isDisabled[ref.current.name]) {
+  const clickIcon = (ref: RefObject<HTMLInputElement>) => {
+    if (ref.current && isDisabled[ref!.current!.name]) {
       setIsDisabled({ ...isDisabled, [ref.current.name]: false });
       setIcon({ ...icon, [ref.current.name]: 'CloseIcon' })
     } else {
-      setIsDisabled({ ...isDisabled, [ref.current.name]: true });
-      setIcon({ ...icon, [ref.current.name]: 'EditIcon' });
+      setIsDisabled({ ...isDisabled, [ref!.current!.name]: true });
+      setIcon({ ...icon, [ref!.current!.name]: 'EditIcon' });
       const resetElement = () => {
-        if (ref.current.name !== 'password') { return userInfo[ref.current.name] }
+        if (ref!.current!.name !== 'password') { return userInfo[ref!.current!.name] }
         else { return '' }
       };
-      setProfileInfo({ ...profileInfo, [ref.current.name]: resetElement() })
+      setProfileInfo({ ...profileInfo, [ref!.current!.name]: resetElement() })
     }
   };
 

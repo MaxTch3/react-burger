@@ -28,7 +28,7 @@ const Modal: FC<TModalProps> = ({ setActive, onClose, header, children, textStyl
   }
 
   React.useEffect(() => {
-    const close = (evt: any) => {
+    const close = (evt: KeyboardEvent) => {
       if (evt.key === 'Escape') {
         closeModalAnimation()
       }
